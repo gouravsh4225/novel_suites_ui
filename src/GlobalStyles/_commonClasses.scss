@@ -1,0 +1,65 @@
+@import "./maxins";
+
+.container {
+  width: calc(100% - 200px);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media only screen and (max-width: 736px) {
+  .container {
+    width: 90%;
+  }
+}
+
+@media only screen and (max-width: 562px) {
+  .container {
+    width: 90% !important;
+  }
+}
+
+.mr-auto {
+  margin-right: auto;
+}
+.ml-auto {
+  margin-left: auto;
+}
+
+.flex-1 {
+  flex: 1;
+  width: 100%;
+}
+
+.btn {
+  @include novelTransitionDefault();
+  display: block;
+  padding: 10px 9px;
+  cursor: pointer;
+  border: 0px;
+  outline: none;
+  font-size: 1.2rem;
+  font-weight: normal;
+  max-width: 100%;
+  min-width: 100px;
+  border-radius: 8px;
+  text-transform: uppercase;
+  //   background: rgba(37, 23, 23, 1);
+  font-family: inherit;
+  background-color: transparent;
+  padding: 0.25em 0.75em;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.18);
+  text-align: center;
+  line-height: 1.1;
+  color: $text-primary-color;
+  &:hover {
+    outline: 2px solid $text-primary-color;
+  }
+}
+.btn-primary {
+  background: white;
+  outline: 2px solid $text-primary-color;
+  //   #050706
+
+  //  rgba(140,140,138,255)
+  //   color: $text-primary-color;
+}

@@ -1,0 +1,47 @@
+@import "../../GlobalStyles/variable";
+@import "../../GlobalStyles/maxins";
+
+.appheader-wrapper {
+  @include flexLayoutWithAlignCenter();
+  color: $text-primary-color;
+  padding-block: 1rem;
+  background: $bg-header-color;
+  position: sticky;
+  top: 0;
+  .appheader-logo {
+    width: 3rem;
+    height: 3rem;
+    object-fit: cover;
+    border-radius: 30%;
+  }
+  .app-nav-list-container {
+    display: flex;
+    .app-header-lists {
+      display: flex;
+      align-items: center;
+      flex: 1;
+      margin-left: auto;
+      .app-header-items {
+        font-size: 1rem;
+        cursor: pointer;
+        padding: 0.8rem;
+        @include novelTransitionDefault();
+        text-transform: uppercase;
+        .app-header-link {
+          text-decoration: none;
+          @include novelTransitionDefault();
+          color: $text-primary-color;
+        }
+        &:hover {
+          .app-header-link {
+            font-weight: bold;
+            text-decoration: underline;
+          }
+        }
+        &:not(last-child) {
+          margin-right: 1rem;
+        }
+      }
+    }
+  }
+}

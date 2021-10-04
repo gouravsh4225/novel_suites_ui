@@ -1,0 +1,11 @@
+@mixin flexLayoutWithAlignCenter {
+  display: flex;
+  align-items: center;
+}
+@mixin flexDirectionColumn {
+  flex-direction: column;
+}
+
+@mixin novelTransitionDefault {
+  transition: 500ms ease-in-out;
+}
