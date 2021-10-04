@@ -1,10 +1,9 @@
 import "./App.scss";
-import HomePage from "./Components/Pages/Home/Index";
-
+import AppRoutes from "./AppRoutes";
 function App() {
   return (
     <div className="app-container">
-      <HomePage />
+      <AppRoutes />
     </div>
   );
 }

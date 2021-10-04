@@ -30,14 +30,14 @@
   width: 100%;
 }
 
-.btn {
-  @include novelTransitionDefault();
-  display: block;
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 10px 9px;
   cursor: pointer;
   border: 0px;
   outline: none;
-  font-size: 1.2rem;
   font-weight: normal;
   max-width: 100%;
   min-width: 100px;
@@ -51,15 +51,20 @@
   text-align: center;
   line-height: 1.1;
   color: $text-primary-color;
-  &:hover {
-    outline: 2px solid $text-primary-color;
+  border: 1px solid currentColor;
+  @include novelTransitionDefault();
+  &:hover,
+  &:active,
+  &:focus {
+    border: 1.5px solid currentColor;
   }
-}
-.btn-primary {
-  background: white;
-  outline: 2px solid $text-primary-color;
-  //   #050706
-
-  //  rgba(140,140,138,255)
-  //   color: $text-primary-color;
+  &--small {
+    font-size: 1.15rem;
+  }
+  &--large {
+    font-size: 2rem;
+  }
+  &--block {
+    width: 100%;
+  }
 }

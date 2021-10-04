@@ -5,7 +5,6 @@ import Home from "./Home";
 const HomePage = () => {
   return (
     <Fragment>
-      <AppHeader />
       <Home />
     </Fragment>
   );

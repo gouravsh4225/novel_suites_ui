@@ -1,8 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import NovelLogImage from "../../assets/logo_novel.gif";
 import "./AppHeader.scss";
 
+const getNavigationMenu = () => {
+  return [
+    { label: "Home", navigationPageurl: "/", id: 1 },
+    { label: "About Us", navigationPageurl: "/about-us", id: 2 },
+    { label: "Location", navigationPageurl: "/location", id: 3 },
+  ];
+};
+
 const AppHeader = () => {
+  const routerHistory = useHistory();
+  const [navigationMenu, setNavigation] = useState(getNavigationMenu());
+  const navigateToPage = (selecteditem) => {
+    console.log(routerHistory);
+    routerHistory.push({
+      pathname: selecteditem.navigationPageurl,
+    });
+  };
   return (
     <header className="appheader-wrapper container">
       <a href="/">
@@ -11,24 +28,30 @@ const AppHeader = () => {
       <div className="ml-auto app-nav-list-container">
         <nav className="app-header-nav">
           <ul className="app-header-lists">
-            <li className="app-header-items">
-              <a href="/" className="app-header-link">
-                Home
-              </a>
-            </li>
-            <li className="app-header-items">
-              <a href="/" className="app-header-link">
-                About
-              </a>
-            </li>
-            <li className="app-header-items">
-              <a href="/" className="app-header-link">
-                Location
-              </a>
-            </li>
+            {navigationMenu.map((navigationItem) => (
+              <li className="app-header-items" key={navigationItem.id}>
+                <div
+                  className="app-header-links"
+                  aria-label={navigationItem.label}
+                  onClick={() => navigateToPage(navigationItem)}
+                >
+                  {navigationItem.label}
+                </div>
+              </li>
+            ))}
           </ul>
         </nav>
-        <button className="btn btn-primary ml-auto">Browse room</button>
+        <button
+          className="button button-primary ml-auto"
+          type="button"
+          onClick={() =>
+            navigateToPage({
+              navigationPageurl: "/browse-room",
+            })
+          }
+        >
+          Browse room
+        </button>
       </div>
     </header>
   );
