@@ -1,14 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import AboutUs from "./Components/Pages/AboutUs/AboutUs";
-import HomePage from "./Components/Pages/Home/Index";
-import Location from "./Components/Pages/Location/Location";
-import NovelRooms from "./Components/Pages/NovelRooms/NovelRooms";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import AboutUs from "./Pages/AboutUs/AboutUs";
+import HomePage from "./Pages/Home/Index";
+import Location from "./Pages/Location/Location";
+import NovelRooms from "./Pages/NovelRooms/NovelRooms";
 import HeaderFooterLayout from "./PageLayout/HeaderFooterLayout/HeaderFooterLayout";
-
-const createRoutesPages = () => {
-  return [{ exact: true, navigateUrl: "/", component: HomePage }];
-};
 
 const AppRoutes = () => {
   return (

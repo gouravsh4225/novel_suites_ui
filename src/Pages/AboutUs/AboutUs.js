@@ -8,6 +8,7 @@ const AboutUs = () => {
         <img
           src="https://res.cloudinary.com/arbor1221/image/upload/v1498121225/Consulting_Advisory_Professional_services_2_ikqokw.jpg"
           loading="lazy"
+          alt="about-bg-logo"
         />
       </div>
       <section className="abouts-card-container">

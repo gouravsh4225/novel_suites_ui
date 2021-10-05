@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import NovelLogImage from "../../assets/logo_novel.gif";
 import "./AppHeader.scss";
 
@@ -13,24 +13,16 @@ const getNavigationMenu = () => {
 
 const AppHeader = () => {
   const routerHistory = useHistory();
-  const routerLocation = useLocation();
-  const [navigationMenu, setNavigation] = useState(getNavigationMenu());
+  const [navigationMenu] = useState(getNavigationMenu());
 
   const navigateToPage = (selecteditem) => {
     routerHistory.push({
       pathname: selecteditem.navigationPageurl,
     });
   };
-  const isAboutPageLoaded = () => {
-    const { pathname } = routerLocation;
-    return pathname === "/about-us" ? true : false;
-  };
+
   return (
-    <header
-      className={`appheader-wrapper container ${
-        isAboutPageLoaded() ? `mblock-1` : ""
-      }`}
-    >
+    <header className={`appheader-wrapper container mblock-1`}>
       <a href="/">
         <img src={NovelLogImage} alt="novel_log" className="appheader-logo" />
       </a>
