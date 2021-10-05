@@ -1,0 +1,69 @@
+@import "../../GlobalStyles/variable";
+@import "../../GlobalStyles/maxins";
+
+.location-wrapper {
+  .location-wrapper-title {
+    margin-bottom: 2rem;
+    .location-wrapper-heading {
+      color: #060606;
+      font-weight: 600;
+      font-style: oblique;
+      @include letterSpacing(3px);
+    }
+    .location-para-text {
+      color: #060606;
+      font-weight: 400;
+      @include letterSpacing(5px);
+      margin-bottom: 1rem;
+    }
+  }
+  .location-card {
+    margin-top: 4rem;
+    .novel-card {
+      width: auto;
+      padding: unset;
+      box-shadow: unset;
+      box-shadow: 0rem 0rem 1rem 0.5rem rgba(0, 0, 0, 0.18);
+    }
+    .novel-card-img-wrapper {
+      height: inherit;
+      width: inherit;
+      overflow: hidden;
+      cursor: pointer;
+      @include novelTransitionDefault(300ms);
+      img {
+        transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg)
+          rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+        transform-style: preserve-3d;
+      }
+      &:hover {
+        img {
+          transform: translate3d(0px, 0px, 0px) scale3d(1.1, 1.1, 1)
+            rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+          transform-style: preserve-3d;
+          @include novelTransitionDefault(300ms);
+        }
+      }
+    }
+  }
+  .location-card-content {
+    margin-top: -10rem;
+    overflow: hidden;
+    transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg)
+      rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+    transform-style: preserve-3d;
+    background-color: #fff;
+  }
+  .location-title {
+    color: #060606;
+    font-size: 2rem;
+    @include letterSpacing(2px);
+    text-transform: uppercase;
+  }
+  .location-address {
+    font-size: 1rem;
+    @include letterSpacing(2px);
+    color: #626262;
+    text-transform: uppercase;
+  }
+}

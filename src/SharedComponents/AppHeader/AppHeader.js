@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import NovelLogImage from "../../assets/logo_novel.gif";
+import NovelSuitesButton from "../UI_Elements/NovelSuitesButton/NovelSuitesButton";
 import "./AppHeader.scss";
 
 const getNavigationMenu = () => {
@@ -13,6 +14,7 @@ const getNavigationMenu = () => {
 
 const AppHeader = () => {
   const routerHistory = useHistory();
+  const routerLocation = useLocation();
   const [navigationMenu] = useState(getNavigationMenu());
 
   const navigateToPage = (selecteditem) => {
@@ -21,8 +23,17 @@ const AppHeader = () => {
     });
   };
 
+  const getCurrentPath = () => {
+    const { pathname } = routerLocation;
+    let currentPathList = ["/about-us"];
+    return currentPathList.includes(pathname) ? true : false;
+  };
   return (
-    <header className={`appheader-wrapper container mblock-1`}>
+    <header
+      className={`appheader-wrapper container ${
+        getCurrentPath() ? `mblock-1` : ""
+      }`}
+    >
       <a href="/">
         <img src={NovelLogImage} alt="novel_log" className="appheader-logo" />
       </a>
@@ -42,17 +53,16 @@ const AppHeader = () => {
             ))}
           </ul>
         </nav>
-        <button
-          className="button button-primary ml-auto"
+        <NovelSuitesButton
           type="button"
+          className="novel-button--primary ml-auto"
+          buttonLabel="Browse room"
           onClick={() =>
             navigateToPage({
               navigationPageurl: "/browse-room",
             })
           }
-        >
-          Browse room
-        </button>
+        />
       </div>
     </header>
   );

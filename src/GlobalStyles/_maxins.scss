@@ -6,6 +6,23 @@
   flex-direction: column;
 }
 
-@mixin novelTransitionDefault {
-  transition: 500ms all ease-in-out;
+@mixin novelTransitionDefault($duration: 500ms) {
+  transition: $duration all ease-in-out;
+}
+
+@mixin gridContainerMinWidth($width: 450px) {
+  grid-template-columns: repeat(auto-fill, minmax($width, 1fr));
+}
+
+@mixin letterSpacing($spacing: 2px) {
+  letter-spacing: $spacing;
+}
+
+@mixin novelElementAbsoluteFullWidthHeight($width: 100%) {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: $width;
+  height: 100%;
 }

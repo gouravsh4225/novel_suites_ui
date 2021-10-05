@@ -20,26 +20,29 @@ li {
 
 img {
   display: block;
+  max-height: 100%;
+  max-width: 100%;
 }
 
 h1 {
   display: block;
-  font-size: 2em;
+  font-size: 5rem;
   margin-top: 0.67em;
+  margin-block: 0.67rem;
 }
 h2 {
   display: block;
-  font-size: 1.5em;
+  font-size: 1.5rem;
   margin-top: 0.83em;
 }
 h3 {
   display: block;
-  font-size: 1.17em;
+  font-size: 1.17rem;
   margin-top: 1em;
 }
 h4 {
   display: block;
-  font-size: 1em;
+  font-size: 1rem;
 }
 h5 {
   display: block;
@@ -48,4 +51,8 @@ h5 {
 h6 {
   display: block;
   font-size: 0.67em;
+}
+
+a {
+  display: block;
 }

@@ -30,49 +30,55 @@
   width: 100%;
 }
 
-.button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 9px;
-  cursor: pointer;
-  border: 0px;
-  outline: none;
-  font-weight: normal;
-  max-width: 100%;
-  min-width: 100px;
-  border-radius: 8px;
-  text-transform: uppercase;
-  //   background: rgba(37, 23, 23, 1);
-  font-family: inherit;
-  background-color: transparent;
-  padding: 0.25em 0.75em;
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.18);
-  text-align: center;
-  line-height: 1.1;
-  color: $text-primary-color;
-  border: 1px solid currentColor;
-  @include novelTransitionDefault();
-  &:hover,
-  &:active,
-  &:focus {
-    border: 1.5px solid currentColor;
-  }
-  &--small {
-    font-size: 1.15rem;
-  }
-  &--large {
-    font-size: 2rem;
-  }
-  &--block {
-    width: 100%;
-  }
-}
-
 .mblock-1 {
   margin-block: 1rem;
+}
+.mblock-0 {
+  margin-block: 0 !important;
+}
+.mb-1 {
+  margin-bottom: 1rem;
+}
+.mt-0 {
+  margin-top: 0;
+}
+
+.pblock-1 {
+  padding-block: 1rem;
+}
+.p-1 {
+  padding: 1rem;
 }
 
 .text-center {
   text-align: center;
+}
+
+/* Novel Class start here */
+.novel-card {
+  background-color: white;
+  padding: 1rem;
+  box-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.18);
+  .novel-card-content {
+    margin-block: 1rem;
+  }
+}
+
+/* Grid Classes start */
+.grid-container {
+  display: grid;
+}
+.grid-gap-1 {
+  gap: 1rem;
+}
+.grid-container-fill {
+  @include gridContainerMinWidth(450px);
+}
+
+.text-decoration-none {
+  text-decoration: none;
+}
+
+.letter-spacing-3 {
+  @include letterSpacing(3px);
 }
