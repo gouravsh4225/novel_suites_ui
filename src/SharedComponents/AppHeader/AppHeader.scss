@@ -3,8 +3,9 @@
 
 .appheader-wrapper {
   @include flexLayoutWithAlignCenter();
+  @include novelTransitionDefault();
   color: $text-primary-color;
-  padding-block: 1rem;
+  padding: 1rem;
   background: $bg-header-color;
   position: sticky;
   top: 0;

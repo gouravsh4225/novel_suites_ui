@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import AppHeader from "../../SharedComponents/AppHeader/AppHeader";
+import NovelFooter from "../../SharedComponents/NovelFooter/NovelFooter";
 
 const HeaderFooterLayout = (props) => {
   return (
@@ -10,7 +11,7 @@ const HeaderFooterLayout = (props) => {
           <props.component />
         </main>
       )}
-      <footer>Footer Will come later</footer>
+      <NovelFooter />
     </Fragment>
   );
 };

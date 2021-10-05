@@ -1,8 +1,7 @@
 import React from "react";
-import classes from "./Home.scss";
 
 function Home() {
-  return <div className="home-page-wrapper"></div>;
+  return <div className="home-page-wrapper container">Home is workinf</div>;
 }
 
 export default Home;

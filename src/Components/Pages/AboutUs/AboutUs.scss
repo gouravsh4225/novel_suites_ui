@@ -1,0 +1,24 @@
+.aboutus-wrapper {
+  .aboutus-home-image {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: -1;
+    img {
+      max-height: 100vh;
+      object-fit: cover;
+      width: 100%;
+    }
+  }
+  .abouts-card-container {
+    margin-top: 32vh;
+  }
+  .novel-card {
+    background-color: white;
+    padding: 1rem;
+    .novel-card-content {
+      margin-block: 1rem;
+    }
+  }
+}
