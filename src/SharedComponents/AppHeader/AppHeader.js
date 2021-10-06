@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import NovelLogImage from "../../assets/logo_novel.gif";
 import NovelSuitesButton from "../UI_Elements/NovelSuitesButton/NovelSuitesButton";
@@ -13,6 +13,18 @@ const getNavigationMenu = () => {
 };
 
 const AppHeader = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 100) {
+        setIsScrolled(true);
+      } else setIsScrolled(false);
+    });
+    return () => {
+      window.removeEventListener("scroll", null);
+    };
+  }, []);
+
   const routerHistory = useHistory();
   const routerLocation = useLocation();
   const [navigationMenu] = useState(getNavigationMenu());
@@ -28,11 +40,12 @@ const AppHeader = () => {
     let currentPathList = ["/about-us"];
     return currentPathList.includes(pathname) ? true : false;
   };
+
   return (
     <header
       className={`appheader-wrapper container ${
-        getCurrentPath() ? `mblock-1` : ""
-      }`}
+        getCurrentPath() && `mblock-1`
+      } ${isScrolled && "header-active"}`}
     >
       <a href="/">
         <img src={NovelLogImage} alt="novel_log" className="appheader-logo" />
