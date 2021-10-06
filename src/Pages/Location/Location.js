@@ -49,13 +49,19 @@ const Location = () => {
                 href={`tel:${locationItem.contact_number}`}
                 className="mb-1 location-address text-decoration-none"
               >
-                {locationItem.contact_number}
+                <span>
+                  <i class="fa fa-phone" aria-hidden="true"></i>
+                </span>
+                <span className="ml-1">{locationItem.contact_number}</span>
               </a>
               <a
                 href={`mailto:${locationItem.contact_email}`}
                 className="mb-1 location-address text-decoration-none letter-spacing-3"
               >
-                {locationItem.contact_email}
+                <span>
+                  <i className="fa fa-envelope" aria-hidden="true"></i>
+                </span>
+                <span className="ml-1">{locationItem.contact_email}</span>
               </a>
               <NovelSuitesButton
                 type="button"

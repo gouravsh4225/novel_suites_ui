@@ -1,8 +1,27 @@
 @import "../../GlobalStyles/variable";
+@import "../../GlobalStyles/maxins";
 
 .footer-wrapper {
   width: 100%;
-  background-color: $text-primary-color;
-  padding: 1rem;
+  background-color: #fff;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
   margin-top: 3rem;
+  border-top: 1px solid currentColor;
+  .footer-upper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-logo-wrapper {
+    height: 6rem;
+    width: 6rem;
+    margin-bottom: 1rem;
+  }
+  .footer-logo-title {
+    color: #606060;
+    font-size: 1.2rem;
+    font-weight: 400;
+    @include letterSpacing(2px);
+  }
 }
