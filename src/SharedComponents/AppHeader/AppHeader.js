@@ -46,21 +46,15 @@ const AppHeader = () => {
     navigateToPage(navigateClickedItem);
   };
 
-  const getCurrentPath = () => {
-    const { pathname } = routerLocation;
-    let currentPathList = ["/about-us"];
-    return currentPathList.includes(pathname) ? true : false;
-  };
-
   const showSideBarMenu = () => {
     setIsSideBarMenuOpen(!isSideBarMenuOpen);
   };
 
   return (
     <header
-      className={`appheader-wrapper container ${
-        getCurrentPath() && `mblock-1`
-      } ${isScrolled && "header-active"}`}
+      className={`appheader-wrapper container  ${
+        isScrolled && "header-active"
+      }`}
     >
       <div className="mobile-navigation">
         <div className="mobile-naviagtion-bars" onClick={showSideBarMenu}>

@@ -55,6 +55,13 @@
       @include flexLayoutWithAlignCenter();
       @include flexJustifyContent(center);
       margin-right: 1rem;
+      width: 64px;
+      height: auto;
+      border: 1px solid currentColor;
+      background: black;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
       .mobile-naviagtion-bars {
         font-size: 2rem;
       }

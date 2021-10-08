@@ -1,4 +1,7 @@
 @import "./maxins";
+.fluid-container {
+  width: 100%;
+}
 
 .container {
   width: calc(100% - 200px);
