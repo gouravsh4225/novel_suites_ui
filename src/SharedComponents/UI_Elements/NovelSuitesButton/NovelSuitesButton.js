@@ -24,7 +24,7 @@ const NovelSuitesButton = ({
   return (
     <button
       type={getButtonType()}
-      onClick={() => onButtonClick()}
+      onClick={(event) => onButtonClick(event)}
       className={getAllClasses()}
       {...style}
     >
