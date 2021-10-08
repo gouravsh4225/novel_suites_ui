@@ -66,4 +66,9 @@
     color: #626262;
     text-transform: uppercase;
   }
+  @include mobileMedia() {
+    .location-card-content {
+      margin-top: 0rem;
+    }
+  }
 }

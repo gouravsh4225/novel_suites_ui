@@ -48,6 +48,9 @@
 .ml-1 {
   margin-left: 1rem;
 }
+.mt-1 {
+  margin-top: 1rem;
+}
 
 .pblock-1 {
   padding-block: 1rem;
@@ -87,4 +90,8 @@
 
 .letter-spacing-3 {
   @include letterSpacing(3px);
+}
+
+.border-hr-line {
+  border-top: 1px solid currentColor;
 }

@@ -5,12 +5,18 @@
 @mixin flexDirectionColumn {
   flex-direction: column;
 }
+@mixin flexJustifyContent($type: center) {
+  justify-content: $type;
+}
 
 @mixin novelTransitionDefault($duration: 500ms) {
   transition: $duration all ease-in-out;
 }
 
 @mixin gridContainerMinWidth($width: 450px) {
+  @include mobileMedia() {
+    grid-template-columns: 1fr;
+  }
   grid-template-columns: repeat(auto-fill, minmax($width, 1fr));
 }
 
@@ -18,11 +24,42 @@
   letter-spacing: $spacing;
 }
 
-@mixin novelElementAbsoluteFullWidthHeight($width: 100%) {
+@mixin novelElementAbsoluteFullWidthHeight($width: 100%, $height: 100%) {
   content: "";
   position: absolute;
   bottom: 0;
   left: 0;
   width: $width;
-  height: 100%;
+  height: $height;
+}
+
+/* Media query mixing start here */
+
+$mobile-width: 576px;
+$tablet-width: 768px;
+$laptop-width: 992px;
+$desktop-width: 1024px;
+$large-desktop-width: 1600px;
+
+@mixin mobileMedia {
+  @media screen and (min-width: 100px) and (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin tabletMedia {
+  @media screen and (min-width: #{$tablet-width}) {
+    @content;
+  }
+}
+
+@mixin desktopMedia {
+  @media screen and (min-width: #{$desktop-width}) {
+    @content;
+  }
+}
+@mixin largeScreenDesktopMedia {
+  @media screen and (min-width:#{$desktop-width}) {
+    @content;
+  }
 }

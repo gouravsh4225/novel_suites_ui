@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import NovelLogImage from "../../assets/logo_novel.gif";
 import NovelSuitesButton from "../UI_Elements/NovelSuitesButton/NovelSuitesButton";
+import AppHeaderNavList from "./AppHeaderNavList";
+import AppHeaderSideBar from "./AppHeaderSideBar";
+import { SHOW_HEADER_HEIGHT } from "../../Constants/constant";
 import "./AppHeader.scss";
 
 const getNavigationMenu = () => {
@@ -14,9 +17,10 @@ const getNavigationMenu = () => {
 
 const AppHeader = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isSideBarMenuOpen, setIsSideBarMenuOpen] = useState(false);
   useEffect(() => {
     window.addEventListener("scroll", () => {
-      if (window.scrollY > 100) {
+      if (window.scrollY > SHOW_HEADER_HEIGHT) {
         setIsScrolled(true);
       } else setIsScrolled(false);
     });
@@ -35,10 +39,21 @@ const AppHeader = () => {
     });
   };
 
+  const onNaviagtionListItem = (event, navigateClickedItem) => {
+    if (isSideBarMenuOpen) {
+      setIsSideBarMenuOpen(false);
+    }
+    navigateToPage(navigateClickedItem);
+  };
+
   const getCurrentPath = () => {
     const { pathname } = routerLocation;
     let currentPathList = ["/about-us"];
     return currentPathList.includes(pathname) ? true : false;
+  };
+
+  const showSideBarMenu = () => {
+    setIsSideBarMenuOpen(!isSideBarMenuOpen);
   };
 
   return (
@@ -47,24 +62,29 @@ const AppHeader = () => {
         getCurrentPath() && `mblock-1`
       } ${isScrolled && "header-active"}`}
     >
+      <div className="mobile-navigation">
+        <div className="mobile-naviagtion-bars" onClick={showSideBarMenu}>
+          <i class="fa fa-bars" aria-hidden="true"></i>
+        </div>
+        <div className={`${isSideBarMenuOpen && "mobile-naviagtion-list"}`}>
+          {isSideBarMenuOpen ? (
+            <AppHeaderSideBar
+              menuList={navigationMenu}
+              onClickListItem={onNaviagtionListItem}
+              onClikcedOutSide={showSideBarMenu}
+            />
+          ) : null}
+        </div>
+      </div>
       <a href="/">
         <img src={NovelLogImage} alt="novel_log" className="appheader-logo" />
       </a>
       <div className="ml-auto app-nav-list-container">
         <nav className="app-header-nav">
-          <ul className="app-header-lists">
-            {navigationMenu.map((navigationItem) => (
-              <li className="app-header-items" key={navigationItem.id}>
-                <div
-                  className="app-header-links"
-                  aria-label={navigationItem.label}
-                  onClick={() => navigateToPage(navigationItem)}
-                >
-                  {navigationItem.label}
-                </div>
-              </li>
-            ))}
-          </ul>
+          <AppHeaderNavList
+            navigationMenu={navigationMenu}
+            onClick={onNaviagtionListItem}
+          />
         </nav>
         <NovelSuitesButton
           type="button"

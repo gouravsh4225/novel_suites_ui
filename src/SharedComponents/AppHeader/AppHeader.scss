@@ -3,7 +3,7 @@
 
 .appheader-wrapper {
   @include flexLayoutWithAlignCenter();
-  @include novelTransitionDefault();
+  @include novelTransitionDefault(00ms);
   color: $text-primary-color;
   padding: 1rem;
   background: $bg-header-color;
@@ -16,7 +16,6 @@
   .app-nav-list-container {
     display: flex;
     .app-header-lists {
-      display: flex;
       align-items: center;
       flex: 1;
       margin-left: auto;
@@ -48,7 +47,51 @@
     top: 0;
     z-index: 9;
     box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.7);
-    @include novelTransitionDefault(00ms);
-    // width: 100%;
+    width: 100%;
+    @include novelTransitionDefault(100ms);
+  }
+  @include mobileMedia() {
+    .mobile-navigation {
+      @include flexLayoutWithAlignCenter();
+      @include flexJustifyContent(center);
+      margin-right: 1rem;
+      .mobile-naviagtion-bars {
+        font-size: 2rem;
+      }
+    }
+    .app-header-lists {
+      display: none;
+    }
+    .mobile-naviagtion-list {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 50%;
+      background-color: rgba(96, 96, 96, 0.9);
+      color: white;
+      z-index: 999;
+      @include novelTransitionDefault(300ms);
+      .app-header-lists {
+        display: block;
+        height: 100%;
+      }
+    }
+  }
+  @include tabletMedia() {
+    .mobile-navigation {
+      display: none;
+    }
+    .app-header-lists {
+      display: flex;
+    }
+  }
+  @include largeScreenDesktopMedia() {
+    .mobile-navigation {
+      display: none;
+    }
+    .app-header-lists {
+      display: flex;
+    }
   }
 }
