@@ -35,7 +35,7 @@ const Location = () => {
                 src={locationItem.location_address_imageurl}
                 className="location-image"
                 loading="lazy"
-                alt="location-image"
+                alt="location-address"
               />
             </div>
             <div className="novel-card-content p-1 location-card-content">

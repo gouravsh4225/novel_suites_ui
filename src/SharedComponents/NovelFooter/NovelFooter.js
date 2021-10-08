@@ -9,7 +9,11 @@ const NovelFooter = () => {
         <div className="footer-upper">
           <div className="footer-logo-section">
             <a href="/" className="footer-logo-wrapper">
-              <img src={NovelLogImage} className="footer-logo" />
+              <img
+                src={NovelLogImage}
+                className="footer-logo"
+                alt="novel-footer"
+              />
             </a>
             <p className="footer-logo-title">
               Enjoy today in our luxury suites
