@@ -12,7 +12,7 @@ const AppRoutes = () => {
   return (
     <Router>
       <Switch>
-        <Route exact={true} path="/">
+        <Route exact={true} path="/novel_suites_ui">
           <HeaderFooterLayout component={HomePage} />
         </Route>
         <Route exact={true} path="/about-us">
