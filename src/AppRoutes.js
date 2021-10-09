@@ -13,6 +13,7 @@ const AppRoutes = () => {
     <Router>
       <Switch>
         <Route exact={true} path="/">
+          <h2>fsdfs</h2>
           <HeaderFooterLayout component={HomePage} />
         </Route>
         <Route exact={true} path="/about-us">
