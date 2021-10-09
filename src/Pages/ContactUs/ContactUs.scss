@@ -1,0 +1,52 @@
+@import "../../GlobalStyles/maxins";
+
+.contact-us-wrapper {
+  .contact-us-banner {
+    background-color: #060606;
+    color: white;
+    padding-top: 5rem;
+    .contact-banner-heading {
+      @include flexLayoutWithAlignCenter();
+      @include flexDirectionColumn();
+      @include flexJustifyContent(center);
+    }
+    .contact-title {
+      @include fontWeight(400);
+    }
+    .contact-para {
+      max-width: 30%;
+      text-align: center;
+      margin-bottom: 10%;
+    }
+  }
+  .contact-us-layout {
+    color: white;
+    .contact-card {
+      display: flex;
+      align-items: center;
+      .contact-card-icon {
+        font-size: 2rem;
+        margin-right: 1rem;
+      }
+      .contact-card-content {
+        a {
+          color: white;
+          @include novelTransitionDefault(300ms);
+          &:hover {
+            color: #8b8b8b;
+            @include novelTransitionDefault(500ms);
+          }
+        }
+      }
+    }
+  }
+  .contact-layout {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex: 1;
+    & > * {
+      flex: 1;
+    }
+  }
+}

@@ -5,6 +5,7 @@ import HomePage from "./Pages/Home/Index";
 import Location from "./Pages/Location/Location";
 import NovelRooms from "./Pages/NovelRooms/NovelRooms";
 import HeaderFooterLayout from "./PageLayout/HeaderFooterLayout/HeaderFooterLayout";
+import ContactUs from "./Pages/ContactUs/ContactUs";
 
 const AppRoutes = () => {
   return (
@@ -19,8 +20,11 @@ const AppRoutes = () => {
         <Route exact={true} path="/location">
           <HeaderFooterLayout component={Location} />
         </Route>
-        <Route exact={true} path="/browse-room">
+        <Route exact={true} path="/browse-rooms">
           <HeaderFooterLayout component={NovelRooms} />
+        </Route>
+        <Route exact={true} path="/contact-us">
+          <HeaderFooterLayout component={ContactUs} />
         </Route>
       </Switch>
     </Router>

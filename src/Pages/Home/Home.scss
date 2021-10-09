@@ -3,12 +3,14 @@
 .home-page-wrapper {
   position: relative;
   .home-page-banner {
+    @include novelTransitionDefault(300ms);
     margin-top: 1rem;
     padding-block: 2rem;
   }
   .home-page-banner-left {
     max-width: 70%;
     margin-top: 2rem;
+    @include novelTransitionDefault(300ms);
     .home-heading-1 {
       margin-bottom: 32px;
       font-size: 84px;

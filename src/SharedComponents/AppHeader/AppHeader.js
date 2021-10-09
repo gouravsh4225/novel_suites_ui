@@ -85,7 +85,7 @@ const AppHeader = () => {
           buttonLabel="Browse room"
           onClick={() =>
             navigateToPage({
-              navigationPageurl: "/browse-room",
+              navigationPageurl: "/browse-rooms",
             })
           }
         />

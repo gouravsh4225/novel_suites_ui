@@ -1,8 +1,17 @@
 import React from "react";
+import { useHistory } from "react-router";
 import NovelSuitesButton from "../../SharedComponents/UI_Elements/NovelSuitesButton/NovelSuitesButton";
 import "./Home.scss";
 
 const Home = () => {
+  const homeHistory = useHistory();
+
+  const navigateToPage = (link) => {
+    homeHistory.push({
+      pathname: link,
+    });
+  };
+
   return (
     <div className="home-page-wrapper">
       <section className="home-page-banner">
@@ -18,10 +27,12 @@ const Home = () => {
               <NovelSuitesButton
                 buttonLabel="Browse Rooms"
                 className="novel-button--primary mr-1 novel-button--large"
+                onClick={(e) => navigateToPage("/browse-rooms")}
               />
               <NovelSuitesButton
                 buttonLabel="Contact"
                 className="novel-button--secondary-text novel-button--large"
+                onClick={(e) => navigateToPage("/contact-us")}
               />
             </section>
           </div>
