@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import NovelLogImage from "../../assets/logo_novel.gif";
 import NovelSuitesButton from "../UI_Elements/NovelSuitesButton/NovelSuitesButton";
 import AppHeaderNavList from "./AppHeaderNavList";
@@ -30,7 +30,6 @@ const AppHeader = () => {
   }, []);
 
   const routerHistory = useHistory();
-  const routerLocation = useLocation();
   const [navigationMenu] = useState(getNavigationMenu());
 
   const navigateToPage = (selecteditem) => {

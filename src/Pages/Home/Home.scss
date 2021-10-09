@@ -1,1 +1,40 @@
+@import "../../GlobalStyles/maxins";
 
+.home-page-wrapper {
+  position: relative;
+  .home-page-banner {
+    margin-top: 1rem;
+    padding-block: 2rem;
+  }
+  .home-page-banner-left {
+    max-width: 70%;
+    margin-top: 2rem;
+    .home-heading-1 {
+      margin-bottom: 32px;
+      font-size: 84px;
+      line-height: 1.095em;
+      color: #060606;
+      @include fontWeight(300);
+    }
+    .home-para {
+      max-width: 60%;
+      font-size: 18px;
+      @include fontWeight(400);
+    }
+    .home-page-buttons {
+      margin-top: 2rem;
+    }
+  }
+  .home-page-banner-right {
+    height: 100%;
+    .home-page-banner-image {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 46%;
+      bottom: 0;
+      height: 100%;
+      z-index: -1;
+    }
+  }
+}

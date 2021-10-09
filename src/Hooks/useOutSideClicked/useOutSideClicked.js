@@ -3,14 +3,14 @@ import { useEffect, useState } from "react";
 const useOutSideClicked = (ref) => {
   const [isOutsideClicked, setIsOutsideClicked] = useState(false);
 
-  const handleClickOutside = (event) => {
-    if (ref.current && !ref.current.contains(event.target)) {
-      setIsOutsideClicked(true);
-    } else {
-      setIsOutsideClicked(false);
-    }
-  };
   useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (ref.current && !ref.current.contains(event.target)) {
+        setIsOutsideClicked(true);
+      } else {
+        setIsOutsideClicked(false);
+      }
+    };
     // Bind the event listener
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
@@ -19,7 +19,7 @@ const useOutSideClicked = (ref) => {
     };
   }, [ref]);
 
-  return { isClicked: isOutsideClicked, ref };
+  return { isClicked: isOutsideClicked };
 };
 
 export default useOutSideClicked;

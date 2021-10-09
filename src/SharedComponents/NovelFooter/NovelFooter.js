@@ -24,21 +24,21 @@ const NovelFooter = () => {
               <p className="follow-title">Follow Us</p>
               <div className="follow-social-icons">
                 <a
-                  className=""
+                  href="/"
                   alt="social-icon-facebook"
                   className="social-icon-item"
                 >
                   <i class="fa fa-facebook" aria-hidden="true"></i>
                 </a>
                 <a
-                  className=""
+                  href="/"
                   alt="social-icon-twitter"
                   className="social-icon-item"
                 >
                   <i class="fa fa-twitter" aria-hidden="true"></i>
                 </a>
                 <a
-                  className=""
+                  href="/"
                   alt="social-icon-instagram"
                   className="social-icon-item"
                 >
@@ -52,7 +52,7 @@ const NovelFooter = () => {
         <section className="footer-service-contact">
           <div className="service">
             <h2 className="footer-service-heading">Services</h2>
-            <ul className="footer-service-lists" role="list">
+            <ul className="footer-service-lists">
               <li className="footer-service-items">About</li>
               <li className="footer-service-items">Locations</li>
               <li className="footer-service-items">Browse Room</li>
@@ -60,7 +60,7 @@ const NovelFooter = () => {
           </div>
           <div className="contact-us">
             <h2 className="footer-service-heading">Contact Us</h2>
-            <ul className="footer-service-lists" role="list">
+            <ul className="footer-service-lists">
               <li className="footer-service-item">
                 <div className="contact-us-address">
                   PLOT - 339, BLOCK B, SEC - 19, DWARKA, NEW DELHI - 110075

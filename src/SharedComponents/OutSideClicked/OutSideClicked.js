@@ -3,7 +3,7 @@ import useOutSideClicked from "../../Hooks/useOutSideClicked/useOutSideClicked";
 
 const OutSideClicked = ({ onClikcedOutSide, children }) => {
   const wrapperRef = useRef(null);
-  const { isClicked, ref } = useOutSideClicked(wrapperRef);
+  const { isClicked } = useOutSideClicked(wrapperRef);
 
   useEffect(() => {
     if (isClicked) {
