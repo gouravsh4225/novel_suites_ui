@@ -1,0 +1,39 @@
+@import "../../../GlobalStyles/maxins";
+
+.novel-label {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  padding: 0.2em 0.6em 0.3em;
+  font-weight: 400;
+  line-height: 1;
+  @include fontColor(black);
+  font-size: 1rem;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25em;
+  &--default {
+    background-color: #636363;
+  }
+  &--input {
+    background-color: transparent;
+    @include fontColor(black);
+    padding: 0;
+  }
+  &--success {
+    background-color: green;
+    @include fontColor("fff");
+  }
+  &--warning {
+    background-color: #f0ad4e;
+    @include fontColor("fff");
+  }
+  &--info {
+    background-color: #5bc0de;
+    @include fontColor("fff");
+  }
+  &--error {
+    background-color: #ff0000;
+  }
+}

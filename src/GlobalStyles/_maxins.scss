@@ -35,6 +35,9 @@
 @mixin fontWeight($weight: 400) {
   font-weight: $weight;
 }
+@mixin fontColor($color: black) {
+  color: $color;
+}
 
 /* Media query mixing start here */
 $mobile-width: 576px;

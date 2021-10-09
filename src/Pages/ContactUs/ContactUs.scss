@@ -76,4 +76,48 @@
       flex: 1;
     }
   }
+  .contact-form-section {
+    position: relative;
+    overflow: hidden;
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+    .section-form {
+      .get_in_touch-heading {
+        font-size: 3rem;
+        @include fontWeight(400);
+      }
+      .contact-sub-heading {
+        font-size: 1.4rem;
+        @include fontWeight(400);
+        margin-bottom: 1rem;
+      }
+      .form-card {
+        border: 1px solid #cfcfcf;
+        max-width: 60%;
+        background-color: white;
+        padding: 1rem;
+        border-radius: 4px;
+
+        .contact-label {
+          font-size: 2rem;
+          font-weight: 300;
+          margin-bottom: 0.5rem;
+          @include letterSpacing(2px);
+        }
+      }
+    }
+    .section-image-wrapper {
+      height: 100%;
+      .section-image {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        width: 50%;
+        height: 100%;
+        z-index: -1;
+        object-fit: cover;
+      }
+    }
+  }
 }

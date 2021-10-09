@@ -1,4 +1,6 @@
 import React from "react";
+import NovelSuitesInput from "../../SharedComponents/UI_Elements/NovelSuitesInput/NovelSuitesInput";
+import NovelSuitesLabel from "../../SharedComponents/UI_Elements/NovelSuitesLabel/NovelSuitesLabel";
 import "./ContactUs.scss";
 
 const ContactUs = () => {
@@ -58,7 +60,21 @@ const ContactUs = () => {
         <div className="section-form">
           <div className="container">
             <div className="contact-form-heading">
-              <h6>Request Info</h6>
+              <h2 className="get_in_touch-heading">Get in touch today</h2>
+              <p className="contact-sub-heading">
+                Please send your query with these little form
+              </p>
+              <div className="form-card">
+                <div className="form-inputs">
+                  <div className="form-input mb-1">
+                    <NovelSuitesLabel
+                      labelName="Your Name :"
+                      className="novel-label--input contact-label"
+                    />
+                    <NovelSuitesInput />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
