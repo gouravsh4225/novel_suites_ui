@@ -16,8 +16,8 @@ const ContactUs = () => {
         </div>
         <section className="contact-us-layout">
           <div className="container pt-1">
-            <div className="border-hr-line"></div>
-            <div className="contact-layout p-1">
+            <div className="border-hr-line--gray"></div>
+            <div className="contact-layout">
               <section className="contact-card">
                 <div className="contact-card-icon">
                   <i className="fa fa-map-marker" aria-hidden="true"></i>
@@ -32,7 +32,7 @@ const ContactUs = () => {
                   <i class="fa fa-phone" aria-hidden="true"></i>
                 </div>
                 <div className="contact-card-content">
-                  <a href="+918383019368" className="text-decoration-none">
+                  <a href="tel:+918383019368" className="text-decoration-none">
                     +918383019368
                   </a>
                 </div>
@@ -54,7 +54,22 @@ const ContactUs = () => {
           </div>
         </section>
       </section>
-      <section className="contact-form-section"></section>
+      <section className="contact-form-section">
+        <div className="section-form">
+          <div className="container">
+            <div className="contact-form-heading">
+              <h6>Request Info</h6>
+            </div>
+          </div>
+        </div>
+        <div className="section-image-wrapper">
+          <img
+            src="https://res.cloudinary.com/arbor1221/image/upload/v1498121225/Consulting_Advisory_Professional_services_2_ikqokw.jpg"
+            className="section-image"
+            alt="form-section"
+          />
+        </div>
+      </section>
     </div>
   );
 };

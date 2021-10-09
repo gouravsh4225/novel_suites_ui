@@ -12,9 +12,11 @@
     }
     .contact-title {
       @include fontWeight(400);
+      @include mobileMedia() {
+        font-size: 3rem;
+      }
     }
     .contact-para {
-      max-width: 30%;
       text-align: center;
       margin-bottom: 10%;
     }
@@ -27,6 +29,12 @@
       .contact-card-icon {
         font-size: 2rem;
         margin-right: 1rem;
+        @include mobileMedia() {
+          margin-right: 0rem;
+        }
+        @include tabletMedia() {
+          margin-right: 0rem;
+        }
       }
       .contact-card-content {
         a {
@@ -38,13 +46,32 @@
           }
         }
       }
+      @include mobileMedia() {
+        flex-direction: column;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #626262;
+        width: 100%;
+        text-align: center;
+      }
+      @include tabletMedia() {
+        flex-direction: column;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        text-align: center;
+      }
     }
   }
   .contact-layout {
     display: flex;
     flex-direction: row;
+    padding-bottom: 1rem;
     align-items: center;
-    flex: 1;
+    @include mobileMedia() {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
     & > * {
       flex: 1;
     }
