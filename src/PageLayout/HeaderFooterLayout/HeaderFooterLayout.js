@@ -3,8 +3,9 @@ import AppHeader from "../../SharedComponents/AppHeader/AppHeader";
 import NovelFooter from "../../SharedComponents/NovelFooter/NovelFooter";
 
 const HeaderFooterLayout = (props) => {
+  console.log(props, "prsp");
   return (
-    <Fragment>
+    <div>
       <AppHeader />
       {props.component && (
         <main>
@@ -12,7 +13,7 @@ const HeaderFooterLayout = (props) => {
         </main>
       )}
       <NovelFooter />
-    </Fragment>
+    </div>
   );
 };
 
