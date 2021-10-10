@@ -8,11 +8,10 @@ import HeaderFooterLayout from "./PageLayout/HeaderFooterLayout/HeaderFooterLayo
 import ContactUs from "./Pages/ContactUs/ContactUs";
 
 const AppRoutes = () => {
-  console.log("hey in routes");
   return (
     <Router>
       <Switch>
-        <Route exact={true} path="/novel_suites_ui">
+        <Route exact={true} path="/">
           <HeaderFooterLayout component={HomePage} />
         </Route>
         <Route exact={true} path="/about-us">

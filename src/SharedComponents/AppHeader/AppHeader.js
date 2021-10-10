@@ -69,7 +69,7 @@ const AppHeader = () => {
           ) : null}
         </div>
       </div>
-      <a href="/">
+      <a href={process.env.PUBLIC_URL}>
         <img src={NovelLogImage} alt="novel_log" className="appheader-logo" />
       </a>
       <div className="ml-auto app-nav-list-container">
