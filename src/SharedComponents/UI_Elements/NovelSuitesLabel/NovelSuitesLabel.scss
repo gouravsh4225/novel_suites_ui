@@ -19,6 +19,7 @@
   &--input {
     background-color: transparent;
     @include fontColor(black);
+    border-radius: 0;
     padding: 0;
   }
   &--success {

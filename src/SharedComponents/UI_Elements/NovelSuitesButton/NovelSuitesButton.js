@@ -1,4 +1,5 @@
 import React from "react";
+import UIElementHelper from "../UI_Element_helpers";
 import "./NovelSuitesButton.scss";
 
 const NovelSuitesButton = ({
@@ -8,10 +9,6 @@ const NovelSuitesButton = ({
   buttonLabel,
   style,
 }) => {
-  const getAllClasses = () => {
-    return className ? ["novel-button", className].join(" ") : "novel-button";
-  };
-
   const onButtonClick = (event) => {
     event.preventDefault();
     onClick && onClick();
@@ -25,8 +22,8 @@ const NovelSuitesButton = ({
     <button
       type={getButtonType()}
       onClick={(event) => onButtonClick(event)}
-      className={getAllClasses()}
-      {...style}
+      className={UIElementHelper.getllClasses("novel-button", className)}
+      style={style}
     >
       {buttonLabel}
     </button>
