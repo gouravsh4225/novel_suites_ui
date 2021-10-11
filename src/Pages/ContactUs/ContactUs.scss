@@ -81,6 +81,10 @@
     overflow: hidden;
     padding-top: 8rem;
     padding-bottom: 8rem;
+    @include mobileMedia() {
+      padding-top: 4rem;
+      padding-bottom: 0;
+    }
     .section-form {
       .get_in_touch-heading {
         font-size: 3rem;
@@ -94,12 +98,19 @@
       .form-card {
         border: 1px solid #cfcfcf;
         max-width: 60%;
+        @include mobileMedia() {
+          max-width: 100%;
+        }
+        @include tabletMedia() {
+          max-width: 100%;
+        }
+
         background-color: white;
         padding: 1rem;
         border-radius: 4px;
         .form-inputs {
           @include displayType(grid);
-          grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
+          @include gridContainerMinWidth(40%);
           gap: 1rem;
         }
         .contact-label {
@@ -122,6 +133,9 @@
         height: 100%;
         z-index: -1;
         object-fit: cover;
+        @include mobileMedia() {
+          width: 0;
+        }
       }
     }
   }
