@@ -24,21 +24,24 @@ const NovelFooter = () => {
               <p className="follow-title">Follow Us</p>
               <div className="follow-social-icons">
                 <a
-                  href="/"
+                  href="https://facebook.com/"
                   alt="social-icon-facebook"
+                  target="_blank"
                   className="social-icon-item text-decoration-none"
                 >
                   <i class="fa fa-facebook" aria-hidden="true"></i>
                 </a>
                 <a
-                  href="/"
+                  href="https://twitter.com/"
                   alt="social-icon-twitter"
+                  target="_blank"
                   className="social-icon-item text-decoration-none"
                 >
                   <i class="fa fa-twitter" aria-hidden="true"></i>
                 </a>
                 <a
-                  href="/"
+                  href="https://www.instagram.com/"
+                  target="_blank"
                   alt="social-icon-instagram"
                   className="social-icon-item text-decoration-none"
                 >
