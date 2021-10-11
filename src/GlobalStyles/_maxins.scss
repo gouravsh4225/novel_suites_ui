@@ -38,6 +38,9 @@
 @mixin fontColor($color: black) {
   color: $color;
 }
+@mixin displayType($type: block) {
+  display: $type;
+}
 
 /* Media query mixing start here */
 $mobile-width: 576px;

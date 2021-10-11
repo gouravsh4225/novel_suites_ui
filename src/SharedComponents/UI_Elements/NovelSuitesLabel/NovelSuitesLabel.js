@@ -1,18 +1,14 @@
 import React from "react";
+import UIElementHelper from "../UI_Element_helpers";
 import "./NovelSuitesLabel.scss";
 
 const NovelSuitesLabel = (props) => {
-  const { labelName, children, type, className, style } = props;
-
-  /**
-   *
-   * @function getAllLabelClass
-   * @returns normal classs and other classes into one string
-   */
+  const { labelName, children, type, className, style, htmlFor, ...rest } =
+    props;
 
   const getAllLabelClass = () => {
     const typeClass = type ? getLabelType() : "";
-    return ["novel-label", typeClass, className].join(" ");
+    return UIElementHelper.getllClasses("novel-label", typeClass, className);
   };
 
   /**
@@ -30,7 +26,12 @@ const NovelSuitesLabel = (props) => {
   };
 
   return (
-    <label className={getAllLabelClass()} style={style}>
+    <label
+      className={getAllLabelClass()}
+      style={style}
+      {...rest}
+      htmlFor={htmlFor}
+    >
       {labelName}
       {children ? children : ""}
     </label>

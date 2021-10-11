@@ -24,15 +24,15 @@
   }
   &--success {
     background-color: green;
-    @include fontColor("fff");
+    @include fontColor(#fff);
   }
   &--warning {
     background-color: #f0ad4e;
-    @include fontColor("fff");
+    @include fontColor(#fff);
   }
   &--info {
     background-color: #5bc0de;
-    @include fontColor("fff");
+    @include fontColor(#fff);
   }
   &--error {
     background-color: #ff0000;

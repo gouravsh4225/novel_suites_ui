@@ -1,2 +1,20 @@
-.novel-suite-input {
+@import "../../../GlobalStyles/maxins";
+
+.novel-input-wrapper {
+  @include displayType(block);
+  width: 100%;
+  .novel-suite-input {
+    &--large {
+      padding: 22px 58px;
+    }
+    &--error {
+      border-color: red;
+      border-width: 1px;
+      border-style: solid;
+    }
+  }
+
+  &--error {
+    @include fontColor(red);
+  }
 }

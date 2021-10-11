@@ -1,9 +1,54 @@
-import React from "react";
+import React, { useState } from "react";
 import NovelSuitesInput from "../../SharedComponents/UI_Elements/NovelSuitesInput/NovelSuitesInput";
 import NovelSuitesLabel from "../../SharedComponents/UI_Elements/NovelSuitesLabel/NovelSuitesLabel";
 import "./ContactUs.scss";
 
 const ContactUs = () => {
+  const [contactUsForm, setContactUsForm] = useState({
+    name: {
+      value: "",
+      errorText: "",
+    },
+    email: {
+      value: "",
+      errorText: "",
+    },
+  });
+  const [name, setName] = useState("");
+  const onChangeName = (event) => {
+    const { name } = contactUsForm;
+    const eventValue = event.target.value;
+    name.value = eventValue;
+    if (eventValue === "") {
+      name.errorText = "This field is required";
+    } else {
+      name.errorText = "";
+    }
+    setContactUsForm({
+      ...contactUsForm,
+      name,
+    });
+  };
+  const onChangeEmail = (event) => {
+    const { email } = contactUsForm;
+    const eventValue = event.target.value;
+    email.value = eventValue;
+    if (eventValue === "") {
+      email.errorText = "This field is required";
+    } else {
+      email.errorText = "";
+    }
+    setContactUsForm({
+      ...contactUsForm,
+      email,
+    });
+  };
+
+  const onContactFormSubmit = (event) => {
+    event.preventDefault();
+    console.log("hey--> sunbmite");
+  };
+
   return (
     <div className="contact-us-wrapper">
       <section className="contact-us-banner">
@@ -65,15 +110,34 @@ const ContactUs = () => {
                 Please send your query with these little form
               </p>
               <div className="form-card">
-                <div className="form-inputs">
+                <form
+                  className="form-inputs"
+                  id="form-inputs"
+                  onSubmit={onContactFormSubmit}
+                >
                   <div className="form-input mb-1">
-                    <NovelSuitesLabel
-                      labelName="Your Name :"
-                      className="novel-label--input contact-label"
+                    <NovelSuitesInput
+                      inputLabel="Your Name :"
+                      inputLabelClasses="contact-label"
+                      validatior={["isRequires"]}
+                      errorText={contactUsForm.name.errorText}
+                      name="your_name"
+                      onChange={(e) => onChangeName(e, "name")}
+                      value={contactUsForm.name.value}
                     />
-                    <NovelSuitesInput />
                   </div>
-                </div>
+                  <div className="form-input mb-1">
+                    <NovelSuitesInput
+                      inputLabel="Your Email :"
+                      inputLabelClasses="contact-label"
+                      validatior={["isRequires"]}
+                      errorText={contactUsForm.email.errorText}
+                      name="your_name"
+                      onChange={(e) => onChangeEmail(e, "email")}
+                      value={contactUsForm.email.value}
+                    />
+                  </div>
+                </form>
               </div>
             </div>
           </div>

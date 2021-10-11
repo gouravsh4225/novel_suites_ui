@@ -97,12 +97,17 @@
         background-color: white;
         padding: 1rem;
         border-radius: 4px;
-
+        .form-inputs {
+          @include displayType(grid);
+          grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
+          gap: 1rem;
+        }
         .contact-label {
-          font-size: 2rem;
-          font-weight: 300;
+          font-size: 1.2rem;
+          font-weight: 400;
           margin-bottom: 0.5rem;
-          @include letterSpacing(2px);
+          text-transform: uppercase;
+          @include letterSpacing(1px);
         }
       }
     }
