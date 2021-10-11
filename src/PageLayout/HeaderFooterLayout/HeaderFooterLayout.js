@@ -1,12 +1,12 @@
 import React, { Fragment } from "react";
-import AppHeader from "../../SharedComponents/AppHeader/AppHeader";
+import NovelSuiteHeader from "../../SharedComponents/NovelSuiteHeader/NovelSuiteHeader";
 import NovelFooter from "../../SharedComponents/NovelFooter/NovelFooter";
 
 const HeaderFooterLayout = (props) => {
   console.log(props, "prsp");
   return (
     <div>
-      <AppHeader />
+      <NovelSuiteHeader />
       {props.component && (
         <main>
           <props.component />

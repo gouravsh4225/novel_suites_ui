@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import NovelLogImage from "../../assets/logo_novel.gif";
 import NovelSuitesButton from "../UI_Elements/NovelSuitesButton/NovelSuitesButton";
-import AppHeaderNavList from "./AppHeaderNavList";
-import AppHeaderSideBar from "./AppHeaderSideBar";
+import NovelSuiteHeaderNavList from "./NovelSuiteHeaderNavList";
+import NovelSuiteHeaderSideBar from "./NovelSuiteHeaderSideBar";
 import { SHOW_HEADER_HEIGHT } from "../../Constants/constant";
-import "./AppHeader.scss";
+import "./NovelSuiteHeader.scss";
 
 const getNavigationMenu = () => {
   return [
@@ -15,7 +15,7 @@ const getNavigationMenu = () => {
   ];
 };
 
-const AppHeader = () => {
+const NovelSuiteHeader = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isSideBarMenuOpen, setIsSideBarMenuOpen] = useState(false);
   useEffect(() => {
@@ -61,7 +61,7 @@ const AppHeader = () => {
         </div>
         <div className={`${isSideBarMenuOpen && "mobile-naviagtion-list"}`}>
           {isSideBarMenuOpen ? (
-            <AppHeaderSideBar
+            <NovelSuiteHeaderSideBar
               menuList={navigationMenu}
               onClickListItem={onNaviagtionListItem}
               onClikcedOutSide={showSideBarMenu}
@@ -74,7 +74,7 @@ const AppHeader = () => {
       </a>
       <div className="ml-auto app-nav-list-container">
         <nav className="app-header-nav">
-          <AppHeaderNavList
+          <NovelSuiteHeaderNavList
             navigationMenu={navigationMenu}
             onClick={onNaviagtionListItem}
           />
@@ -94,4 +94,4 @@ const AppHeader = () => {
   );
 };
 
-export default AppHeader;
+export default NovelSuiteHeader;
