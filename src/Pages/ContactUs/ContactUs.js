@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import NovelSuitesInput from "../../SharedComponents/UI_Elements/NovelSuitesInput/NovelSuitesInput";
+import NovelSuitesTextarea from "../../SharedComponents/UI_Elements/NovelSuitesTextarea/NovelSuitesTextarea";
 import "./ContactUs.scss";
 
 const ContactUs = () => {
@@ -13,6 +14,10 @@ const ContactUs = () => {
       errorText: "",
     },
     phone: {
+      value: "",
+      errorText: "",
+    },
+    messsage: {
       value: "",
       errorText: "",
     },
@@ -59,6 +64,15 @@ const ContactUs = () => {
     setContactUsForm({
       ...contactUsForm,
       phone,
+    });
+  };
+  const onChangeMessage = (event) => {
+    const { messsage } = contactUsForm;
+    const eventValue = event.target.value;
+    messsage.value = eventValue;
+    setContactUsForm({
+      ...contactUsForm,
+      messsage,
     });
   };
 
@@ -181,10 +195,18 @@ const ContactUs = () => {
                       />
                     </div>
                   </div>
-                  <div className="form-inputs">
-                    <div className="form-input mb-1">
-                      <textarea></textarea>
-                    </div>
+
+                  <div className="form-input mb-1">
+                    <NovelSuitesTextarea
+                      inputLabel="INQUIRY TYPE :"
+                      inputLabelClasses="contact-label"
+                      onChange={(e) => onChangeMessage(e)}
+                      name="textArea"
+                      value={contactUsForm.messsage.value}
+                      errorText={contactUsForm.messsage.errorText}
+                      rows="7"
+                      placeholder="Enter your message"
+                    />
                   </div>
                 </form>
               </div>

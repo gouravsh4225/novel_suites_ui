@@ -1,0 +1,13 @@
+@import "../../../GlobalStyles/maxins";
+.novel-textarea-wrapper {
+  position: relative;
+  .novel-text-areas {
+    @include displayType(block);
+    width: 100%;
+    font-size: 1.2rem;
+    padding: 22px 10px;
+    &::placeholder {
+      text-transform: uppercase;
+    }
+  }
+}
