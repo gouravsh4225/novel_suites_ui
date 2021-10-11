@@ -26,21 +26,21 @@ const NovelFooter = () => {
                 <a
                   href="/"
                   alt="social-icon-facebook"
-                  className="social-icon-item"
+                  className="social-icon-item text-decoration-none"
                 >
                   <i class="fa fa-facebook" aria-hidden="true"></i>
                 </a>
                 <a
                   href="/"
                   alt="social-icon-twitter"
-                  className="social-icon-item"
+                  className="social-icon-item text-decoration-none"
                 >
                   <i class="fa fa-twitter" aria-hidden="true"></i>
                 </a>
                 <a
                   href="/"
                   alt="social-icon-instagram"
-                  className="social-icon-item"
+                  className="social-icon-item text-decoration-none"
                 >
                   <i class="fa fa-instagram" aria-hidden="true"></i>
                 </a>
