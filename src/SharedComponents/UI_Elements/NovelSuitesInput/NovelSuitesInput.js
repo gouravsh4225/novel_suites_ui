@@ -15,8 +15,22 @@ const NovelSuitesInput = (props) => {
     inputLabel,
     inputLabelClasses,
     validatior,
+    placeholder,
+    autoFocus,
+    type,
     ...rest
   } = props;
+
+  /***
+   * Set Default Props for Web Accessibility
+   */
+  const defaultNovelInputProps = {
+    "arial-label": name,
+    required: required,
+    placeholder: placeholder,
+
+    ...rest,
+  };
   const onInputChange = (event) => {
     event.preventDefault();
     const { target } = event;
@@ -42,6 +56,7 @@ const NovelSuitesInput = (props) => {
         )}
       />
       <input
+        type={type}
         className={UIElementHelper.getllClasses(
           "novel-suite-input novel-form-input",
           errorText ? "novel-suite-input--error" : "",
@@ -55,7 +70,8 @@ const NovelSuitesInput = (props) => {
         required={required}
         name
         style={style}
-        {...rest}
+        autoFocus={autoFocus}
+        {...defaultNovelInputProps}
       />
       {errorText ? (
         <div className="novel-input-wrapper--error">{errorText}</div>

@@ -13,6 +13,10 @@ const ContactUs = () => {
       value: "",
       errorText: "",
     },
+    phone: {
+      value: "",
+      errorText: "",
+    },
   });
   const [name, setName] = useState("");
   const onChangeName = (event) => {
@@ -41,6 +45,21 @@ const ContactUs = () => {
     setContactUsForm({
       ...contactUsForm,
       email,
+    });
+  };
+
+  const onChangePhone = (event) => {
+    const { phone } = contactUsForm;
+    const eventValue = event.target.value;
+    phone.value = eventValue;
+    if (eventValue === "") {
+      phone.errorText = "This field is required";
+    } else {
+      phone.errorText = "";
+    }
+    setContactUsForm({
+      ...contactUsForm,
+      phone,
     });
   };
 
@@ -110,32 +129,63 @@ const ContactUs = () => {
                 Please send your query with these little form
               </p>
               <div className="form-card">
-                <form
-                  className="form-inputs"
-                  id="form-inputs"
-                  onSubmit={onContactFormSubmit}
-                >
-                  <div className="form-input mb-1">
-                    <NovelSuitesInput
-                      inputLabel="Your Name :"
-                      inputLabelClasses="contact-label"
-                      validatior={["isRequires"]}
-                      errorText={contactUsForm.name.errorText}
-                      name="your_name"
-                      onChange={(e) => onChangeName(e, "name")}
-                      value={contactUsForm.name.value}
-                    />
+                <form id="form-inputs" onSubmit={onContactFormSubmit}>
+                  <div className="form-inputs">
+                    <div className="form-input mb-1">
+                      <NovelSuitesInput
+                        inputLabel="Your Name :"
+                        inputLabelClasses="contact-label"
+                        validatior={["isRequires"]}
+                        errorText={contactUsForm.name.errorText}
+                        name="your_name"
+                        onChange={(e) => onChangeName(e, "name")}
+                        value={contactUsForm.name.value}
+                        className="novel-suite-input--large"
+                      />
+                    </div>
+                    <div className="form-input mb-1">
+                      <NovelSuitesInput
+                        inputLabel="Your Email :"
+                        inputLabelClasses="contact-label"
+                        validatior={["isRequires"]}
+                        errorText={contactUsForm.email.errorText}
+                        name="your_name"
+                        onChange={(e) => onChangeEmail(e, "email")}
+                        value={contactUsForm.email.value}
+                        className="novel-suite-input--large"
+                      />
+                    </div>
+                    <div className="form-input mb-1">
+                      <NovelSuitesInput
+                        inputLabel="Your Phone :"
+                        inputLabelClasses="contact-label"
+                        validatior={["isRequires"]}
+                        errorText={contactUsForm.phone.errorText}
+                        name="your_name"
+                        onChange={(e) => onChangePhone(e, "phone")}
+                        value={contactUsForm.phone.value}
+                        className="novel-suite-input--large"
+                        type="number"
+                      />
+                    </div>
+                    <div className="form-input mb-1">
+                      <NovelSuitesInput
+                        inputLabel="INQUIRY TYPE :"
+                        inputLabelClasses="contact-label"
+                        validatior={["isRequires"]}
+                        errorText={contactUsForm.phone.errorText}
+                        name="your_name"
+                        onChange={(e) => onChangePhone(e, "phone")}
+                        value={contactUsForm.phone.value}
+                        className="novel-suite-input--large"
+                        type="text"
+                      />
+                    </div>
                   </div>
-                  <div className="form-input mb-1">
-                    <NovelSuitesInput
-                      inputLabel="Your Email :"
-                      inputLabelClasses="contact-label"
-                      validatior={["isRequires"]}
-                      errorText={contactUsForm.email.errorText}
-                      name="your_name"
-                      onChange={(e) => onChangeEmail(e, "email")}
-                      value={contactUsForm.email.value}
-                    />
+                  <div className="form-inputs">
+                    <div className="form-input mb-1">
+                      <textarea></textarea>
+                    </div>
                   </div>
                 </form>
               </div>

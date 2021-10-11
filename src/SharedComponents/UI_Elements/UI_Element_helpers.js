@@ -5,7 +5,7 @@
  */
 const getllClasses = (initalClasses, ...nextClasses) => {
   return nextClasses
-    ? [initalClasses, ...nextClasses].join(" ")
+    ? [initalClasses, ...nextClasses].join(" ").trim()
     : initalClasses;
 };
 
