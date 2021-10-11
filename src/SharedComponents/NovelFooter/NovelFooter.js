@@ -27,6 +27,7 @@ const NovelFooter = () => {
                   href="https://facebook.com/"
                   alt="social-icon-facebook"
                   target="_blank"
+                  rel="noreferrer"
                   className="social-icon-item text-decoration-none"
                 >
                   <i class="fa fa-facebook" aria-hidden="true"></i>
@@ -35,6 +36,7 @@ const NovelFooter = () => {
                   href="https://twitter.com/"
                   alt="social-icon-twitter"
                   target="_blank"
+                  rel="noreferrer"
                   className="social-icon-item text-decoration-none"
                 >
                   <i class="fa fa-twitter" aria-hidden="true"></i>
@@ -43,6 +45,7 @@ const NovelFooter = () => {
                   href="https://www.instagram.com/"
                   target="_blank"
                   alt="social-icon-instagram"
+                  rel="noreferrer"
                   className="social-icon-item text-decoration-none"
                 >
                   <i class="fa fa-instagram" aria-hidden="true"></i>

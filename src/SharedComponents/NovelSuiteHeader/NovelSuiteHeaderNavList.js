@@ -6,14 +6,10 @@ const NovelSuiteHeaderNavList = ({ navigationMenu, onClick }) => {
   };
   return (
     <ul className="app-header-lists">
-      <nav className="app-header-nav" role="navigation">
-        <ul className="app-header-lists" role="list">
+      <nav className="app-header-nav">
+        <ul className="app-header-lists">
           {navigationMenu.map((navigationItem) => (
-            <li
-              className="app-header-items"
-              key={navigationItem.id}
-              role="listitem"
-            >
+            <li className="app-header-items" key={navigationItem.id}>
               <div
                 tabIndex="0"
                 role="link"

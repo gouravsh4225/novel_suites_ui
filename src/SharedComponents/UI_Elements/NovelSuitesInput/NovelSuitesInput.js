@@ -69,7 +69,6 @@ const NovelSuitesInput = (props) => {
         value={value}
         required={required}
         name
-        style={style}
         autoFocus={autoFocus}
         {...defaultNovelInputProps}
       />

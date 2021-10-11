@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import NovelSuitesInput from "../../SharedComponents/UI_Elements/NovelSuitesInput/NovelSuitesInput";
-import NovelSuitesLabel from "../../SharedComponents/UI_Elements/NovelSuitesLabel/NovelSuitesLabel";
 import "./ContactUs.scss";
 
 const ContactUs = () => {
@@ -18,7 +17,7 @@ const ContactUs = () => {
       errorText: "",
     },
   });
-  const [name, setName] = useState("");
+
   const onChangeName = (event) => {
     const { name } = contactUsForm;
     const eventValue = event.target.value;
