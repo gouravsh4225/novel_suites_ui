@@ -8,9 +8,11 @@ const NovelSuitesButton = ({
   className,
   buttonLabel,
   style,
+  disabled,
 }) => {
   const onButtonClick = (event) => {
     event.preventDefault();
+    console.log("hey--> cliked Novel button");
     onClick && onClick();
   };
 
@@ -18,12 +20,21 @@ const NovelSuitesButton = ({
     return type ? type : "button";
   };
 
+  const getButtonAllClasses = () => {
+    return UIElementHelper.getllClasses(
+      "novel-button",
+      disabled ? "novel-button--disabled" : "",
+      className
+    );
+  };
+
   return (
     <button
       type={getButtonType()}
       onClick={(event) => onButtonClick(event)}
-      className={UIElementHelper.getllClasses("novel-button", className)}
+      className={getButtonAllClasses()}
       style={style}
+      disabled={disabled}
     >
       {buttonLabel}
     </button>

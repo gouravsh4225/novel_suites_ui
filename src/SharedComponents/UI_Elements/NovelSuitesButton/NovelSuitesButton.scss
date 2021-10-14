@@ -76,4 +76,14 @@
       }
     }
   }
+  &--disabled {
+    pointer-events: none;
+    color: black;
+    border: 0;
+    &::after {
+      @include novelElementAbsoluteFullWidthHeight(100%);
+      background-color: #ccc;
+      @include novelTransitionDefault(300ms);
+    }
+  }
 }

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import NovelSuitesInput from "../../SharedComponents/UI_Elements/NovelSuitesInput/NovelSuitesInput";
 import NovelSuitesTextarea from "../../SharedComponents/UI_Elements/NovelSuitesTextarea/NovelSuitesTextarea";
+import NovelSuitesButton from "../../SharedComponents/UI_Elements/NovelSuitesButton/NovelSuitesButton";
 import "./ContactUs.scss";
 
 const ContactUs = () => {
@@ -198,7 +199,7 @@ const ContactUs = () => {
 
                   <div className="form-input mb-1">
                     <NovelSuitesTextarea
-                      inputLabel="INQUIRY TYPE :"
+                      inputLabel="MESSAGE :"
                       inputLabelClasses="contact-label"
                       onChange={(e) => onChangeMessage(e)}
                       name="textArea"
@@ -206,6 +207,16 @@ const ContactUs = () => {
                       errorText={contactUsForm.messsage.errorText}
                       rows="7"
                       placeholder="Enter your message"
+                    />
+                  </div>
+                  <div className="form-input mb-1">
+                    <NovelSuitesButton
+                      disable="true"
+                      buttonLabel="Submit"
+                      onClick={onContactFormSubmit}
+                      className="novel-button--primary"
+                      style={{ minWidth: "300px" }}
+                      disabled={true}
                     />
                   </div>
                 </form>

@@ -69,7 +69,7 @@ const NovelSuiteHeader = () => {
           ) : null}
         </div>
       </div>
-      <a href={process.env.PUBLIC_URL}>
+      <a href="/">
         <img src={NovelLogImage} alt="novel_log" className="appheader-logo" />
       </a>
       <div className="ml-auto app-nav-list-container">

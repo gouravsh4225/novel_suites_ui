@@ -101,9 +101,6 @@
         @include mobileMedia() {
           max-width: 100%;
         }
-        @include tabletMedia() {
-          max-width: 100%;
-        }
 
         background-color: white;
         padding: 1rem;
