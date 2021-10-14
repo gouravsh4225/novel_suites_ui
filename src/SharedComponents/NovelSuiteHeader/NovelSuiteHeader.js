@@ -57,15 +57,21 @@ const NovelSuiteHeader = () => {
     >
       <div className="mobile-navigation">
         <div className="mobile-naviagtion-bars" onClick={showSideBarMenu}>
-          <i class="fa fa-bars" aria-hidden="true"></i>
+          {isSideBarMenuOpen ? (
+            <i className="fa fa-close" aria-hidden="true"></i>
+          ) : (
+            <i class="fa fa-bars" aria-hidden="true"></i>
+          )}
         </div>
         <div className={`${isSideBarMenuOpen && "mobile-naviagtion-list"}`}>
           {isSideBarMenuOpen ? (
-            <NovelSuiteHeaderSideBar
-              menuList={navigationMenu}
-              onClickListItem={onNaviagtionListItem}
-              onClikcedOutSide={showSideBarMenu}
-            />
+            <>
+              <NovelSuiteHeaderSideBar
+                menuList={navigationMenu}
+                onClickListItem={onNaviagtionListItem}
+                onClikcedOutSide={showSideBarMenu}
+              />
+            </>
           ) : null}
         </div>
       </div>

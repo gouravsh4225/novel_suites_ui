@@ -216,7 +216,6 @@ const ContactUs = () => {
                       onClick={onContactFormSubmit}
                       className="novel-button--primary"
                       style={{ minWidth: "300px" }}
-                      disabled={true}
                     />
                   </div>
                 </form>

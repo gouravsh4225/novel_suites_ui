@@ -1,6 +1,5 @@
 import React from "react";
 import NovelSuiteHeaderNavList from "./NovelSuiteHeaderNavList";
-import OutSideClicked from "../OutSideClicked/OutSideClicked";
 
 const NovelSuiteHeaderSideBar = ({
   menuList,
@@ -14,12 +13,12 @@ const NovelSuiteHeaderSideBar = ({
   };
 
   return (
-    <OutSideClicked onClikcedOutSide={onClick}>
+    <React.Fragment>
       <NovelSuiteHeaderNavList
         navigationMenu={menuList}
         onClick={onClickListItem}
       />
-    </OutSideClicked>
+    </React.Fragment>
   );
 };
 
