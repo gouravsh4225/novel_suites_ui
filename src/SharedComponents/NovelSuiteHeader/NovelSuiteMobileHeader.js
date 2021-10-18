@@ -2,6 +2,7 @@ import React from "react";
 
 const NovelSuiteMobileHeader = ({ onClick, isSideBarMenuOpen }) => {
   const showSideBarMenu = (event) => {
+    event.preventDefault();
     onClick && onClick();
   };
   return (
