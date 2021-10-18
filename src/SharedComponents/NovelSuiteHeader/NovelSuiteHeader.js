@@ -6,6 +6,7 @@ import NovelSuiteHeaderNavList from "./NovelSuiteHeaderNavList";
 import NovelSuiteHeaderSideBar from "./NovelSuiteHeaderSideBar";
 import { SHOW_HEADER_HEIGHT } from "../../Constants/constant";
 import "./NovelSuiteHeader.scss";
+import NovelSuiteMobileHeader from "./NovelSuiteMobileHeader";
 
 const getNavigationMenu = () => {
   return [
@@ -56,13 +57,10 @@ const NovelSuiteHeader = () => {
       }`}
     >
       <div className="mobile-navigation">
-        <div className="mobile-naviagtion-bars" onClick={showSideBarMenu}>
-          {isSideBarMenuOpen ? (
-            <i className="fa fa-close" aria-hidden="true"></i>
-          ) : (
-            <i class="fa fa-bars" aria-hidden="true"></i>
-          )}
-        </div>
+        <NovelSuiteMobileHeader
+          onClick={showSideBarMenu}
+          isSideBarMenuOpen={isSideBarMenuOpen}
+        />
         <div className={`${isSideBarMenuOpen && "mobile-naviagtion-list"}`}>
           {isSideBarMenuOpen ? (
             <>

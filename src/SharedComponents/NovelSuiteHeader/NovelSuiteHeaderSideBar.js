@@ -6,12 +6,6 @@ const NovelSuiteHeaderSideBar = ({
   onClickListItem,
   onClikcedOutSide,
 }) => {
-  const onClick = (currentValue) => {
-    if (currentValue) {
-      onClikcedOutSide(currentValue);
-    }
-  };
-
   return (
     <React.Fragment>
       <NovelSuiteHeaderNavList
