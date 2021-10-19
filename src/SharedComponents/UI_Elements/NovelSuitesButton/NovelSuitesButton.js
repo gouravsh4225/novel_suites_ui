@@ -12,7 +12,6 @@ const NovelSuitesButton = ({
 }) => {
   const onButtonClick = (event) => {
     event.preventDefault();
-    console.log("hey--> cliked Novel button");
     onClick && onClick();
   };
 
