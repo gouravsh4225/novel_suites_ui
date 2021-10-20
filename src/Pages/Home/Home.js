@@ -45,6 +45,26 @@ const Home = () => {
           />
         </div>
       </section>
+      <section className="home-page-about">
+        <div className="home-page-about-wrapper mt-1">
+          <div className="novel-card">
+            <div className="novel-card-content text-center">
+              <h3>Visit our natural paradise and reconnect with yourself</h3>
+              <p className="mt-1">
+                The pain itself is love, the main customer And the time is wise
+                to pay for the mass of the kids. Or the immune system will be
+                born tomorrow to suspend the players. I put a lot of chocolate
+                on my lion. Adipiscing purus dictum lacus sed. I haven't
+                graduated at the weekend.
+              </p>
+              <NovelSuitesButton
+                buttonLabel="explore more"
+                className="novel-button--secondary-text mt-1"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
