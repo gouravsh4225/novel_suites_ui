@@ -2,8 +2,8 @@
   display: flex;
   align-items: center;
 }
-@mixin flexDirectionColumn {
-  flex-direction: column;
+@mixin flexDirectionColumn($dir: column) {
+  flex-direction: $dir;
 }
 @mixin flexJustifyContent($type: center) {
   justify-content: $type;
@@ -50,7 +50,7 @@ $desktop-width: 1024px;
 $large-desktop-width: 1600px;
 
 @mixin mobileMedia {
-  @media screen and (min-width: 100px) and (max-width: 768px) {
+  @media screen and (min-width: 100px) and (max-width: #{$tablet-width}) {
     @content;
   }
 }

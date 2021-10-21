@@ -1,0 +1,119 @@
+@import "../../GlobalStyles/maxins";
+
+.novel-room-wrapper {
+  position: relative;
+  .novel-room-header {
+    .novel-room-heading {
+      font-size: 5rem;
+      @include fontWeight(400);
+      @include letterSpacing(4px);
+      @include mobileMedia() {
+        font-size: 2rem;
+      }
+    }
+    .novel-room--para {
+      font-size: 2rem;
+      @include fontWeight(300);
+      @include letterSpacing(2px);
+      @include mobileMedia() {
+        font-size: 1rem;
+      }
+    }
+  }
+  .novel-rooms-lists {
+    .novel-room-item {
+      border-radius: 4px;
+      margin-bottom: 1rem;
+      @include displayType(flex);
+      @include flexDirectionColumn(column);
+      flex: 1;
+    }
+    img {
+      border-radius: 4px;
+    }
+    margin-top: 1rem;
+    @include displayType(grid);
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    @include mobileMedia() {
+      grid-template-columns: repeat(1, 1fr);
+    }
+    @include tabletMedia() {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .novel-room-item-content {
+      padding: 1rem;
+      background-color: white;
+      margin-top: -10rem;
+      z-index: 1;
+      position: relative;
+      max-width: 90%;
+      border-radius: 0 2px;
+      box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.5);
+      height: 100%;
+      @include mobileMedia() {
+        margin-top: 0;
+        max-width: 100%;
+      }
+      .novel-room-details {
+        h3 {
+          font-size: 2rem;
+          @include fontWeight(400);
+          cursor: pointer;
+          padding-bottom: 1rem;
+          @include letterSpacing(2px);
+          @include mobileMedia() {
+            font-size: 1rem;
+          }
+        }
+        p {
+          font-size: 1.2rem;
+          @include fontWeight(300);
+        }
+      }
+      .novel-room-prices {
+        @include displayType(grid);
+        grid-template-columns: repeat(2, 1fr);
+        place-content: space-between;
+        gap: 2rem;
+
+        .novel-room-from {
+          color: #626262;
+          h6 {
+            font-size: 1rem;
+            @include fontWeight(600);
+            text-transform: uppercase;
+            @include letterSpacing(2px);
+          }
+          .from-price-text {
+            color: black;
+            font-size: 1.4rem;
+            @include mobileMedia() {
+              font-size: 1rem;
+            }
+          }
+          .from-price-icon {
+            margin-right: 0.4rem;
+            color: #626262;
+          }
+          .from-price-per {
+            @include fontWeight(300);
+            margin-left: 0.4rem;
+            color: #626262;
+          }
+        }
+        .novel-room-beds-guest {
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+
+          .novel-room-guests,
+          .novel-room-beds {
+            color: #626262;
+            margin-right: 1.5rem;
+          }
+        }
+      }
+    }
+  }
+}
