@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import WorkUnderProcess from "../../Components/WorkUnderProcess/WorkUnderProcess";
 import NovelSuitesButton from "../../SharedComponents/UI_Elements/NovelSuitesButton/NovelSuitesButton";
 import "./Location.scss";
 
@@ -45,24 +46,24 @@ const Location = () => {
               <p className="location-address mb-1">
                 {locationItem.location_address}
               </p>
-              <a
-                href={`tel:${locationItem.contact_number}`}
+              <div
+                tabIndex="0"
                 className="mb-1 location-address text-decoration-none"
               >
                 <span>
                   <i class="fa fa-phone" aria-hidden="true"></i>
                 </span>
                 <span className="ml-1">{locationItem.contact_number}</span>
-              </a>
-              <a
-                href={`mailto:${locationItem.contact_email}`}
+              </div>
+              <div
+                tabIndex="0"
                 className="mb-1 location-address text-decoration-none letter-spacing-3"
               >
                 <span>
                   <i className="fa fa-envelope" aria-hidden="true"></i>
                 </span>
                 <span className="ml-1">{locationItem.contact_email}</span>
-              </a>
+              </div>
               <NovelSuitesButton
                 type="button"
                 className="novel-button--secondary-text mblock-1"
@@ -72,6 +73,7 @@ const Location = () => {
           </div>
         ))}
       </article>
+      <WorkUnderProcess />
     </div>
   );
 };

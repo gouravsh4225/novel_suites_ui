@@ -73,8 +73,9 @@ const NovelSuiteHeader = () => {
           ) : null}
         </div>
       </div>
-      <a href="/">
+      <a href="/" className="novel__logo">
         <img src={NovelLogImage} alt="novel_log" className="appheader-logo" />
+        <span className="novel__logo--title">Novel Suites</span>
       </a>
       <div className="ml-auto app-nav-list-container">
         <nav className="app-header-nav">

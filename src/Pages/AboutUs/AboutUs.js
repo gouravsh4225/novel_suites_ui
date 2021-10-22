@@ -1,4 +1,5 @@
 import React from "react";
+import WorkUnderProcess from "../../Components/WorkUnderProcess/WorkUnderProcess";
 import "./AboutUs.scss";
 
 const AboutUs = () => {
@@ -28,6 +29,7 @@ const AboutUs = () => {
           <div className="nove-card-footer"></div>
         </div>
       </section>
+      <WorkUnderProcess />
     </div>
   );
 };

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import WorkUnderProcess from "../../Components/WorkUnderProcess/WorkUnderProcess";
 import NovelSuitesButton from "../../SharedComponents/UI_Elements/NovelSuitesButton/NovelSuitesButton";
 import "./NovelRooms.scss";
 
@@ -56,6 +57,7 @@ const NovelRooms = () => {
 
   const onSeeMoreInformation = (e, roomSelected) => {
     console.log("hey-->", roomSelected);
+    alert("Work Under Process");
   };
 
   console.log(roomsList, "roomlist");
@@ -126,6 +128,7 @@ const NovelRooms = () => {
           ))}
         </div>
       </div>
+      <WorkUnderProcess />
     </div>
   );
 };

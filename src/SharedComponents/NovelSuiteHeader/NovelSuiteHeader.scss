@@ -7,6 +7,20 @@
   color: $text-primary-color;
   padding: 1rem;
   background: $bg-header-color;
+  .novel__logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    @include mobileMedia() {
+      margin-left: auto;
+    }
+    &--title {
+      margin-left: 7px;
+      font-size: 0.9rem;
+      color: $text-primary-color;
+      @include fontWeight((500));
+    }
+  }
   .appheader-logo {
     width: 3rem;
     height: 3rem;
