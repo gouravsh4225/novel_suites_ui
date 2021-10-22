@@ -53,7 +53,7 @@ const getAllRooms = () => {
 };
 
 const NovelRooms = () => {
-  const [roomsList, setRoomsList] = useState(getAllRooms());
+  const [roomsList] = useState(getAllRooms());
 
   const onSeeMoreInformation = (e, roomSelected) => {
     console.log("hey-->", roomSelected);
