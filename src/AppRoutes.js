@@ -8,6 +8,7 @@ import HeaderFooterLayout from "./PageLayout/HeaderFooterLayout/HeaderFooterLayo
 import ContactUs from "./Pages/ContactUs/ContactUs";
 
 const AppRoutes = () => {
+  console.log("deploying-->");
   return (
     <Router>
       <Switch>
