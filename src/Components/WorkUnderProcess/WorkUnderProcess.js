@@ -8,7 +8,9 @@ function WorkUnderProcess() {
           className="novel-card"
           style={{ backgroundColor: "black", color: "wheat" }}
         >
-          <div className="novel-card-content">Some Work is Under Process</div>
+          <div className="novel-card-content">
+            Some Work is Under Construction
+          </div>
         </div>
       </section>
     </div>
