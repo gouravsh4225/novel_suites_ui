@@ -109,7 +109,7 @@ const ContactUs = () => {
               </section>
               <section className="contact-card">
                 <div className="contact-card-icon">
-                  <i class="fa fa-phone" aria-hidden="true"></i>
+                  <i className="fa fa-phone" aria-hidden="true"></i>
                 </div>
                 <div className="contact-card-content">
                   <a href="tel:+918383019368" className="text-decoration-none">
@@ -119,7 +119,7 @@ const ContactUs = () => {
               </section>
               <section className="contact-card">
                 <div className="contact-card-icon">
-                  <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                  <i className="fa fa-envelope-o" aria-hidden="true"></i>
                 </div>
                 <div className="contact-card-content">
                   <a

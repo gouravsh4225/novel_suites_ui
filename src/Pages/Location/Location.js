@@ -20,6 +20,12 @@ const locationArray = () => {
 
 const Location = () => {
   const [locationList] = useState(locationArray());
+  const browserLocationRoomHandler = (e, location) => {
+    console.log("e,-->", e, location);
+  };
+  const learnMoreLocationHandler = () => {
+    console.log("hey--");
+  };
   return (
     <div className="location-wrapper container">
       <div className="location-wrapper-title text-center">
@@ -51,7 +57,7 @@ const Location = () => {
                 className="mb-1 location-address text-decoration-none"
               >
                 <span>
-                  <i class="fa fa-phone" aria-hidden="true"></i>
+                  <i className="fa fa-phone" aria-hidden="true"></i>
                 </span>
                 <span className="ml-1">{locationItem.contact_number}</span>
               </div>
@@ -64,11 +70,20 @@ const Location = () => {
                 </span>
                 <span className="ml-1">{locationItem.contact_email}</span>
               </div>
-              <NovelSuitesButton
-                type="button"
-                className="novel-button--secondary-text mblock-1"
-                buttonLabel="Learn More"
-              />
+              <div className="grid-container grid-gap-1 location-buttons">
+                <NovelSuitesButton
+                  type="button"
+                  className="novel-button--primary "
+                  buttonLabel="Book A room"
+                  onClick={() => browserLocationRoomHandler(locationItem)}
+                />
+                <NovelSuitesButton
+                  type="button"
+                  className="novel-button--secondary-text "
+                  buttonLabel="Learn More"
+                  onClick={() => learnMoreLocationHandler(locationItem)}
+                />
+              </div>
             </div>
           </div>
         ))}

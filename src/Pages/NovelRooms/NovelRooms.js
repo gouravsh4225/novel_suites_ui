@@ -90,7 +90,7 @@ const NovelRooms = () => {
                     <h6>From</h6>
                     <h4 className="from-price-text">
                       <span className="from-price-icon">
-                        <i class="fa fa-inr" aria-hidden="true"></i>
+                        <i className="fa fa-inr" aria-hidden="true"></i>
                       </span>
                       <span>
                         {room.roomPrice}
@@ -101,14 +101,14 @@ const NovelRooms = () => {
                   <div className="novel-room-beds-guest">
                     <div className="novel-room-guests text-center">
                       <span>
-                        <i class="fa fa-users" aria-hidden="true"></i>
+                        <i className="fa fa-users" aria-hidden="true"></i>
                         <div>{room.roomGuests}</div>
                         <div>Guests</div>
                       </span>
                     </div>
                     <div className="novel-room-beds text-center">
                       <span>
-                        <i class="fa fa-bed" aria-hidden="true"></i>
+                        <i className="fa fa-bed" aria-hidden="true"></i>
 
                         <div>{room.kingBeds}</div>
                         <div>Beds</div>
