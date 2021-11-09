@@ -114,6 +114,20 @@
           }
         }
       }
+      .novel-rooms-buttons {
+        @include mobileMedia() {
+          grid-template-columns: repeat(1, 1fr);
+        }
+        @include tabletMedia() {
+          grid-template-columns: repeat(1, 1fr);
+        }
+        @include desktopMedia() {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        @include largeScreenDesktopMedia() {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
     }
   }
 }
