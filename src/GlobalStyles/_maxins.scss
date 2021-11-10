@@ -8,7 +8,9 @@
 @mixin flexJustifyContent($type: center) {
   justify-content: $type;
 }
-
+@mixin flexAlignItem($type: center) {
+  align-items: $type;
+}
 @mixin novelTransitionDefault($duration: 500ms) {
   transition: $duration all ease-in-out;
 }
