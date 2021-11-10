@@ -4,7 +4,6 @@ import NovelFooter from "../../SharedComponents/NovelFooter/NovelFooter";
 import NovelCopyRight from "../../SharedComponents/NovelCopyRight/NovelCopyRight";
 
 const HeaderFooterLayout = (props) => {
-  console.log(props, "prsp");
   return (
     <div className="header-footer-layout-wrapper">
       <NovelSuiteHeader />

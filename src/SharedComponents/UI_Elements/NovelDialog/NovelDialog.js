@@ -1,15 +1,28 @@
-import React, { Fragment, useRef } from "react";
+import React, { Fragment, useEffect } from "react";
 import UIElementHelper from "../UI_Element_helpers";
 import NovelBackDrop from "../NovelBackDrop/NovelBackDrop";
-import "./NovelDialog.scss";
-import { useState } from "react/cjs/react.development";
 import OutSideClicked from "../../OutSideClicked/OutSideClicked";
+import "./NovelDialog.scss";
 
 const addAllCssClasses = (initialClass, propsClasses) => {
   return UIElementHelper.getllClasses(initialClass, propsClasses);
 };
 
 const NovelDialog = ({ children, isOpen, className, onClose, style }) => {
+  const handelkeyDown = (e) => {
+    if (e.key === "Escape") {
+      if (onClose) {
+        onClose();
+      } else {
+        return;
+      }
+    }
+  };
+  useEffect(() => {
+    window.addEventListener("keydown", handelkeyDown);
+    return () => window.removeEventListener("keydown", handelkeyDown);
+  }, [isOpen]);
+
   return (
     <NovelBackDrop>
       <OutSideClicked onClikcedOutSide={onClose}>

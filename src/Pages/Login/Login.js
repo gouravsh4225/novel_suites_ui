@@ -55,10 +55,10 @@ const Login = ({ isOpen, onClose }) => {
   };
   return (
     <Fragment>
-      <NovelDialog onClose={onClose}>
+      <NovelDialog onClose={onClose} isOpen={isOpen}>
         <div className="login-container">
           <h3>Log In</h3>
-          <form onSubmit={onLoginFormSubmit} autocomplete="off">
+          <form onSubmit={onLoginFormSubmit} autoComplete="off">
             <NovelSuitesInput
               inputLabel="Enter Your Phone Number"
               validatior={["isRequires"]}
@@ -84,7 +84,7 @@ const Login = ({ isOpen, onClose }) => {
               className="login-forgot-password"
               style={{ display: "flex", justifyContent: "flex-end" }}
             >
-              <a href="" className="text-decoration-none">
+              <a href="#" className="text-decoration-none">
                 Forgot Password
               </a>
             </div>
