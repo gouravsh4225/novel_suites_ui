@@ -6,9 +6,7 @@ const getApiHeaders = {
   },
 };
 const postApiHeaders = {
-  method: "POST",
   headers: {
-    Accept: "application/json",
     "Content-Type": "application/json",
   },
 };
@@ -28,15 +26,21 @@ const deleteApi = (url) => {
   return fetch(getFullServerEndPoints(url), deleteApiHeaders);
 };
 
-const postApi = (url, body = {}) => {
-  return fetch(
-    getFullServerEndPoints(url),
-    JSON.stringify(body),
-    postApiHeaders
-  );
+const postApi = (url, data) => {
+  return fetch(getFullServerEndPoints(url), {
+    method: "POST",
+    ...postApiHeaders,
+    body: JSON.stringify(data),
+  });
 };
 
 const updateApi = (url, body = {}) => {
   return fetch(getFullServerEndPoints(url));
 };
-export { getApi, updateApi, postApi, deleteApi };
+const APIUtlis = {
+  getApi,
+  postApi,
+  updateApi,
+  deleteApi,
+};
+export default APIUtlis;

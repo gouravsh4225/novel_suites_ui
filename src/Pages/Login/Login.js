@@ -2,7 +2,9 @@ import React, { Fragment, useState } from "react";
 import NovelDialog from "../../SharedComponents/UI_Elements/NovelDialog/NovelDialog";
 import NovelSuitesInput from "../../SharedComponents/UI_Elements/NovelSuitesInput/NovelSuitesInput";
 import NovelSuitesButton from "../../SharedComponents/UI_Elements/NovelSuitesButton/NovelSuitesButton";
+import AuthService from "../../Services/AuthService/AuthService";
 import "./Login.scss";
+import NovelLoader from "../../SharedComponents/NovelLoader/NovelLoader";
 
 const Login = ({ isOpen, onClose }) => {
   const [loginForm, setLoginForm] = useState({
@@ -15,10 +17,11 @@ const Login = ({ isOpen, onClose }) => {
       errorText: "",
     },
   });
+  const [isLoading, setIsLoading] = useState(false);
   const onChangePhoneNumber = (e) => {
     const { phone_number } = loginForm;
     const { value } = e.target;
-    if (value && value.length < 10) {
+    if (value && value.length < 11) {
       phone_number.errorText = "";
       phone_number.value = value;
     } else {
@@ -49,12 +52,28 @@ const Login = ({ isOpen, onClose }) => {
   };
   const onLoginFormSubmit = (event) => {
     event.preventDefault();
+    const { phone_number, password } = loginForm;
+    let loginFormObject = {
+      phone_number: phone_number.value,
+      password: password.value,
+    };
+    setIsLoading(true);
+    AuthService.loginSubmit(loginFormObject)
+      .then((res) => {
+        setIsLoading(false);
+        console.log("respone in component", res);
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        console.log(error, "erro");
+      });
   };
   const onSignUpHandler = () => {
     console.log("cliced");
   };
   return (
     <Fragment>
+      <NovelLoader isOpen={isLoading} />
       <NovelDialog onClose={onClose} isOpen={isOpen}>
         <div className="login-container">
           <h3>Log In</h3>
@@ -89,9 +108,10 @@ const Login = ({ isOpen, onClose }) => {
               </a>
             </div>
             <NovelSuitesButton
-              buttonLabel="Sign IN"
+              buttonLabel="Login"
               type="submit"
               className="novel-button--primary novel-button--block mt-1"
+              onClick={(event) => onLoginFormSubmit(event)}
             ></NovelSuitesButton>
           </form>
           <div className="sign-up-container mt-1 text-center">

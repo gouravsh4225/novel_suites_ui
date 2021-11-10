@@ -12,7 +12,7 @@ const NovelSuitesButton = ({
 }) => {
   const onButtonClick = (event) => {
     event.preventDefault();
-    onClick && onClick();
+    onClick && onClick(event);
   };
 
   const getButtonType = () => {

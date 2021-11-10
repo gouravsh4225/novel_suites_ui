@@ -1,7 +1,7 @@
-import { getApi } from "../../Utils/APIUtlis";
+import APIUtlis from "../../Utils/APIUtlis";
 
 const getAllLocation = () => {
-  return getApi("locations")
+  return APIUtlis.getApi("locations")
     .then((res) => {
       if (res.ok) {
         return res.json();
