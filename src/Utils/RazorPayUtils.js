@@ -20,7 +20,7 @@ const RazorPayPaymentOptions = (
   orderId
 ) => {
   const options = {
-    key: process.env.razorPayKeyId,
+    key: process.env.REACT_APP_RAZORPAY_KEY_ID,
     amount,
     currency,
     name: productName,
