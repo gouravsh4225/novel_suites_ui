@@ -3,8 +3,9 @@ import NovelDialog from "../../SharedComponents/UI_Elements/NovelDialog/NovelDia
 import NovelSuitesInput from "../../SharedComponents/UI_Elements/NovelSuitesInput/NovelSuitesInput";
 import NovelSuitesButton from "../../SharedComponents/UI_Elements/NovelSuitesButton/NovelSuitesButton";
 import AuthService from "../../Services/AuthService/AuthService";
-import "./Login.scss";
+import CommonUtlis from "../../Utils/CommonUtlis";
 import NovelLoader from "../../SharedComponents/NovelLoader/NovelLoader";
+import "./Login.scss";
 
 const Login = ({ isOpen, onClose }) => {
   const [loginForm, setLoginForm] = useState({
@@ -61,7 +62,8 @@ const Login = ({ isOpen, onClose }) => {
     AuthService.loginSubmit(loginFormObject)
       .then((res) => {
         setIsLoading(false);
-        console.log("respone in component", res);
+        CommonUtlis.setSessionUserItems(res);
+        onClose();
       })
       .catch((error) => {
         setIsLoading(false);

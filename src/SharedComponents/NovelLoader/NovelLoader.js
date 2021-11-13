@@ -3,10 +3,6 @@ import UIElementHelper from "../UI_Elements/UI_Element_helpers";
 import "./NovelLoader.scss";
 
 const NovelLoader = ({ isOpen, className }) => {
-  const bodyScrollPreventHandler = (e) => {
-    addScrollToBody(isOpen);
-  };
-
   const addScrollToBody = (status) => {
     const bodyElement = document.querySelector("body");
     if (status) {
@@ -25,6 +21,9 @@ const NovelLoader = ({ isOpen, className }) => {
   };
 
   useEffect(() => {
+    const bodyScrollPreventHandler = (e) => {
+      addScrollToBody(isOpen);
+    };
     window.addEventListener("scroll", bodyScrollPreventHandler);
     return () => {
       addScrollToBody(false);

@@ -3,6 +3,10 @@
 .login-container {
   width: 400px;
   max-width: 400px;
+  @include mobileMedia() {
+    width: 100%;
+    max-width: 100%;
+  }
   .sign-up-container {
     @include fontWeight(400);
     .sign-up-heading {
