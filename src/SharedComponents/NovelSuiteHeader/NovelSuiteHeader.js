@@ -5,9 +5,10 @@ import NovelSuitesButton from "../UI_Elements/NovelSuitesButton/NovelSuitesButto
 import NovelSuiteHeaderNavList from "./NovelSuiteHeaderNavList";
 import NovelSuiteHeaderSideBar from "./NovelSuiteHeaderSideBar";
 import { SHOW_HEADER_HEIGHT } from "../../Constants/constant";
-import "./NovelSuiteHeader.scss";
 import NovelSuiteMobileHeader from "./NovelSuiteMobileHeader";
 import Login from "../../Pages/Login/Login";
+import BookNow from "../../Components/BookNow/BookNow";
+import "./NovelSuiteHeader.scss";
 
 const getNavigationMenu = () => {
   return [
@@ -21,6 +22,7 @@ const NovelSuiteHeader = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isSideBarMenuOpen, setIsSideBarMenuOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isBookNowOpen, setIsBookNowOpen] = useState(false);
   useEffect(() => {
     window.addEventListener("scroll", () => {
       if (window.scrollY > SHOW_HEADER_HEIGHT) {
@@ -60,11 +62,15 @@ const NovelSuiteHeader = () => {
     setIsLoginOpen(false);
   };
 
+  const closeBookNowHandler = () => {
+    setIsBookNowOpen(false);
+  };
+
   return (
     <Fragment>
-      {isLoginOpen ? (
-        <Login isOpen={isLoginOpen} onClose={() => closeLoginHandler()} />
-      ) : null}
+      <Login isOpen={isLoginOpen} onClose={() => closeLoginHandler()} />
+      <BookNow isOpen={isBookNowOpen} onClose={() => closeBookNowHandler()} />
+
       <header
         className={`appheader-wrapper container  ${
           isScrolled && "header-active"
@@ -109,11 +115,7 @@ const NovelSuiteHeader = () => {
               type="button"
               className="novel-button--primary"
               buttonLabel="Book Room"
-              onClick={() =>
-                navigateToPage({
-                  navigationPageurl: "/browse-rooms",
-                })
-              }
+              onClick={() => setIsBookNowOpen(true)}
             />
           </div>
         </div>

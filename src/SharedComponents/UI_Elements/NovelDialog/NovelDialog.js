@@ -1,40 +1,55 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useCallback } from "react";
 import UIElementHelper from "../UI_Element_helpers";
-import NovelBackDrop from "../NovelBackDrop/NovelBackDrop";
-import OutSideClicked from "../../OutSideClicked/OutSideClicked";
+import CommonUtlis from "../../../Utils/CommonUtlis";
 import "./NovelDialog.scss";
 
 const addAllCssClasses = (initialClass, propsClasses) => {
   return UIElementHelper.getllClasses(initialClass, propsClasses);
 };
 
-const NovelDialog = ({ children, isOpen, className, onClose, style }) => {
-  const handelkeyDown = (e) => {
-    if (e.key === "Escape") {
-      if (onClose) {
-        onClose();
-      } else {
-        return;
+const NovelDialog = ({ children, isOpen, className, onEscKeyClose, style }) => {
+  const handelkeyDown = useCallback(
+    (e) => {
+      // key code 27 is used for escape
+      if (e.keyCode === 27) {
+        if (onEscKeyClose) {
+          onEscKeyClose();
+        } else {
+          return;
+        }
       }
+    },
+    [isOpen]
+  );
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add("overflow-y-hidden");
+    } else {
+      document.body.classList.remove("overflow-y-hidden");
     }
-  };
+  }, [isOpen]);
+
   useEffect(() => {
     window.addEventListener("keydown", handelkeyDown);
     return () => window.removeEventListener("keydown", handelkeyDown);
-  }, [isOpen]);
+  }, [isOpen, handelkeyDown]);
 
-  return (
-    <NovelBackDrop>
-      <OutSideClicked onClikcedOutSide={onClose}>
-        <div
-          className={addAllCssClasses("novel__dialog-container", className)}
-          style={style}
-        >
-          {children}
+  if (isOpen) {
+    return (
+      <div
+        className={addAllCssClasses("novel-suites-modal-root", className)}
+        style={style}
+      >
+        <div className="novel-suites-modal-overlay">
+          <div className="novel-suites-modal-container novel-suites-modal-containerCenter">
+            <div className="novel-suites-modal-modal">{children}</div>
+          </div>
         </div>
-      </OutSideClicked>
-    </NovelBackDrop>
-  );
+      </div>
+    );
+  }
+  return null;
 };
 
 const NovelDialogHeader = ({
@@ -48,13 +63,23 @@ const NovelDialogHeader = ({
     <div
       className={addAllCssClasses("novel__dialog-header", className)}
       style={style}
+      aria-label="novel-header"
     >
       {children ? (
         { children }
       ) : (
         <Fragment>
-          <h4 className="novel__dialog-header-heading">{headerHeading}</h4>
-          <div onClick={onCloseHandler} className="novel__dialog-header-close">
+          <h3
+            className="novel__dialog-header-heading"
+            aria-label={headerHeading}
+          >
+            {headerHeading}
+          </h3>
+          <div
+            onClick={onCloseHandler}
+            className="novel__dialog-header-close"
+            aria-label="modal-close"
+          >
             <i className="fa fa-times" aria-hidden="true"></i>
           </div>
         </Fragment>
@@ -63,15 +88,30 @@ const NovelDialogHeader = ({
   );
 };
 
-const NovelDialogFooter = ({ children, style }) => {
+const NovelDialogFooter = ({ children, style, className }) => {
   return (
-    <div className="novel__dialog-footer" style={style}>
+    <div
+      style={style}
+      className={addAllCssClasses("novel__dialog-footer", className)}
+    >
       {children}
     </div>
   );
 };
 
-NovelDialog.DialogHeader = NovelDialogHeader;
-NovelDialog.DialogFooter = NovelDialogFooter;
+const NovelDialogContent = ({ children, style, className }) => {
+  return (
+    <div
+      className={addAllCssClasses("novel__dialog-content", className)}
+      style={style}
+    >
+      {children}
+    </div>
+  );
+};
+
+NovelDialog.Header = NovelDialogHeader;
+NovelDialog.Content = NovelDialogContent;
+NovelDialog.Footer = NovelDialogFooter;
 
 export default NovelDialog;
