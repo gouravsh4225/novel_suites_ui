@@ -104,6 +104,9 @@
     border-top: 1px solid #626262;
   }
 }
+.border-bottom-0 {
+  border-bottom: 0 !important;
+}
 
 .novel-form-input,
 .novel-form-select {
@@ -125,4 +128,24 @@
 }
 .overflow-x-hidden {
   overflow-x: hidden;
+}
+
+/*
+Common Bg-class
+*/
+.bg-success {
+  background: #4caf50;
+  color: #ffffff;
+}
+.bg-error {
+  background: #f44336;
+  color: #ffffff;
+}
+.bg-warning {
+  background: #ffeb3b;
+  color: #000000;
+}
+.bg-info {
+  background: #2196f3;
+  color: #ffffff;
 }

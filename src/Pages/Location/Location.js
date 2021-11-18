@@ -27,7 +27,8 @@ const Location = () => {
   useEffect(() => {
     getAllLocation()
       .then((res) => {
-        setLocationList(res);
+        const locationDataResponse = Array.isArray(res) ? res : [];
+        setLocationList(locationDataResponse);
         setIsLoading(false);
       })
       .catch((error) => {

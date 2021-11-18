@@ -1,13 +1,19 @@
 import React, { Fragment, useEffect, useCallback } from "react";
 import UIElementHelper from "../UI_Element_helpers";
-import CommonUtlis from "../../../Utils/CommonUtlis";
 import "./NovelDialog.scss";
 
 const addAllCssClasses = (initialClass, propsClasses) => {
   return UIElementHelper.getllClasses(initialClass, propsClasses);
 };
 
-const NovelDialog = ({ children, isOpen, className, onEscKeyClose, style }) => {
+const NovelDialog = ({
+  children,
+  isOpen,
+  className,
+  onEscKeyClose,
+  style,
+  isCenter = true,
+}) => {
   const handelkeyDown = useCallback(
     (e) => {
       // key code 27 is used for escape
@@ -19,7 +25,7 @@ const NovelDialog = ({ children, isOpen, className, onEscKeyClose, style }) => {
         }
       }
     },
-    [isOpen]
+    [onEscKeyClose]
   );
 
   useEffect(() => {
@@ -42,7 +48,11 @@ const NovelDialog = ({ children, isOpen, className, onEscKeyClose, style }) => {
         style={style}
       >
         <div className="novel-suites-modal-overlay">
-          <div className="novel-suites-modal-container novel-suites-modal-containerCenter">
+          <div
+            className={`novel-suites-modal-container ${
+              isCenter ? "novel-suites-modal-containerCenter" : ""
+            }`}
+          >
             <div className="novel-suites-modal-modal">{children}</div>
           </div>
         </div>

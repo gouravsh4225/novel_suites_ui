@@ -5,7 +5,7 @@
   position: relative;
   display: inline-block;
   cursor: pointer;
-  font-weight: normal;
+  font-weight: 500;
   border-radius: 4px;
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.18);
   text-align: center;
@@ -16,12 +16,12 @@
   text-decoration: none;
   text-transform: uppercase;
   overflow: hidden;
-  border: 1px solid currentColor;
+  border: 0;
   @include novelTransitionDefault();
   &:hover,
   &:active,
   &:focus {
-    border: 1px solid currentColor;
+    border: 0;
   }
   &--small {
     font-size: 1.15rem;

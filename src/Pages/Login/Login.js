@@ -79,16 +79,20 @@ const Login = ({ isOpen, onClose }) => {
       <NovelDialog
         onEscKeyClose={onClose}
         isOpen={isOpen}
-        isOutSideClicked={true}
+        isOutSideClicked={false}
       >
+        <NovelDialog.Header
+          headerHeading="Login"
+          onCloseHandler={onClose}
+          className="border-bottom-0"
+        />
         <NovelDialog.Content>
           <div className="login-container">
-            <h3>Log In</h3>
             <form onSubmit={onLoginFormSubmit} autoComplete="off">
               <NovelSuitesInput
                 inputLabel="Enter Your Phone Number"
                 validatior={["isRequires"]}
-                type="number"
+                type="text"
                 errorText={loginForm.phone_number.errorText}
                 name="phone_number"
                 onChange={(e) => onChangePhoneNumber(e)}
