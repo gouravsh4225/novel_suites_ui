@@ -6,9 +6,9 @@ import Location from "./Pages/Location/Location";
 import NovelRooms from "./Pages/NovelRooms/NovelRooms";
 import HeaderFooterLayout from "./PageLayout/HeaderFooterLayout/HeaderFooterLayout";
 import ContactUs from "./Pages/ContactUs/ContactUs";
+import NoPageFound from "./Components/NoPageFound/NoPageFound";
 
 const AppRoutes = () => {
-  console.log("deploying-->");
   return (
     <Router>
       <Switch>
@@ -26,6 +26,9 @@ const AppRoutes = () => {
         </Route>
         <Route exact={true} path="/contact-us">
           <HeaderFooterLayout component={ContactUs} />
+        </Route>
+        <Route path="*" exact={true}>
+          <HeaderFooterLayout component={NoPageFound} />
         </Route>
       </Switch>
     </Router>

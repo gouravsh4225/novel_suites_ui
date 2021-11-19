@@ -1,0 +1,17 @@
+@import "../../GlobalStyles/maxins";
+
+.signup-container {
+  width: 400px;
+  max-width: 400px;
+  .sign-up-container {
+    @include fontWeight(400);
+    .sign-up-heading {
+      @include fontWeight(300);
+      span {
+        cursor: pointer;
+        font-size: 1.125rem;
+        @include fontWeight(400);
+      }
+    }
+  }
+}

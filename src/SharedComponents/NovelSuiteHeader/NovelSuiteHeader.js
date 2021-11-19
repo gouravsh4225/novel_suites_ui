@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import { useHistory } from "react-router-dom";
 import NovelLogImage from "../../assets/logo_novel.gif";
 import NovelSuitesButton from "../UI_Elements/NovelSuitesButton/NovelSuitesButton";
 import NovelSuiteHeaderNavList from "./NovelSuiteHeaderNavList";
 import NovelSuiteHeaderSideBar from "./NovelSuiteHeaderSideBar";
 import { SHOW_HEADER_HEIGHT } from "../../Constants/constant";
-import "./NovelSuiteHeader.scss";
 import NovelSuiteMobileHeader from "./NovelSuiteMobileHeader";
+import Login from "../../Pages/Login/Login";
+import BookNow from "../../Components/BookNow/BookNow";
+import "./NovelSuiteHeader.scss";
 
 const getNavigationMenu = () => {
   return [
@@ -19,6 +21,8 @@ const getNavigationMenu = () => {
 const NovelSuiteHeader = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isSideBarMenuOpen, setIsSideBarMenuOpen] = useState(false);
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isBookNowOpen, setIsBookNowOpen] = useState(false);
   useEffect(() => {
     window.addEventListener("scroll", () => {
       if (window.scrollY > SHOW_HEADER_HEIGHT) {
@@ -50,52 +54,73 @@ const NovelSuiteHeader = () => {
     setIsSideBarMenuOpen(!isSideBarMenuOpen);
   };
 
+  const openLoginHandler = () => {
+    setIsLoginOpen(true);
+  };
+
+  const closeLoginHandler = () => {
+    setIsLoginOpen(false);
+  };
+
+  const closeBookNowHandler = () => {
+    setIsBookNowOpen(false);
+  };
+
   return (
-    <header
-      className={`appheader-wrapper container  ${
-        isScrolled && "header-active"
-      }`}
-    >
-      <div className="mobile-navigation">
-        <NovelSuiteMobileHeader
-          onClick={showSideBarMenu}
-          isSideBarMenuOpen={isSideBarMenuOpen}
-        />
-        <div className={`${isSideBarMenuOpen && "mobile-naviagtion-list"}`}>
-          {isSideBarMenuOpen ? (
-            <>
-              <NovelSuiteHeaderSideBar
-                menuList={navigationMenu}
-                onClickListItem={onNaviagtionListItem}
-                onClikcedOutSide={showSideBarMenu}
-              />
-            </>
-          ) : null}
-        </div>
-      </div>
-      <a href="/" className="novel__logo">
-        <img src={NovelLogImage} alt="novel_log" className="appheader-logo" />
-        <span className="novel__logo--title">Novel Suites</span>
-      </a>
-      <div className="ml-auto app-nav-list-container">
-        <nav className="app-header-nav">
-          <NovelSuiteHeaderNavList
-            navigationMenu={navigationMenu}
-            onClick={onNaviagtionListItem}
+    <Fragment>
+      <Login isOpen={isLoginOpen} onClose={() => closeLoginHandler()} />
+      <BookNow isOpen={isBookNowOpen} onClose={() => closeBookNowHandler()} />
+
+      <header
+        className={`appheader-wrapper container  ${
+          isScrolled && "header-active"
+        }`}
+      >
+        <div className="mobile-navigation">
+          <NovelSuiteMobileHeader
+            onClick={showSideBarMenu}
+            isSideBarMenuOpen={isSideBarMenuOpen}
           />
-        </nav>
-        <NovelSuitesButton
-          type="button"
-          className="novel-button--primary ml-auto"
-          buttonLabel="Browse room"
-          onClick={() =>
-            navigateToPage({
-              navigationPageurl: "/browse-rooms",
-            })
-          }
-        />
-      </div>
-    </header>
+          <div className={`${isSideBarMenuOpen && "mobile-naviagtion-list"}`}>
+            {isSideBarMenuOpen ? (
+              <>
+                <NovelSuiteHeaderSideBar
+                  menuList={navigationMenu}
+                  onClickListItem={onNaviagtionListItem}
+                  onClikcedOutSide={showSideBarMenu}
+                />
+              </>
+            ) : null}
+          </div>
+        </div>
+        <a href="/" className="novel__logo">
+          <img src={NovelLogImage} alt="novel_log" className="appheader-logo" />
+          <span className="novel__logo--title">Novel Suites</span>
+        </a>
+        <div className="ml-auto app-nav-list-container">
+          <nav className="app-header-nav">
+            <NovelSuiteHeaderNavList
+              navigationMenu={navigationMenu}
+              onClick={onNaviagtionListItem}
+            />
+          </nav>
+          <div>
+            <NovelSuitesButton
+              buttonLabel="Login"
+              type="button"
+              className="novel-button--secondary-text mr-1"
+              onClick={() => openLoginHandler()}
+            />
+            <NovelSuitesButton
+              type="button"
+              className="novel-button--primary"
+              buttonLabel="Book Room"
+              onClick={() => setIsBookNowOpen(true)}
+            />
+          </div>
+        </div>
+      </header>
+    </Fragment>
   );
 };
 

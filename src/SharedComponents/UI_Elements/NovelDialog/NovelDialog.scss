@@ -1,0 +1,83 @@
+@import "../../../GlobalStyles/maxins";
+.novel-suites-modal-root {
+  --padding: 1rem;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  @include novelTransitionDefault(500ms);
+  .novel-suites-modal-overlay {
+    background: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    @include novelTransitionDefault(500ms);
+  }
+  .novel-suites-modal-container {
+    height: 100%;
+    outline: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align: center;
+  }
+  /* Used to trick the browser to center the modal content properly  */
+  .novel-suites-modal-containerCenter:after {
+    width: 0;
+    height: 100%;
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .novel-suites-modal-modal {
+    --padding: 0px;
+    max-width: 800px;
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+    background: #ffffff;
+    box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.25);
+    margin: 1.2rem;
+    padding: var(--padding);
+    position: relative;
+    overflow-y: auto;
+    border-radius: 8px;
+  }
+  .novel__dialog-header {
+    --padding: 1rem;
+    @include displayType(flex);
+    @include flexAlignItem(center);
+    padding: var(--padding);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+    .novel__dialog-header-heading {
+      @include fontWeight(500);
+      font-size: 1.15rem;
+    }
+    .novel__dialog-header-close {
+      @include displayType(flex);
+      @include flexJustifyContent(center);
+      @include flexAlignItem(center);
+      margin-left: auto;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      background-color: black;
+      color: white;
+      cursor: pointer;
+    }
+  }
+  .novel__dialog-content {
+    --padding: 1rem;
+    padding: var(--padding);
+  }
+  .novel__dialog-footer {
+    --padding: 1rem;
+    padding: 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.25);
+  }
+}

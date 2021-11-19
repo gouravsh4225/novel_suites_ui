@@ -30,7 +30,7 @@ const NovelFooter = () => {
                   rel="noreferrer"
                   className="social-icon-item text-decoration-none"
                 >
-                  <i class="fa fa-facebook" aria-hidden="true"></i>
+                  <i className="fa fa-facebook" aria-hidden="true"></i>
                 </a>
                 <a
                   href="https://twitter.com/"
@@ -39,7 +39,7 @@ const NovelFooter = () => {
                   rel="noreferrer"
                   className="social-icon-item text-decoration-none"
                 >
-                  <i class="fa fa-twitter" aria-hidden="true"></i>
+                  <i className="fa fa-twitter" aria-hidden="true"></i>
                 </a>
                 <a
                   href="https://www.instagram.com/"
@@ -48,7 +48,7 @@ const NovelFooter = () => {
                   rel="noreferrer"
                   className="social-icon-item text-decoration-none"
                 >
-                  <i class="fa fa-instagram" aria-hidden="true"></i>
+                  <i className="fa fa-instagram" aria-hidden="true"></i>
                 </a>
               </div>
             </div>

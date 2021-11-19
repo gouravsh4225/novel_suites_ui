@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import WorkUnderProcess from "../../Components/WorkUnderProcess/WorkUnderProcess";
 import NovelSuitesButton from "../../SharedComponents/UI_Elements/NovelSuitesButton/NovelSuitesButton";
+import {
+  loadRazorPayScript,
+  RazorPayPaymentOptions,
+} from "../../Utils/RazorPayUtils";
 import "./NovelRooms.scss";
 
 const getAllRooms = () => {
@@ -54,14 +58,27 @@ const getAllRooms = () => {
 
 const NovelRooms = () => {
   const [roomsList] = useState(getAllRooms());
-
-  const onSeeMoreInformation = (e, roomSelected) => {
+  const onSeeMoreInformationHandler = (e, roomSelected) => {
     console.log("hey-->", roomSelected);
-    alert("Work Under Process");
   };
 
-  console.log(roomsList, "roomlist");
-
+  const onBookRoomHandler = (e, roomSelected) => {
+    loadRazorPayScript().then((res) => {
+      if (!res) {
+        alert("RazorPay script SDK load to failed");
+        return;
+      }
+      const paymentOptions = RazorPayPaymentOptions(
+        (50 * 100).toString(),
+        "INR",
+        roomSelected.roomTypelabel,
+        roomSelected.roomTypeDesc,
+        "order_IJco9gAnzq38kI"
+      );
+      const razorpayPaymentObject = new window.Razorpay(paymentOptions);
+      razorpayPaymentObject.open();
+    });
+  };
   return (
     <div className="novel-room-wrapper">
       <div className="container">
@@ -90,7 +107,7 @@ const NovelRooms = () => {
                     <h6>From</h6>
                     <h4 className="from-price-text">
                       <span className="from-price-icon">
-                        <i class="fa fa-inr" aria-hidden="true"></i>
+                        <i className="fa fa-inr" aria-hidden="true"></i>
                       </span>
                       <span>
                         {room.roomPrice}
@@ -101,14 +118,14 @@ const NovelRooms = () => {
                   <div className="novel-room-beds-guest">
                     <div className="novel-room-guests text-center">
                       <span>
-                        <i class="fa fa-users" aria-hidden="true"></i>
+                        <i className="fa fa-users" aria-hidden="true"></i>
                         <div>{room.roomGuests}</div>
                         <div>Guests</div>
                       </span>
                     </div>
                     <div className="novel-room-beds text-center">
                       <span>
-                        <i class="fa fa-bed" aria-hidden="true"></i>
+                        <i className="fa fa-bed" aria-hidden="true"></i>
 
                         <div>{room.kingBeds}</div>
                         <div>Beds</div>
@@ -116,11 +133,16 @@ const NovelRooms = () => {
                     </div>
                   </div>
                 </div>
-                <div className="mt-1">
+                <div className="mt-1 grid-container grid-gap-1 novel-rooms-buttons">
+                  <NovelSuitesButton
+                    buttonLabel="Book Now"
+                    onClick={(e) => onBookRoomHandler(e, room)}
+                    className="novel-button--primary "
+                  />
                   <NovelSuitesButton
                     buttonLabel="More Information"
-                    onClick={(e) => onSeeMoreInformation(e, room)}
-                    className="novel-button--secondary-text novel-button--large"
+                    onClick={(e) => onSeeMoreInformationHandler(e, room)}
+                    className="novel-button--secondary-text"
                   />
                 </div>
               </div>

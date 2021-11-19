@@ -8,7 +8,9 @@
 @mixin flexJustifyContent($type: center) {
   justify-content: $type;
 }
-
+@mixin flexAlignItem($type: center) {
+  align-items: $type;
+}
 @mixin novelTransitionDefault($duration: 500ms) {
   transition: $duration all ease-in-out;
 }
@@ -41,6 +43,19 @@
 @mixin displayType($type: block) {
   display: $type;
 }
+/*
+Skeleton mixing start
+*/
+
+@mixin skeletonRelHiddenBg {
+  background: #656871;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+/**
+Skeleton mixing end
+*/
 
 /* Media query mixing start here */
 $mobile-width: 576px;
