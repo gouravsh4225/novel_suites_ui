@@ -1,10 +1,84 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import NovelDialog from "../../SharedComponents/UI_Elements/NovelDialog/NovelDialog";
+import NovelSuiteSelect from "../../SharedComponents/UI_Elements/NovelSuiteSelect/NovelSuiteSelect";
+import { getAllLocation } from "../../Services/Location/LocationService";
 import "./BookNow";
 
+const getAllLocationData = () => {
+  return [
+    {
+      location_id: 1,
+      location_hotel_name: "Novel Suites",
+      location_short_address: "DWARKA, DELHI",
+      location_full_address:
+        "PLOT - 339, BLOCK B, SEC - 19, DWARKA, NEW DELHI - 110075",
+      contact_details: {
+        email_address: "novelsuites@gmail.com",
+        phone_number: "+918383019368",
+      },
+      location_address_imageurl:
+        "https://res.cloudinary.com/arbor1221/image/upload/v1498121225/Consulting_Advisory_Professional_services_2_ikqokw.jpg",
+      location_room_type: [
+        {
+          type: "Deluxe",
+          facilities: [],
+          price: 2000,
+          no_of_rooms: 10,
+          id: "22",
+        },
+      ],
+    },
+    {
+      location_id: 2,
+      location_hotel_name: "Novel Suites",
+      location_short_address: "KARNAL, Harayan",
+      location_full_address:
+        "PLOT - 339, BLOCK B, SEC - 19, DWARKA, NEW DELHI - 110075",
+      contact_details: {
+        email_address: "novelsuites@gmail.com",
+        phone_number: "+918383019368",
+      },
+      location_address_imageurl:
+        "https://res.cloudinary.com/arbor1221/image/upload/v1498121225/Consulting_Advisory_Professional_services_2_ikqokw.jpg",
+      location_room_type: [
+        {
+          type: "Deluxe",
+          facilities: [],
+          price: 2000,
+          no_of_rooms: 10,
+          id: "22",
+        },
+      ],
+    },
+  ];
+};
+
 const BookNow = ({ isOpen, onClose }) => {
+  const [locationList, setLocationList] = useState(getAllLocationData());
+  const [selectedLocation, setSelectedLocation] = useState("");
+  useEffect(() => {
+    if (isOpen) {
+      // getAllLocationDetails();
+    }
+  }, [isOpen]);
+
+  const getAllLocationDetails = () => {
+    getAllLocation()
+      .then((res) => {
+        setLocationList(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   const onBookNowSubmit = (event) => {
     event.preventDefault();
+  };
+
+  const onChangeLocation = (value) => {
+    console.log(value, "value in component");
+    setSelectedLocation(value);
   };
 
   return (
@@ -13,69 +87,17 @@ const BookNow = ({ isOpen, onClose }) => {
         <NovelDialog.Header headerHeading="Book Now" onCloseHandler={onClose} />
         <NovelDialog.Content>
           <div className="book-now-container">
-            <section className="book-header">
-              <div className="book-direct-logo"></div>
-              <div className="book-direct-heading">
-                <h3>
-                  Incididunt aute deserunt aute sint do Lorem consectetur
-                  pariatur ut. Enim proident ex excepteur ea labore incididunt
-                  ullamco. Occaecat proident anim eu anim Lorem culpa. Anim
-                  mollit ad occaecat qui nostrud laborum sit proident commodo ut
-                  nulla anim. Sit cillum velit enim eiusmod nostrud culpa enim
-                  id fugiat ullamco nulla. Fugiat cupidatat culpa cupidatat
-                  irure pariatur laborum sunt mollit incididunt est. Nostrud
-                  anim cillum minim velit sint non. Id irure tempor enim Lorem
-                  amet aliquip ullamco eu veniam ex. Magna irure velit minim
-                  aliquip anim fugiat laborum enim proident. Minim consectetur
-                  non duis dolore nostrud cillum incididunt anim ex et nulla
-                  amet. Lorem cupidatat duis reprehenderit velit veniam
-                  consectetur ipsum anim magna commodo. Eiusmod ullamco
-                  excepteur dolor sint et proident est laborum irure mollit in.
-                  Pariatur ipsum qui aliqua elit aute occaecat officia
-                  consectetur non enim. Duis nisi aliquip cupidatat id
-                  cupidatat. Deserunt enim aliquip enim ullamco non pariatur
-                  laboris culpa. Cillum adipisicing ipsum ullamco tempor sunt
-                  laborum consequat incididunt qui reprehenderit sunt
-                  reprehenderit officia. Esse dolor eiusmod Lorem cupidatat nisi
-                  elit culpa pariatur. Sit Lorem ipsum ullamco occaecat amet ea
-                  culpa. Irure culpa occaecat elit incididunt in culpa quis
-                  consequat pariatur minim dolore. Minim proident ad sit
-                  proident ullamco mollit excepteur commodo in laborum qui. Non
-                  aliquip commodo ullamco anim nulla incididunt deserunt est
-                  adipisicing. Nulla laborum nisi consectetur excepteur laboris
-                  ullamco id ex esse. Aliquip laboris laboris elit labore dolor
-                  commodo consectetur consequat cupidatat magna ullamco cillum.
-                  Eu culpa do deserunt ut laboris proident deserunt. Eu ipsum
-                  ipsum consectetur exercitation incididunt nisi. Lorem veniam
-                  nisi elit esse cillum culpa exercitation labore ea ut ullamco
-                  esse est. Do et est commodo reprehenderit aliqua aliqua.
-                  Nostrud elit est nisi pariatur velit elit pariatur adipisicing
-                  incididunt ea non. Eu culpa ex consequat labore. Ad consequat
-                  duis anim amet consectetur nisi. Excepteur laborum enim sunt
-                  enim. Adipisicing eiusmod dolor consequat veniam. Do in
-                  consectetur duis magna non consectetur. Mollit ut exercitation
-                  eu excepteur ut laborum tempor labore sint ea irure. Sit id
-                  aute proident esse. Cillum laboris est ea reprehenderit
-                  officia nisi non ad laboris. Dolor excepteur tempor do mollit
-                  aliqua officia duis eiusmod amet Lorem cupidatat nulla.
-                  Occaecat velit laboris ipsum amet ex tempor aliqua sint
-                  adipisicing. Sit consequat ad duis qui. Cupidatat veniam ipsum
-                  anim dolore cupidatat et non ipsum exercitation nisi aliqua.
-                  Sint exercitation ipsum ex deserunt. Culpa dolor elit cillum
-                  aliqua laboris. Nisi deserunt et laboris sint commodo id.
-                  Adipisicing veniam nulla enim id pariatur culpa exercitation.
-                  Ut adipisicing minim nostrud sunt officia cupidatat ullamco
-                  sit veniam. Ad quis nostrud adipisicing quis reprehenderit
-                  nostrud laboris dolor in eiusmod sint. Mollit aliquip Lorem
-                  enim Lorem sint labore laboris. Ut occaecat velit ea
-                  consectetur non labore dolor cillum mollit sint. Sint pariatur
-                  eiusmod enim nostrud officia commodo. Dolor irure ut ad
-                  laborum amet laborum sunt deserunt eiusmod. Minim et ad eu
-                  nulla consectetur tempor consequat aliqua pariatur.
-                </h3>
-              </div>
-            </section>
-            <form onSubmit={onBookNowSubmit}></form>
+            <form onSubmit={onBookNowSubmit}>
+              <NovelSuiteSelect
+                items={locationList}
+                value={selectedLocation}
+                label="Please select one"
+                keyId="location_id"
+                keyValue="location_short_address"
+                keyLabel="location_short_address"
+                onChange={onChangeLocation}
+              />
+            </form>
           </div>
         </NovelDialog.Content>
         <NovelDialog.Footer>
