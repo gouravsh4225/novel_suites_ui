@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { useHistory } from "react-router-dom";
 import NovelLogImage from "../../assets/logo_novel.gif";
-import NovelSuitesButton from "../UI_Elements/NovelSuitesButton/NovelSuitesButton";
+import NovelSuitesButton from "../../UI_Library/NovelSuitesButton/NovelSuitesButton";
 import NovelSuiteHeaderNavList from "./NovelSuiteHeaderNavList";
 import NovelSuiteHeaderSideBar from "./NovelSuiteHeaderSideBar";
 import { SHOW_HEADER_HEIGHT } from "../../Constants/constant";

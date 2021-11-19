@@ -1,10 +1,10 @@
 import React, { Fragment, useState } from "react";
-import NovelDialog from "../../SharedComponents/UI_Elements/NovelDialog/NovelDialog";
-import NovelSuitesInput from "../../SharedComponents/UI_Elements/NovelSuitesInput/NovelSuitesInput";
-import NovelSuitesButton from "../../SharedComponents/UI_Elements/NovelSuitesButton/NovelSuitesButton";
+import NovelDialog from "../../UI_Library/NovelDialog/NovelDialog";
+import NovelSuitesInput from "../../UI_Library/NovelSuitesInput/NovelSuitesInput";
+import NovelSuitesButton from "../../UI_Library/NovelSuitesButton/NovelSuitesButton";
+import NovelLoader from "../../UI_Library/NovelLoader/NovelLoader";
 import AuthService from "../../Services/AuthService/AuthService";
 import CommonUtlis from "../../Utils/CommonUtlis";
-import NovelLoader from "../../SharedComponents/NovelLoader/NovelLoader";
 import "./Login.scss";
 
 const Login = ({ isOpen, onClose }) => {

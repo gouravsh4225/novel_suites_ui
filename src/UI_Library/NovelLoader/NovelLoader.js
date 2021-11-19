@@ -1,5 +1,5 @@
 import React, { Fragment, useCallback, useEffect } from "react";
-import UIElementHelper from "../UI_Elements/UI_Element_helpers";
+import UIElementHelper from "../../UI_Library/UI_Element_helpers";
 import "./NovelLoader.scss";
 
 const NovelLoader = ({ isOpen, className }) => {

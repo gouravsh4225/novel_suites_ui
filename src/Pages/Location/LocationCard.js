@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import NovelSuitesButton from "../../SharedComponents/UI_Elements/NovelSuitesButton/NovelSuitesButton";
+import NovelSuitesButton from "../../UI_Library/NovelSuitesButton/NovelSuitesButton";
 
 import "./Location.scss";
 

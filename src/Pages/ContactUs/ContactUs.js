@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import NovelSuitesInput from "../../SharedComponents/UI_Elements/NovelSuitesInput/NovelSuitesInput";
-import NovelSuitesTextarea from "../../SharedComponents/UI_Elements/NovelSuitesTextarea/NovelSuitesTextarea";
-import NovelSuitesButton from "../../SharedComponents/UI_Elements/NovelSuitesButton/NovelSuitesButton";
+import NovelSuitesInput from "../../UI_Library/NovelSuitesInput/NovelSuitesInput";
+import NovelSuitesTextarea from "../../UI_Library/NovelSuitesTextarea/NovelSuitesTextarea";
+import NovelSuitesButton from "../../UI_Library/NovelSuitesButton/NovelSuitesButton";
 import "./ContactUs.scss";
 
 const ContactUs = () => {

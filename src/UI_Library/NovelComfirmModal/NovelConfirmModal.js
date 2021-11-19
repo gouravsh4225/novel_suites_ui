@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
-import NovelDialog from "../NovelDialog/NovelDialog";
-import NovelSuitesButton from "../NovelSuitesButton/NovelSuitesButton";
+import NovelDialog from "../UI_Elements/NovelDialog/NovelDialog";
+import NovelSuitesButton from "../UI_Elements/NovelSuitesButton/NovelSuitesButton";
 import "./NovelConfirmModal.scss";
 
 const NOVELCOMFIRMTYPES = ["error", "success", "info", "warning", "default"];

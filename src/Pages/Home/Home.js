@@ -1,6 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router";
-import NovelSuitesButton from "../../SharedComponents/UI_Elements/NovelSuitesButton/NovelSuitesButton";
+import NovelSuitesButton from "../../UI_Library/NovelSuitesButton/NovelSuitesButton";
 import WorkUnderProcess from "../../Components/WorkUnderProcess/WorkUnderProcess";
 import "./Home.scss";
 

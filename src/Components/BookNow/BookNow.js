@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react";
-import NovelDialog from "../../SharedComponents/UI_Elements/NovelDialog/NovelDialog";
-import NovelSuiteSelect from "../../SharedComponents/UI_Elements/NovelSuiteSelect/NovelSuiteSelect";
+import NovelDialog from "../../UI_Library/NovelDialog/NovelDialog";
+import NovelSuiteSelect from "../../UI_Library/NovelSuiteSelect/NovelSuiteSelect";
 import { getAllLocation } from "../../Services/Location/LocationService";
 import "./BookNow";
 

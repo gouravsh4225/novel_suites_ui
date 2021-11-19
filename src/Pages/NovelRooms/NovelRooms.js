@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import WorkUnderProcess from "../../Components/WorkUnderProcess/WorkUnderProcess";
-import NovelSuitesButton from "../../SharedComponents/UI_Elements/NovelSuitesButton/NovelSuitesButton";
+import NovelSuitesButton from "../../UI_Library/NovelSuitesButton/NovelSuitesButton";
 import {
   loadRazorPayScript,
   RazorPayPaymentOptions,
