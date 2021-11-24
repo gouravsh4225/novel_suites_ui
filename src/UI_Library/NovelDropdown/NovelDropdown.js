@@ -1,8 +1,15 @@
-import React, { useState, useEffect, useRef, Fragment } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  Fragment,
+  useCallback,
+} from "react";
 import UIElementHelper from "../UI_Element_helpers";
 import OutSideClicked from "../../SharedComponents/OutSideClicked/OutSideClicked";
 import "./NovelDropdown.scss";
 import NovelSuitesLabel from "../NovelSuitesLabel/NovelSuitesLabel";
+import NovelBackDrop from "../NovelBackDrop/NovelBackDrop";
 
 const addAllSelectCssClasses = (initialClass, propsClass) => {
   return UIElementHelper.getllClasses(initialClass, propsClass);
@@ -20,7 +27,6 @@ const NovelDropdownItems = ({
 }) => {
   const createAllCssClass = (listItem) => {
     if (selectValue) {
-      console.log(selectValue, "--in list item");
       if (selectValue.toUpperCase() === listItem[keyLabel].toUpperCase()) {
         return addAllSelectCssClasses(
           "novel-dd-item",
@@ -122,10 +128,20 @@ const NovelDropdown = ({
     setIsOpenList(false);
   };
 
+  const getParentWidth = useCallback(() => {
+    const rootListElement = document.getElementById("ul-list");
+    if (rootListElement) {
+      return {
+        width: `${rootListElement.offsetWidth}px`,
+      };
+    }
+  }, [isOpenList]);
+
   return (
     <div
       className={addAllSelectCssClasses("novel-dd-root", className)}
       tabIndex="0"
+      id="ul-list"
     >
       <NovelSuitesLabel
         labelName={label}
@@ -138,7 +154,7 @@ const NovelDropdown = ({
         </span>
         {selectValue ? (
           <span
-            className="novel-dd-toggle-icon fa fa-times-circle"
+            className="novel-dd-toggle-icon fa fa-times-circle clear-value"
             aria-hidden="true"
             onClick={onResetValue}
           ></span>
@@ -149,6 +165,7 @@ const NovelDropdown = ({
           isOpenList={isOpenList}
         />
       </div>
+      {isOpenList ? <NovelBackDrop className="bg-transparent" /> : null}
       <ul
         className={addAllSelectCssClasses(
           "novel-dd-list",
@@ -156,6 +173,7 @@ const NovelDropdown = ({
         )}
         role="list"
         tabIndex="0"
+        style={getParentWidth()}
       >
         {isOpenList ? (
           <OutSideClicked onClikcedOutSide={onClickOutSideHandler}>

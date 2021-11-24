@@ -1,8 +1,10 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect, useCallback } from "react";
 import NovelDialog from "../../UI_Library/NovelDialog/NovelDialog";
 import NovelDropdown from "../../UI_Library/NovelDropdown/NovelDropdown";
 import { getAllLocation } from "../../Services/Location/LocationService";
 import "./BookNow.scss";
+import NovelSuitesInput from "../../UI_Library/NovelSuitesInput/NovelSuitesInput";
+import NovelSuitesButton from "../../UI_Library/NovelSuitesButton/NovelSuitesButton";
 
 const getAllLocationData = () => {
   return [
@@ -53,10 +55,29 @@ const getAllLocationData = () => {
   ];
 };
 
+const BookFormInitalData = () => {
+  return {
+    location: {
+      value: "",
+      errorText: "",
+    },
+    start_date: {
+      value: "",
+      errorText: "",
+    },
+    end_date: {
+      value: "",
+      errorText: "",
+    },
+  };
+};
+
 const BookNow = ({ isOpen, onClose }) => {
   const [locationList, setLocationList] = useState(getAllLocationData());
-  const [selectedLocation, setSelectedLocation] = useState("");
+  const [bookFormInput, setBookFormInput] = useState({});
+
   useEffect(() => {
+    setBookFormInput(BookFormInitalData());
     if (isOpen) {
       // getAllLocationDetails();
     }
@@ -74,12 +95,46 @@ const BookNow = ({ isOpen, onClose }) => {
 
   const onBookNowSubmit = (event) => {
     event.preventDefault();
+    console.log(bookFormInput);
   };
 
-  const onChangeLocation = (value) => {
-    console.log(value, "value in component");
-    setSelectedLocation(value);
+  const onChangeLocation = (event, value) => {
+    const { location } = bookFormInput;
+    location.value = value?.location_short_address;
+    setBookFormInput({
+      ...bookFormInput,
+      location,
+    });
   };
+
+  const onChangeStartDateHandler = (event) => {
+    const { value } = event.target;
+    const { start_date } = bookFormInput;
+    start_date.value = value;
+    setBookFormInput({
+      ...bookFormInput,
+      start_date,
+    });
+  };
+
+  const onChangeEndDateHandler = (event) => {
+    const { value } = event.target;
+    const { end_date } = bookFormInput;
+    end_date.value = value;
+    setBookFormInput({
+      ...bookFormInput,
+      end_date,
+    });
+  };
+
+  const checkBookFormValid = useCallback(() => {
+    const { location, start_date, end_date } = bookFormInput;
+    return !![location, start_date, end_date].some(
+      (items) => items && items.value && !items.value
+    );
+  }, [bookFormInput]);
+
+  const { location, start_date, end_date } = bookFormInput;
 
   return (
     <Fragment>
@@ -90,13 +145,41 @@ const BookNow = ({ isOpen, onClose }) => {
             <form onSubmit={onBookNowSubmit}>
               <NovelDropdown
                 items={locationList}
-                value={selectedLocation}
+                value={location?.value ? location?.value : ""}
                 placeholder="Please select one"
                 label="Location"
                 keyId="location_id"
                 keyValue="location_short_address"
                 keyLabel="location_short_address"
                 onChange={onChangeLocation}
+              />
+              <div className="book-form-group mt-1">
+                <NovelSuitesInput
+                  type="date"
+                  inputLabel="Start Date"
+                  inputLabelClasses="fw-bold"
+                  errorText="Start date is required"
+                  onChange={onChangeStartDateHandler}
+                  min="2021-11-24"
+                  max="2021-12-24"
+                  value={start_date?.value ? start_date?.value : ""}
+                />
+                <NovelSuitesInput
+                  type="date"
+                  inputLabel="End Date"
+                  inputLabelClasses="fw-bold"
+                  errorText="End date is required"
+                  min={new Date()}
+                  onChange={onChangeEndDateHandler}
+                  value={end_date?.value ? end_date.value : ""}
+                />
+              </div>
+              <NovelSuitesButton
+                type="submit"
+                onClick={onBookNowSubmit}
+                buttonLabel="Check Availablity"
+                disabled={checkBookFormValid()}
+                className="novel-button--primary novel-button--block mt-1"
               />
             </form>
           </div>

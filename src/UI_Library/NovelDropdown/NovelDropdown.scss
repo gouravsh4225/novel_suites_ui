@@ -24,7 +24,7 @@
     margin-top: 0.2em;
   }
   .novel-dd-title {
-    width: 28em;
+    width: inherit;
     max-width: 28em;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -34,9 +34,15 @@
     cursor: pointer;
     font-weight: 600;
     @include novelTransitionDefault(800ms);
+    &.clear-value {
+      margin-right: 0.7em;
+    }
   }
   .novel-dd-list {
-    max-height: 0;
+    position: fixed;
+    top: auto;
+    bottom: auto;
+    height: 0;
     margin-top: 0.2em;
     background-color: white;
     width: 100%;
@@ -47,9 +53,10 @@
     min-height: 0;
     overflow-y: auto;
     height: 0;
+    z-index: 99999;
     &--hide {
       height: 0;
-      max-height: 0;
+      // max-height: 0;
       @include novelTransitionDefault(max-height, 200ms, ease-out);
     }
     &--show {

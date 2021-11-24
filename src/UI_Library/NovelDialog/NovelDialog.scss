@@ -47,6 +47,10 @@
     position: relative;
     overflow-y: auto;
     border-radius: 8px;
+    @include mobileMedia() {
+      width: 90%;
+      max-width: 90%;
+    }
   }
   .novel__dialog-header {
     --padding: 1rem;
