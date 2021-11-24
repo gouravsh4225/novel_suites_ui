@@ -3,12 +3,26 @@ import UIElementHelper from "../UI_Element_helpers";
 import "./NovelSuitesLabel.scss";
 
 const NovelSuitesLabel = (props) => {
-  const { labelName, children, type, className, style, htmlFor, ...rest } =
-    props;
+  const {
+    labelName,
+    children,
+    type,
+    className,
+    style,
+    htmlFor,
+    isCenter,
+    ...rest
+  } = props;
 
   const getAllLabelClass = () => {
     const typeClass = type ? getLabelType() : "";
-    return UIElementHelper.getllClasses("novel-label", typeClass, className);
+    const textCenter = isCenter ? "text-center" : "text-left";
+    return UIElementHelper.getllClasses(
+      "novel-label",
+      typeClass,
+      textCenter,
+      className
+    );
   };
 
   /**

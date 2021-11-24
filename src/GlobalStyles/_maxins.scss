@@ -11,8 +11,18 @@
 @mixin flexAlignItem($type: center) {
   align-items: $type;
 }
-@mixin novelTransitionDefault($duration: 500ms) {
-  transition: $duration all ease-in-out;
+
+@mixin novelTransitionDefault(
+  $transitionProp: null,
+  $duration: 500ms,
+  $transitionType: ease-in-out
+) {
+  $transtion: if($transitionType, $transitionType, ease-in-out);
+  @if $transitionProp {
+    transition: $transitionProp $duration $transtion;
+  } @else {
+    transition: $duration all $transtion;
+  }
 }
 
 @mixin gridContainerMinWidth($width: 450px) {

@@ -1,8 +1,8 @@
 import React, { Fragment, useState, useEffect } from "react";
 import NovelDialog from "../../UI_Library/NovelDialog/NovelDialog";
-import NovelSuiteSelect from "../../UI_Library/NovelSuiteSelect/NovelSuiteSelect";
+import NovelDropdown from "../../UI_Library/NovelDropdown/NovelDropdown";
 import { getAllLocation } from "../../Services/Location/LocationService";
-import "./BookNow";
+import "./BookNow.scss";
 
 const getAllLocationData = () => {
   return [
@@ -86,12 +86,13 @@ const BookNow = ({ isOpen, onClose }) => {
       <NovelDialog onEscKeyClose={onClose} isOpen={isOpen}>
         <NovelDialog.Header headerHeading="Book Now" onCloseHandler={onClose} />
         <NovelDialog.Content>
-          <div className="book-now-container">
+          <div className="book-container">
             <form onSubmit={onBookNowSubmit}>
-              <NovelSuiteSelect
+              <NovelDropdown
                 items={locationList}
                 value={selectedLocation}
-                label="Please select one"
+                placeholder="Please select one"
+                label="Location"
                 keyId="location_id"
                 keyValue="location_short_address"
                 keyLabel="location_short_address"
@@ -100,9 +101,6 @@ const BookNow = ({ isOpen, onClose }) => {
             </form>
           </div>
         </NovelDialog.Content>
-        <NovelDialog.Footer>
-          <div>fnksnfkj</div>
-        </NovelDialog.Footer>
       </NovelDialog>
     </Fragment>
   );
