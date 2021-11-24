@@ -1,0 +1,23 @@
+@import "../../GlobalStyles/maxins";
+.novel-spinner-root {
+  @include flexLayoutWithAlignCenter();
+  @include flexJustifyContent(center);
+  .novel-spinner-loader {
+    border: 3px solid #ddd;
+    border-radius: 50%;
+    border-top: 5px solid black;
+    width: 50px;
+    height: 50px;
+    -webkit-animation: spin 0.7s linear infinite; /* Safari */
+    animation: spin 0.7s linear infinite;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

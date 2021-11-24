@@ -10,6 +10,7 @@ import OutSideClicked from "../../SharedComponents/OutSideClicked/OutSideClicked
 import "./NovelDropdown.scss";
 import NovelSuitesLabel from "../NovelSuitesLabel/NovelSuitesLabel";
 import NovelBackDrop from "../NovelBackDrop/NovelBackDrop";
+import NovelSpinnerLoader from "../NovelSpinnerLoader/NovelSpinnerLoader";
 
 const addAllSelectCssClasses = (initialClass, propsClass) => {
   return UIElementHelper.getllClasses(initialClass, propsClass);
@@ -24,6 +25,7 @@ const NovelDropdownItems = ({
   openItems,
   className,
   selectValue,
+  isLoading,
 }) => {
   const createAllCssClass = (listItem) => {
     if (selectValue) {
@@ -39,19 +41,25 @@ const NovelDropdownItems = ({
   };
   return (
     <Fragment>
-      {items.map((item) => (
-        <li
-          className={createAllCssClass(item)}
-          value={item[keyLabel]}
-          key={item[keyId]}
-          onClick={(e) => onClickItem(e, item[keyLabel])}
-          onKeyPress={(e) => onClickItem(e, item[keyLabel])}
-          role="listitem"
-          tabIndex="0"
-        >
-          {item[keyLabel]}
+      {isLoading ? (
+        <li className={addAllSelectCssClasses("p-1", className)}>
+          <NovelSpinnerLoader />
         </li>
-      ))}
+      ) : null}
+      {!isLoading &&
+        items.map((item) => (
+          <li
+            className={createAllCssClass(item)}
+            value={item[keyLabel]}
+            key={item[keyId]}
+            onClick={(e) => onClickItem(e, item[keyLabel])}
+            onKeyPress={(e) => onClickItem(e, item[keyLabel])}
+            role="listitem"
+            tabIndex="0"
+          >
+            {item[keyLabel]}
+          </li>
+        ))}
     </Fragment>
   );
 };
@@ -86,6 +94,7 @@ const NovelDropdown = ({
   value,
   keyLabel,
   label,
+  isLoading,
   ...rest
 }) => {
   const [isOpenList, setIsOpenList] = useState(false);
@@ -185,6 +194,7 @@ const NovelDropdown = ({
               onClickItem={onChangeSelectValue}
               openItems={isOpenList}
               selectValue={selectValue}
+              isLoading={isLoading}
             />
           </OutSideClicked>
         ) : null}

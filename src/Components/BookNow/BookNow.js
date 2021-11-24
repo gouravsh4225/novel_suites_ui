@@ -75,11 +75,12 @@ const BookFormInitalData = () => {
 const BookNow = ({ isOpen, onClose }) => {
   const [locationList, setLocationList] = useState(getAllLocationData());
   const [bookFormInput, setBookFormInput] = useState({});
+  const [loctionLoading, setLoctionLoading] = useState(true);
 
   useEffect(() => {
     setBookFormInput(BookFormInitalData());
     if (isOpen) {
-      // getAllLocationDetails();
+      getAllLocationDetails();
     }
   }, [isOpen]);
 
@@ -87,9 +88,11 @@ const BookNow = ({ isOpen, onClose }) => {
     getAllLocation()
       .then((res) => {
         setLocationList(res);
+        setLoctionLoading(false);
       })
       .catch((error) => {
         console.log(error);
+        setLoctionLoading(false);
       });
   };
 
@@ -152,6 +155,7 @@ const BookNow = ({ isOpen, onClose }) => {
                 keyValue="location_short_address"
                 keyLabel="location_short_address"
                 onChange={onChangeLocation}
+                isLoading={loctionLoading}
               />
               <div className="book-form-group mt-1">
                 <NovelSuitesInput
