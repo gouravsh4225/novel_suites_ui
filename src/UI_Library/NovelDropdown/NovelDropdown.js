@@ -127,7 +127,11 @@ const NovelDropdown = ({
       className={addAllSelectCssClasses("novel-dd-root", className)}
       tabIndex="0"
     >
-      <NovelSuitesLabel labelName={label} isCenter={false} />
+      <NovelSuitesLabel
+        labelName={label}
+        isCenter={false}
+        className="fw-bold"
+      />
       <div className="novel-dd-header">
         <span className="novel-dd-title" onClick={toggleDropDownListHandler}>
           {selectValue ? selectValue : placeholder}
