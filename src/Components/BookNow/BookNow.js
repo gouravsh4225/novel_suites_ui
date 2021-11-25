@@ -98,7 +98,91 @@ const BookNow = ({ isOpen, onClose }) => {
 
   const onBookNowSubmit = (event) => {
     event.preventDefault();
-    console.log(bookFormInput);
+    const { location, start_date, end_date } = bookFormInput;
+    let errorFields = validateBookValid();
+    let { isValid } = errorFields;
+    if (isValid) {
+      let checkAvailableJson = {
+        start_date: start_date.value,
+        end_date: end_date.value,
+        locationId: location.value,
+      };
+      console.log(checkAvailableJson, "==>");
+    } else {
+      let message = "";
+      for (const errorKey in errorFields) {
+        if (errorKey !== "isValid") {
+          message = `${message} ${errorFields[errorKey]}`;
+        }
+      }
+      alert(message);
+    }
+    console.log(errorFields);
+    // if (isValid) {
+    //   let checkAvailableJson = {
+    //     start_date,
+    //     end_date,
+    //     locationId: location.location_id,
+    //   };
+    //   console.log(checkAvailableJson, "==> checkAvailable");
+    // }
+  };
+
+  const validateBookValid = () => {
+    const { location, start_date, end_date } = bookFormInput;
+    let errorFields = {
+      isValid: false,
+      location: "",
+      start_date: "",
+      end_date: "",
+    };
+    if (!location.value && !start_date.value && !end_date.value) {
+      errorFields = {
+        location: "Location is Required",
+        start_date: "Start Date is Required",
+        end_date: "End Date is Required",
+        isValid: false,
+      };
+      return errorFields;
+    } else {
+      if (!location && !location.value) {
+        errorFields = {
+          ...errorFields,
+          isValid: false,
+          location: "Location is Required",
+        };
+        return errorFields;
+      }
+      if (start_date.value && end_date.value) {
+        let isValid = validateDates(start_date.value, end_date.value);
+        errorFields = {
+          isValid,
+        };
+        return errorFields;
+      } else {
+        errorFields = {
+          isValid: false,
+          start_date: "Start Date is Required",
+          end_date: "End Date is Required",
+        };
+
+        return errorFields;
+      }
+    }
+    return errorFields;
+  };
+
+  const validateDates = (start_date, end_date) => {
+    if (start_date && end_date) {
+      if (Date.parse(end_date) >= Date.parse(start_date)) {
+        return true;
+      } else {
+        alert("End Date should be equal or greater than start date");
+      }
+    } else {
+      alert("Start Date and End date are Required");
+      return false;
+    }
   };
 
   const onChangeLocation = (event, value) => {
