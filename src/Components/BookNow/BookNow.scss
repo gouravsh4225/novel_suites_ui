@@ -8,13 +8,12 @@
     max-width: 90%;
     margin: auto;
   }
-  .book-form-group {
+  .book-form-input {
     @include displayType(flex);
     justify-content: space-between;
     gap: 1em;
     @include mobileMedia() {
       flex-direction: column;
     }
-    // grid-template-columns: repeat(2, 1fr);
   }
 }

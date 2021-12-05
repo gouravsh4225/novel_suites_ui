@@ -1,21 +1,16 @@
-import APIUtlis from "../../Utils/APIUtlis";
+import { APIUtlis } from "../../Utils/APIUtlis";
 
 const getAllLocation = () => {
   return APIUtlis.getApi("locations")
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        throw new Error("Found Some Error");
-      }
-    })
-    .then((responseData) => {
-      let { data } = responseData;
-      return data;
-    })
-    .catch((error) => {
-      return error;
-    });
+    .then(APIUtlis.handleSuccessReponse)
+    .catch(APIUtlis.handleErrorResponse);
 };
 
-export { getAllLocation };
+const checkAvailablity = ({ locationId, start_date, end_date }) => {
+  const url = `rooms/check-room?${locationId}/${start_date}/${end_date}`;
+  return APIUtlis.getApi(url)
+    .then(APIUtlis.handleSuccessReponse)
+    .catch(APIUtlis.handleErrorResponse);
+};
+
+export { getAllLocation, checkAvailablity };

@@ -72,7 +72,7 @@ const NovelSuiteHeader = () => {
       <BookNow isOpen={isBookNowOpen} onClose={() => closeBookNowHandler()} />
 
       <header
-        className={`appheader-wrapper container  ${
+        className={`appheader-wrapper fluid-container  ${
           isScrolled && "header-active"
         }`}
       >

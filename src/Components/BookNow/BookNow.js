@@ -1,80 +1,38 @@
-import React, { Fragment, useState, useEffect, useCallback } from "react";
+import React, { Fragment, useState, useEffect, useMemo } from "react";
+import { useHistory } from "react-router";
 import NovelDialog from "../../UI_Library/NovelDialog/NovelDialog";
 import NovelDropdown from "../../UI_Library/NovelDropdown/NovelDropdown";
-import { getAllLocation } from "../../Services/Location/LocationService";
-import "./BookNow.scss";
+import {
+  getAllLocation,
+  checkAvailablity,
+} from "../../Services/Location/LocationService";
 import NovelSuitesInput from "../../UI_Library/NovelSuitesInput/NovelSuitesInput";
 import NovelSuitesButton from "../../UI_Library/NovelSuitesButton/NovelSuitesButton";
-
-const getAllLocationData = () => {
-  return [
-    {
-      location_id: 1,
-      location_hotel_name: "Novel Suites",
-      location_short_address: "DWARKA, DELHI",
-      location_full_address:
-        "PLOT - 339, BLOCK B, SEC - 19, DWARKA, NEW DELHI - 110075",
-      contact_details: {
-        email_address: "novelsuites@gmail.com",
-        phone_number: "+918383019368",
-      },
-      location_address_imageurl:
-        "https://res.cloudinary.com/arbor1221/image/upload/v1498121225/Consulting_Advisory_Professional_services_2_ikqokw.jpg",
-      location_room_type: [
-        {
-          type: "Deluxe",
-          facilities: [],
-          price: 2000,
-          no_of_rooms: 10,
-          id: "22",
-        },
-      ],
-    },
-    {
-      location_id: 2,
-      location_hotel_name: "Novel Suites",
-      location_short_address: "KARNAL, Harayan",
-      location_full_address:
-        "PLOT - 339, BLOCK B, SEC - 19, DWARKA, NEW DELHI - 110075",
-      contact_details: {
-        email_address: "novelsuites@gmail.com",
-        phone_number: "+918383019368",
-      },
-      location_address_imageurl:
-        "https://res.cloudinary.com/arbor1221/image/upload/v1498121225/Consulting_Advisory_Professional_services_2_ikqokw.jpg",
-      location_room_type: [
-        {
-          type: "Deluxe",
-          facilities: [],
-          price: 2000,
-          no_of_rooms: 10,
-          id: "22",
-        },
-      ],
-    },
-  ];
-};
+import NovelAlerts from "../../UI_Library/NovelAlerts/NovelAlerts";
+import "./BookNow.scss";
+import { NovelLoader } from "../../UI_Library/NovelLoader/NovelLoader";
 
 const BookFormInitalData = () => {
   return {
     location: {
       value: "",
-      errorText: "",
+      errorText: "Location is required",
     },
     start_date: {
       value: "",
-      errorText: "",
+      errorText: "Start Date is required",
     },
     end_date: {
       value: "",
-      errorText: "",
+      errorText: "End Date is required",
     },
   };
 };
 
 const BookNow = ({ isOpen, onClose }) => {
-  const [locationList, setLocationList] = useState(getAllLocationData());
-  const [bookFormInput, setBookFormInput] = useState({});
+  const bookComponentHistory = useHistory();
+  const [locationList, setLocationList] = useState([]);
+  const [bookFormInput, setBookFormInput] = useState(BookFormInitalData());
   const [loctionLoading, setLoctionLoading] = useState(true);
 
   useEffect(() => {
@@ -87,7 +45,9 @@ const BookNow = ({ isOpen, onClose }) => {
   const getAllLocationDetails = () => {
     getAllLocation()
       .then((res) => {
-        setLocationList(res);
+        let { data } = res.response;
+        const locationDataResponse = Array.isArray(data) ? data : [];
+        setLocationList(locationDataResponse);
         setLoctionLoading(false);
       })
       .catch((error) => {
@@ -99,95 +59,57 @@ const BookNow = ({ isOpen, onClose }) => {
   const onBookNowSubmit = (event) => {
     event.preventDefault();
     const { location, start_date, end_date } = bookFormInput;
-    let errorFields = validateBookValid();
-    let { isValid } = errorFields;
-    if (isValid) {
+    let datesValidateObject = validateDates(start_date.value, end_date.value);
+    let { hasTrueValue, message } = datesValidateObject;
+    if (hasTrueValue) {
+      NovelLoader.show();
       let checkAvailableJson = {
         start_date: start_date.value,
         end_date: end_date.value,
-        locationId: location.value,
+        locationId: location.value._id,
       };
+      checkAvailablity(checkAvailableJson)
+        .then((response) => {
+          NovelLoader.hide();
+          onClose();
+          if (response) {
+            console.log("in response");
+            bookComponentHistory.push(`/location/${location.value._id}/rooms`);
+          }
+        })
+        .catch((error) => console.log(error));
       console.log(checkAvailableJson, "==>");
     } else {
-      let message = "";
-      for (const errorKey in errorFields) {
-        if (errorKey !== "isValid") {
-          message = `${message} ${errorFields[errorKey]}`;
-        }
-      }
-      alert(message);
+      NovelAlerts.error(message, {
+        autoDelete: true,
+      });
     }
-    console.log(errorFields);
-    // if (isValid) {
-    //   let checkAvailableJson = {
-    //     start_date,
-    //     end_date,
-    //     locationId: location.location_id,
-    //   };
-    //   console.log(checkAvailableJson, "==> checkAvailable");
-    // }
-  };
-
-  const validateBookValid = () => {
-    const { location, start_date, end_date } = bookFormInput;
-    let errorFields = {
-      isValid: false,
-      location: "",
-      start_date: "",
-      end_date: "",
-    };
-    if (!location.value && !start_date.value && !end_date.value) {
-      errorFields = {
-        location: "Location is Required",
-        start_date: "Start Date is Required",
-        end_date: "End Date is Required",
-        isValid: false,
-      };
-      return errorFields;
-    } else {
-      if (!location && !location.value) {
-        errorFields = {
-          ...errorFields,
-          isValid: false,
-          location: "Location is Required",
-        };
-        return errorFields;
-      }
-      if (start_date.value && end_date.value) {
-        let isValid = validateDates(start_date.value, end_date.value);
-        errorFields = {
-          isValid,
-        };
-        return errorFields;
-      } else {
-        errorFields = {
-          isValid: false,
-          start_date: "Start Date is Required",
-          end_date: "End Date is Required",
-        };
-
-        return errorFields;
-      }
-    }
-    return errorFields;
   };
 
   const validateDates = (start_date, end_date) => {
+    let errorDatesObjects = {
+      hasTrueValue: false,
+      message: "",
+    };
     if (start_date && end_date) {
       if (Date.parse(end_date) >= Date.parse(start_date)) {
-        return true;
+        errorDatesObjects.hasTrueValue = true;
+        return errorDatesObjects;
       } else {
-        alert("End Date should be equal or greater than start date");
+        errorDatesObjects.hasTrueValue = false;
+        errorDatesObjects.message = `End Date should be equal or greater than start date`;
+        return errorDatesObjects;
       }
     } else {
-      alert("Start Date and End date are Required");
-      return false;
+      errorDatesObjects.hasTrueValue = false;
+      errorDatesObjects.message = `Start Date and End date are Required`;
+      return errorDatesObjects;
     }
   };
 
   const onChangeLocation = (event, value) => {
     const { location } = bookFormInput;
-    location.value = value?.location_short_address;
+    location.value = value;
     setBookFormInput({
       ...bookFormInput,
       location,
@@ -214,12 +136,21 @@ const BookNow = ({ isOpen, onClose }) => {
     });
   };
 
-  const checkBookFormValid = useCallback(() => {
+  const checkBookFormValid = useMemo(() => {
     const { location, start_date, end_date } = bookFormInput;
-    return !![location, start_date, end_date].some(
-      (items) => items && items.value && !items.value
-    );
-  }, [bookFormInput]);
+    return ![location, start_date, end_date].every((item) => item.value);
+  });
+
+  const dateFormatYearMonthDate = (date) => {
+    const isDateCorrect = new Date(date);
+    if (isDateCorrect) {
+      let formattedDate = `${isDateCorrect.getFullYear()}-${
+        isDateCorrect.getMonth() + 1
+      }-${isDateCorrect.getDate()}`;
+      return formattedDate;
+    }
+    return false;
+  };
 
   const { location, start_date, end_date } = bookFormInput;
 
@@ -230,43 +161,56 @@ const BookNow = ({ isOpen, onClose }) => {
         <NovelDialog.Content>
           <div className="book-container">
             <form onSubmit={onBookNowSubmit}>
-              <NovelDropdown
-                items={locationList}
-                value={location?.value ? location?.value : ""}
-                placeholder="Please select one"
-                label="Location"
-                keyId="location_id"
-                keyValue="location_short_address"
-                keyLabel="location_short_address"
-                onChange={onChangeLocation}
-                isLoading={loctionLoading}
-              />
-              <div className="book-form-group mt-1">
+              <div className="">
+                <NovelDropdown
+                  items={locationList}
+                  value={location?.value ? location?.value.short_address : ""}
+                  placeholder="Please select one"
+                  label="Location"
+                  keyId="_id"
+                  keyValue="short_address"
+                  keyLabel="short_address"
+                  onChange={onChangeLocation}
+                  isLoading={loctionLoading}
+                />
+                <p
+                  className="novel-input-wrapper--error"
+                  style={{ marginTop: "0.5rem" }}
+                >
+                  {!location.value ? location.errorText : ""}
+                </p>
+              </div>
+              <div className="book-form-input mt-1">
                 <NovelSuitesInput
                   type="date"
                   inputLabel="Start Date"
                   inputLabelClasses="fw-bold"
-                  errorText="Start date is required"
+                  errorText={!start_date?.value ? start_date?.errorText : ""}
                   onChange={onChangeStartDateHandler}
-                  min="2021-11-24"
-                  max="2021-12-24"
+                  min={dateFormatYearMonthDate(new Date())}
                   value={start_date?.value ? start_date?.value : ""}
+                  // name="start_date"
                 />
                 <NovelSuitesInput
                   type="date"
                   inputLabel="End Date"
                   inputLabelClasses="fw-bold"
-                  errorText="End date is required"
-                  min={new Date()}
+                  errorText={!end_date?.value ? end_date?.errorText : ""}
+                  min={
+                    start_date?.value
+                      ? start_date?.value
+                      : dateFormatYearMonthDate(new Date())
+                  }
                   onChange={onChangeEndDateHandler}
                   value={end_date?.value ? end_date.value : ""}
+                  // name="end_date"
                 />
               </div>
               <NovelSuitesButton
                 type="submit"
                 onClick={onBookNowSubmit}
                 buttonLabel="Check Availablity"
-                disabled={checkBookFormValid()}
+                disabled={checkBookFormValid}
                 className="novel-button--primary novel-button--block mt-1"
               />
             </form>
@@ -277,4 +221,4 @@ const BookNow = ({ isOpen, onClose }) => {
   );
 };
 
-export default BookNow;
+export default React.memo(BookNow);

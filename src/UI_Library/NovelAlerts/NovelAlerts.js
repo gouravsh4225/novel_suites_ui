@@ -14,20 +14,39 @@ const createNovelNodeElement = () => {
   });
 };
 
-const NovelAlertsCreateElement = (type, options) => {
+const NovelAlertsCreateElement = (type, message, options) => {
   createNovelNodeElement().then((res) => {
     if (!res) return alert("some error while loading");
     ReactDOM.render(
-      <NovelAlertsContent type={type} options={options} />,
+      <NovelAlertsContent type={type} options={options} message={message} />,
       document.getElementById(`alert-novel`)
     );
   });
 };
 
+const getDefaultAndPropsOptions = (options = {}) => {
+  return {
+    dismissTime: 3000,
+    autoDelete: true,
+    description: "",
+    ...options,
+  };
+};
+
 const NovelAlertsContent = (props) => {
-  const { options, type } = props;
+  const { options, type, message } = props;
   const [contentList, setContentList] = useState([]);
-  const { dismissTime, autoDelete, description } = options;
+  const { dismissTime, autoDelete, description } =
+    getDefaultAndPropsOptions(options);
+
+  console.log(
+    dismissTime,
+    "dismiseTime",
+    autoDelete,
+    "autoDelete",
+    description,
+    "des"
+  );
 
   useEffect(() => {
     let listOption = {
@@ -35,29 +54,26 @@ const NovelAlertsContent = (props) => {
       options: options ? options : {},
       description,
       type,
+      message,
     };
     setContentList([...contentList, listOption]);
   }, [props]);
 
   useEffect(() => {
-    const interval = setInterval(
-      () => {
-        if (autoDelete && contentList.length && contentList.length) {
-          onCloseHandler(contentList[0].id);
-        }
-      },
-      dismissTime ? dismissTime : 2000
-    );
+    const interval = setInterval(() => {
+      if (autoDelete && contentList.length && contentList.length) {
+        onCloseHandler(contentList[0].id);
+      }
+    }, dismissTime);
 
     return () => {
       clearInterval(interval);
     };
-  }, [contentList, autoDelete, dismissTime]);
+  }, [contentList]);
 
-  const renderMessage = (contentOptions) => {
-    const { message } = contentOptions;
-    if (message) {
-      return <div className="novel-alert-message">{message}</div>;
+  const renderMessage = (renderMessageText) => {
+    if (renderMessageText) {
+      return <div className="novel-alert-message">{renderMessageText}</div>;
     }
     return null;
   };
@@ -66,6 +82,7 @@ const NovelAlertsContent = (props) => {
     contentList.splice(listItemIndex, 1);
     setContentList([...contentList]);
   };
+  console.log("content", contentList);
   return (
     <Fragment>
       <div className="novel-alert-root top-right">
@@ -75,7 +92,7 @@ const NovelAlertsContent = (props) => {
             className={`novel-alert-container bg-${contentItem.type} top-right toast`}
           >
             <div className="novel-alert-message-container">
-              {renderMessage(contentItem.options)}
+              {renderMessage(contentItem.message)}
               <div className="novel-alert-close">
                 <span
                   className="fa fa-times"
@@ -94,24 +111,24 @@ const NovelAlertsContent = (props) => {
   );
 };
 
-const success = (options) => {
-  NovelAlertsCreateElement("success", options);
+const success = (message = " ", options) => {
+  NovelAlertsCreateElement("success", message, options);
 };
 
-const error = (options) => {
-  NovelAlertsCreateElement("error", options);
+const error = (message = " ", options) => {
+  NovelAlertsCreateElement("error", message, options);
 };
 
-const info = (options) => {
-  NovelAlertsCreateElement("info", options);
+const info = (message = " ", options) => {
+  NovelAlertsCreateElement("info", message, options);
 };
-const warning = (options) => {
-  NovelAlertsCreateElement("warning", options);
+const warning = (message = " ", options) => {
+  NovelAlertsCreateElement("warning", message, options);
 };
 
 const NovelAlerts = {};
 NovelAlerts.success = success;
-NovelAlerts.erorr = error;
+NovelAlerts.error = error;
 NovelAlerts.info = info;
 NovelAlerts.warning = warning;
 

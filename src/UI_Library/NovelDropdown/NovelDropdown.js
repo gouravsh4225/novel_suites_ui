@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  Fragment,
-  useCallback,
-} from "react";
+import React, { useState, Fragment, useCallback } from "react";
 import UIElementHelper from "../UI_Element_helpers";
 import OutSideClicked from "../../SharedComponents/OutSideClicked/OutSideClicked";
 import "./NovelDropdown.scss";
@@ -54,7 +48,6 @@ const NovelDropdownItems = ({
             key={item[keyId]}
             onClick={(e) => onClickItem(e, item[keyLabel])}
             onKeyPress={(e) => onClickItem(e, item[keyLabel])}
-            role="listitem"
             tabIndex="0"
           >
             {item[keyLabel]}
@@ -99,15 +92,6 @@ const NovelDropdown = ({
 }) => {
   const [isOpenList, setIsOpenList] = useState(false);
   const [selectValue, setSelectValue] = useState("");
-  /***
-   * Set Default Props for Web Accessibility
-   */
-  const defaultNovelSelectProps = {
-    "arial-label": name,
-    required: required,
-    placeholder: placeholder,
-    ...rest,
-  };
 
   const onChangeSelectValue = (event, targetValue) => {
     event.preventDefault();
@@ -131,6 +115,7 @@ const NovelDropdown = ({
     e.stopPropagation();
     setSelectValue("");
     setIsOpenList(false);
+    onChange(e, "");
   };
 
   const onClickOutSideHandler = () => {
@@ -144,7 +129,7 @@ const NovelDropdown = ({
         width: `${rootListElement.offsetWidth}px`,
       };
     }
-  }, [isOpenList]);
+  }, []);
 
   return (
     <div
@@ -180,7 +165,6 @@ const NovelDropdown = ({
           "novel-dd-list",
           isOpenList ? "novel-dd-list--show" : "novel-dd-list--hide"
         )}
-        role="list"
         tabIndex="0"
         style={getParentWidth()}
       >

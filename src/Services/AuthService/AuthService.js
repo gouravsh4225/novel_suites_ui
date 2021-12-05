@@ -1,20 +1,9 @@
-import APIUtlis from "../../Utils/APIUtlis";
+import { APIUtlis } from "../../Utils/APIUtlis";
 
 const loginSubmit = (formData) => {
   return APIUtlis.postApi("user-auth/login", formData)
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return res.json();
-      }
-    })
-    .then((response) => {
-      return response;
-    })
-    .catch((error) => {
-      return error;
-    });
+    .then(APIUtlis.handleSuccessReponse)
+    .catch(APIUtlis.handleErrorResponse);
 };
 const AuthService = {
   loginSubmit,

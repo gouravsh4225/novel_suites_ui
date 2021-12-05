@@ -24,8 +24,9 @@
       margin-left: -1px;
       overflow: hidden;
       text-overflow: ellipsis;
-      white-space: nowrap;
-      max-width: 90%;
+      // white-space: nowrap;
+      // max-width: 90%;
+      word-break: break-word;
     }
     .novel-alert-close {
       cursor: pointer;

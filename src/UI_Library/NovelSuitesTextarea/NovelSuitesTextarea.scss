@@ -5,9 +5,15 @@
     @include displayType(block);
     width: 100%;
     font-size: 1.2rem;
+    border-radius: 4px;
+    border: 2px solid currentColor;
     padding: 22px 10px;
     &::placeholder {
       text-transform: uppercase;
+    }
+    &:focus,
+    &:active {
+      outline: 0;
     }
   }
 }

@@ -68,8 +68,9 @@ const NovelSuitesInput = (props) => {
         onBlur={onBlur}
         value={value}
         required={required}
-        name
+        name={name}
         autoFocus={autoFocus}
+        autoComplete="new-password"
         {...defaultNovelInputProps}
       />
       {errorText ? (
