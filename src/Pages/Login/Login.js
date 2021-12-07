@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from "react";
+import { useHistory } from "react-router-dom";
 import NovelDialog from "../../UI_Library/NovelDialog/NovelDialog";
 import NovelSuitesInput from "../../UI_Library/NovelSuitesInput/NovelSuitesInput";
 import NovelSuitesButton from "../../UI_Library/NovelSuitesButton/NovelSuitesButton";
@@ -9,6 +10,7 @@ import NovelAlerts from "../../UI_Library/NovelAlerts/NovelAlerts";
 import "./Login.scss";
 
 const Login = ({ isOpen, onClose }) => {
+  const reactRouterHistory = useHistory();
   const [loginForm, setLoginForm] = useState({
     phone_number: {
       value: "",
@@ -93,7 +95,7 @@ const Login = ({ isOpen, onClose }) => {
       });
   };
   const onSignUpHandler = () => {
-    console.log("cliced");
+    reactRouterHistory.push("/create-user");
   };
 
   return (
