@@ -4,6 +4,7 @@ import NovelMenu from "../../UI_Library/NovelMenu/NovelMenu";
 import NovelAlerts from "../../UI_Library/NovelAlerts/NovelAlerts";
 import AuthService from "../../Services/AuthService/AuthService";
 import "./UserProfile.scss";
+import CommonUtlis from "../../Utils/CommonUtlis";
 
 const getUserProfileMenuList = () => {
   return [
@@ -33,8 +34,24 @@ const UserProfile = ({ className }) => {
         window.location.reload();
       });
     }
-
     setisMenuElementOpen(null);
+  };
+
+  const getLoggedInUserDetails = () => {
+    let loggedUserData = JSON.parse(CommonUtlis.getSessionUserDetails());
+    if (loggedUserData) {
+      let { name } = loggedUserData;
+      return (
+        <div
+          className="user-profile-para"
+          title={name}
+          onClick={openProfileMenu}
+        >
+          {name}
+        </div>
+      );
+    }
+    return null;
   };
 
   return (
@@ -42,6 +59,7 @@ const UserProfile = ({ className }) => {
       <div className="user-profile-image" onClick={openProfileMenu}>
         <img src={UserAvatarLogo} />
       </div>
+      {getLoggedInUserDetails()}
       <NovelMenu
         isOpen={Boolean(isMenuElementOpen)}
         targetElement={isMenuElementOpen}

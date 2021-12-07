@@ -71,7 +71,7 @@ const NovelSuiteHeader = () => {
   const checkForUserLogedData = () => {
     let fetchLogedData = CommonUtlis.getSessionUserDetails();
     if (fetchLogedData) {
-      return <UserProfile className="mr-1" />;
+      return <UserProfile />;
     } else {
       return (
         <NovelSuitesButton
@@ -121,13 +121,13 @@ const NovelSuiteHeader = () => {
             onClick={onNaviagtionListItem}
           />
           <div className="d-flex flex-align-center">
-            {checkForUserLogedData()}
             <NovelSuitesButton
               type="button"
-              className="novel-button--primary"
+              className="novel-button--primary mr-1"
               buttonLabel="Book Room"
               onClick={() => setIsBookNowOpen(true)}
             />
+            {checkForUserLogedData()}
           </div>
         </div>
       </header>

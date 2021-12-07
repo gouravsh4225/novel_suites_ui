@@ -33,9 +33,9 @@ const NovelMenu = ({ className, targetElement, onClose, children, isOpen }) => {
     if (parentElement) {
       return {
         top: `${parentElement.top / 16}rem`,
-        left: `${parentElement.left / 16}rem`,
-        right: `${parentElement.right / 16}rem`,
-        width: "200px",
+        left: `${parentElement.left / 16}%`,
+        // right: `${parentElement.right / 16}px`,
+        minWidth: "200px",
       };
     }
     return {};
