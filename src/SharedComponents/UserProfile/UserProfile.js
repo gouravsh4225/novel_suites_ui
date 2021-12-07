@@ -1,7 +1,17 @@
 import React, { useState } from "react";
 import UserAvatarLogo from "../../assets/user-avatar.png";
 import NovelMenu from "../../UI_Library/NovelMenu/NovelMenu";
+import NovelAlerts from "../../UI_Library/NovelAlerts/NovelAlerts";
+import AuthService from "../../Services/AuthService/AuthService";
 import "./UserProfile.scss";
+
+const getUserProfileMenuList = () => {
+  return [
+    { itemLabel: "My Account", componentUrl: "/user-account", id: 1 },
+    { itemLabel: "My Booking", componentUrl: "/user-bookings", id: 2 },
+    { itemLabel: "Logout", id: 3 },
+  ];
+};
 
 const UserProfile = ({ className }) => {
   const [isMenuElementOpen, setisMenuElementOpen] = useState(null);
@@ -15,6 +25,15 @@ const UserProfile = ({ className }) => {
 
   const onMenuItemHandler = (e, selectedItem) => {
     console.log(selectedItem, "selectedItem");
+    if (selectedItem.componentUrl) {
+      // To do
+      NovelAlerts.info("Feature will come in next release");
+    } else {
+      AuthService.logOutUser().then((res) => {
+        window.location.reload();
+      });
+    }
+
     setisMenuElementOpen(null);
   };
 
@@ -28,18 +47,14 @@ const UserProfile = ({ className }) => {
         targetElement={isMenuElementOpen}
         onClose={closeMenu}
       >
-        <NovelMenu.MenuItem onClickItem={onMenuItemHandler}>
-          My Profile
-        </NovelMenu.MenuItem>
-        <NovelMenu.MenuItem onClickItem={onMenuItemHandler}>
-          My Profile
-        </NovelMenu.MenuItem>
-        <NovelMenu.MenuItem onClickItem={onMenuItemHandler}>
-          My Profile
-        </NovelMenu.MenuItem>
-        <NovelMenu.MenuItem onClickItem={onMenuItemHandler}>
-          My Profile
-        </NovelMenu.MenuItem>
+        {getUserProfileMenuList().map((menuItem, index) => (
+          <NovelMenu.MenuItem
+            onClickItem={(e) => onMenuItemHandler(e, menuItem)}
+            key={index}
+          >
+            {menuItem.itemLabel}
+          </NovelMenu.MenuItem>
+        ))}
       </NovelMenu>
     </div>
   );

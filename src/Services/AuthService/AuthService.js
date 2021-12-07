@@ -11,8 +11,17 @@ const signUpUser = (formData) => {
     .then(APIUtlis.handleSuccessReponse)
     .catch(APIUtlis.handleErrorResponse);
 };
+
+const logOutUser = () => {
+  return new Promise((resolve, reject) => {
+    sessionStorage.clear();
+    resolve(true);
+  });
+};
+
 const AuthService = {
   loginSubmit,
   signUpUser,
+  logOutUser,
 };
 export default AuthService;
