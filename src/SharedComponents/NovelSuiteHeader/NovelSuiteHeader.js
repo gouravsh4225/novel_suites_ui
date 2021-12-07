@@ -8,7 +8,9 @@ import { SHOW_HEADER_HEIGHT } from "../../Constants/constant";
 import NovelSuiteMobileHeader from "./NovelSuiteMobileHeader";
 import Login from "../../Pages/Login/Login";
 import BookNow from "../../Components/BookNow/BookNow";
+import UserProfile from "../UserProfile/UserProfile";
 import "./NovelSuiteHeader.scss";
+import CommonUtlis from "../../Utils/CommonUtlis";
 
 const getNavigationMenu = () => {
   return [
@@ -66,6 +68,22 @@ const NovelSuiteHeader = () => {
     setIsBookNowOpen(false);
   };
 
+  const checkForUserLogedData = () => {
+    let fetchLogedData = CommonUtlis.getSessionUserDetails();
+    if (fetchLogedData) {
+      return <UserProfile className="mr-1" />;
+    } else {
+      return (
+        <NovelSuitesButton
+          buttonLabel="Login"
+          type="button"
+          className="novel-button--secondary-text mr-1"
+          onClick={() => openLoginHandler()}
+        />
+      );
+    }
+  };
+
   return (
     <Fragment>
       <Login isOpen={isLoginOpen} onClose={() => closeLoginHandler()} />
@@ -98,19 +116,12 @@ const NovelSuiteHeader = () => {
           <span className="novel__logo--title">Novel Suites</span>
         </a>
         <div className="ml-auto app-nav-list-container">
-          <nav className="app-header-nav">
-            <NovelSuiteHeaderNavList
-              navigationMenu={navigationMenu}
-              onClick={onNaviagtionListItem}
-            />
-          </nav>
-          <div>
-            <NovelSuitesButton
-              buttonLabel="Login"
-              type="button"
-              className="novel-button--secondary-text mr-1"
-              onClick={() => openLoginHandler()}
-            />
+          <NovelSuiteHeaderNavList
+            navigationMenu={navigationMenu}
+            onClick={onNaviagtionListItem}
+          />
+          <div className="d-flex flex-align-center">
+            {checkForUserLogedData()}
             <NovelSuitesButton
               type="button"
               className="novel-button--primary"

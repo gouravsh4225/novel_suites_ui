@@ -31,7 +31,12 @@
   flex: 1;
   width: 100%;
 }
-
+.d-flex {
+  display: flex;
+}
+.flex-align-center {
+  align-items: center;
+}
 .mblock-1 {
   margin-block: 1rem;
 }
