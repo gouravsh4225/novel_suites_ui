@@ -11,10 +11,12 @@
     @include fontWeight(400);
     .sign-up-heading {
       @include fontWeight(300);
+
       span {
         cursor: pointer;
         font-size: 1.125rem;
-        @include fontWeight(400);
+        @include fontWeight(600);
+        color: rgba(0, 0, 238, 1);
       }
     }
   }

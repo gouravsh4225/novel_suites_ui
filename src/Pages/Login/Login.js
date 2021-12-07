@@ -1,13 +1,16 @@
 import React, { Fragment, useState } from "react";
-import NovelDialog from "../../SharedComponents/UI_Elements/NovelDialog/NovelDialog";
-import NovelSuitesInput from "../../SharedComponents/UI_Elements/NovelSuitesInput/NovelSuitesInput";
-import NovelSuitesButton from "../../SharedComponents/UI_Elements/NovelSuitesButton/NovelSuitesButton";
+import { useHistory } from "react-router-dom";
+import NovelDialog from "../../UI_Library/NovelDialog/NovelDialog";
+import NovelSuitesInput from "../../UI_Library/NovelSuitesInput/NovelSuitesInput";
+import NovelSuitesButton from "../../UI_Library/NovelSuitesButton/NovelSuitesButton";
+import { NovelLoader } from "../../UI_Library/NovelLoader/NovelLoader";
 import AuthService from "../../Services/AuthService/AuthService";
 import CommonUtlis from "../../Utils/CommonUtlis";
-import NovelLoader from "../../SharedComponents/NovelLoader/NovelLoader";
+import NovelAlerts from "../../UI_Library/NovelAlerts/NovelAlerts";
 import "./Login.scss";
 
 const Login = ({ isOpen, onClose }) => {
+  const reactRouterHistory = useHistory();
   const [loginForm, setLoginForm] = useState({
     phone_number: {
       value: "",
@@ -18,7 +21,7 @@ const Login = ({ isOpen, onClose }) => {
       errorText: "",
     },
   });
-  const [isLoading, setIsLoading] = useState(false);
+
   const onChangePhoneNumber = (e) => {
     const { phone_number } = loginForm;
     const { value } = e.target;
@@ -54,28 +57,54 @@ const Login = ({ isOpen, onClose }) => {
   const onLoginFormSubmit = (event) => {
     event.preventDefault();
     const { phone_number, password } = loginForm;
+    /**
+     * check for User Valdidation
+     */
+    if (!phone_number.value || !password.value) {
+      let message = "Please enter Phone number & Password";
+      NovelAlerts.error(message);
+      return;
+    } else if (phone_number.value && !password.value) {
+      NovelAlerts.error("Please enter Password");
+      return;
+    } else if (!phone_number.value && password.value) {
+      NovelAlerts.error("Please enter Phone Number");
+      return;
+    }
+
     let loginFormObject = {
       phone_number: phone_number.value,
       password: password.value,
     };
-    setIsLoading(true);
+    NovelLoader.show();
     AuthService.loginSubmit(loginFormObject)
       .then((res) => {
-        setIsLoading(false);
-        CommonUtlis.setSessionUserItems(res);
+        NovelLoader.hide();
+        let { response } = res;
+        CommonUtlis.setSessionUserItems(
+          response.access_token,
+          response.user_data
+        );
+        document.body.classList.remove("overflow-y-hidden");
         onClose();
       })
       .catch((error) => {
-        setIsLoading(false);
-        console.log(error, "erro");
+        NovelLoader.hide();
+        let { errors } = error.response;
+        if (Array.isArray(errors)) {
+          NovelAlerts.error(
+            errors.map((item) => `${item.param}  ${item.msg},`).join(" ")
+          );
+        }
       });
   };
   const onSignUpHandler = () => {
-    console.log("cliced");
+    document.body.classList.remove("overflow-y-hidden");
+    reactRouterHistory.push("/create-user");
   };
+
   return (
     <Fragment>
-      <NovelLoader isOpen={isLoading} />
       <NovelDialog
         onEscKeyClose={onClose}
         isOpen={isOpen}
@@ -88,7 +117,7 @@ const Login = ({ isOpen, onClose }) => {
         />
         <NovelDialog.Content>
           <div className="login-container">
-            <form onSubmit={onLoginFormSubmit} autoComplete="off">
+            <form onSubmit={onLoginFormSubmit} autoComplete="new-password">
               <NovelSuitesInput
                 inputLabel="Enter Your Phone Number"
                 validatior={["isRequires"]}
@@ -101,11 +130,11 @@ const Login = ({ isOpen, onClose }) => {
                 autoFocus={true}
               />
               <NovelSuitesInput
-                inputLabel="Enter Your Phone Number"
+                inputLabel="Enter Your Password"
                 validatior={["isRequires"]}
                 type="password"
                 errorText={loginForm.password.errorText}
-                name="phone_number"
+                name="password"
                 onChange={(e) => onChangePassword(e)}
                 value={loginForm.password.value}
                 className="novel-suite-input--small"

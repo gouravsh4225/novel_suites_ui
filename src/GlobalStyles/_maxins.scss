@@ -11,8 +11,18 @@
 @mixin flexAlignItem($type: center) {
   align-items: $type;
 }
-@mixin novelTransitionDefault($duration: 500ms) {
-  transition: $duration all ease-in-out;
+
+@mixin novelTransitionDefault(
+  $transitionProp: null,
+  $duration: 500ms,
+  $transitionType: ease-in-out
+) {
+  $transtion: if($transitionType, $transitionType, ease-in-out);
+  @if $transitionProp {
+    transition: $transitionProp $duration $transtion;
+  } @else {
+    transition: $duration all $transtion;
+  }
 }
 
 @mixin gridContainerMinWidth($width: 450px) {
@@ -24,6 +34,12 @@
 
 @mixin letterSpacing($spacing: 2px) {
   letter-spacing: $spacing;
+}
+@mixin fontFamily {
+  font-family: "Poppins", sans-serif;
+}
+@mixin borderRadius($size: 4px) {
+  border-radius: $size;
 }
 
 @mixin novelElementAbsoluteFullWidthHeight($width: 100%, $height: 100%) {
@@ -42,6 +58,10 @@
 }
 @mixin displayType($type: block) {
   display: $type;
+}
+
+@mixin cardBoxShadow {
+  box-shadow: 0rem 0rem 1rem 0.5rem rgba(0, 0, 0, 0.18);
 }
 /*
 Skeleton mixing start

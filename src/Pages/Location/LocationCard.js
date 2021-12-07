@@ -1,11 +1,14 @@
 import React, { Fragment } from "react";
-import NovelSuitesButton from "../../SharedComponents/UI_Elements/NovelSuitesButton/NovelSuitesButton";
+import { useHistory } from "react-router-dom";
+import NovelSuitesButton from "../../UI_Library/NovelSuitesButton/NovelSuitesButton";
 
 import "./Location.scss";
 
 const LocationCard = ({ locationList }) => {
+  const locationHistory = useHistory();
   const browserLocationRoomHandler = (e, location) => {
-    console.log("e,-->", e, location);
+    let roomUrl = `/location/${location._id}/rooms`;
+    locationHistory.push(roomUrl);
   };
   const learnMoreLocationHandler = () => {
     console.log("hey--");
@@ -13,10 +16,10 @@ const LocationCard = ({ locationList }) => {
   return (
     <Fragment>
       {locationList.map((locationItem) => (
-        <div className="novel-card" key={locationItem.location_id}>
+        <div className="novel-card" key={locationItem._id}>
           <div className="novel-card-img-wrapper">
             <img
-              src={locationItem.location_address_imageurl}
+              src={locationItem.address_imageurl}
               className="location-image"
               loading="lazy"
               alt="location-address"
@@ -24,11 +27,9 @@ const LocationCard = ({ locationList }) => {
           </div>
           <div className="novel-card-content p-1 location-card-content">
             <h2 className="location-title mb-1 mt-0">
-              {locationItem.location_short_address}
+              {locationItem.short_address}
             </h2>
-            <p className="location-address mb-1">
-              {locationItem.location_full_address}
-            </p>
+            <p className="location-address mb-1">{locationItem.full_address}</p>
             <div
               tabIndex="0"
               className="mb-1 location-address text-decoration-none"
@@ -56,13 +57,13 @@ const LocationCard = ({ locationList }) => {
                 type="button"
                 className="novel-button--primary "
                 buttonLabel="Book A room"
-                onClick={() => browserLocationRoomHandler(locationItem)}
+                onClick={(e) => browserLocationRoomHandler(e, locationItem)}
               />
               <NovelSuitesButton
                 type="button"
                 className="novel-button--secondary-text "
                 buttonLabel="Learn More"
-                onClick={() => learnMoreLocationHandler(locationItem)}
+                onClick={(e) => learnMoreLocationHandler(e, locationItem)}
               />
             </div>
           </div>

@@ -1,0 +1,30 @@
+@import "../../GlobalStyles/maxins";
+
+.novel-menu-wrapper {
+  @include cardBoxShadow();
+  @include borderRadius(4px);
+  position: fixed;
+  z-index: 9999;
+  background: #fff;
+  opacity: 0;
+  overflow: hidden;
+  &.open {
+    opacity: 1;
+    transition-property: opacity;
+    transition-delay: 4s;
+  }
+  .novel-menu-item {
+    @include novelTransitionDefault();
+    @include fontFamily();
+    @include fontWeight(500);
+    padding-block: 1rem;
+    padding-inline: 1rem;
+    color: #636363;
+    cursor: pointer;
+    text-transform: capitalize;
+    &:hover {
+      background: rgba(0, 0, 0, 0.15);
+      color: black;
+    }
+  }
+}

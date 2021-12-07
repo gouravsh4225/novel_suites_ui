@@ -1,5 +1,5 @@
 import React from "react";
-import UIElementHelper from "../UI_Elements/UI_Element_helpers";
+import UIElementHelper from "../../UI_Library/UI_Element_helpers";
 import "./NovelSkeleton.scss";
 
 const addAllSkeletonCssClass = (initalClass, propsClasess) => {

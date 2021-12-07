@@ -7,6 +7,7 @@ import NovelRooms from "./Pages/NovelRooms/NovelRooms";
 import HeaderFooterLayout from "./PageLayout/HeaderFooterLayout/HeaderFooterLayout";
 import ContactUs from "./Pages/ContactUs/ContactUs";
 import NoPageFound from "./Components/NoPageFound/NoPageFound";
+import SignUpPage from "./Pages/SignUp/SignUp";
 
 const AppRoutes = () => {
   return (
@@ -21,12 +22,13 @@ const AppRoutes = () => {
         <Route exact={true} path="/location">
           <HeaderFooterLayout component={Location} />
         </Route>
-        <Route exact={true} path="/browse-rooms">
+        <Route exact={true} path="/location/:locationId/rooms">
           <HeaderFooterLayout component={NovelRooms} />
         </Route>
         <Route exact={true} path="/contact-us">
           <HeaderFooterLayout component={ContactUs} />
         </Route>
+        <Route path="/create-user" component={SignUpPage} />
         <Route path="*" exact={true}>
           <HeaderFooterLayout component={NoPageFound} />
         </Route>

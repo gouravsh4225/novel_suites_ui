@@ -12,32 +12,22 @@ const loadRazorPayScript = () => {
   });
 };
 
-const RazorPayPaymentOptions = (
-  amount,
-  currency,
-  productName,
-  productDesc,
-  orderId
-) => {
+const RazorPayPaymentOptions = (paymetOption) => {
+  console.log(paymetOption, "paymetn-->");
   const options = {
     key: process.env.REACT_APP_RAZORPAY_KEY_ID,
-    amount,
-    currency,
-    name: productName,
-    description: productDesc,
+    amount: paymetOption.amount,
+    currency: paymetOption.currency,
+    name: paymetOption.productName,
+    description: paymetOption.description,
+    prefill: paymetOption.prefill,
+    order_id: paymetOption.order_id,
     image:
       "https://novel-suites-ui.vercel.app/static/media/logo_novel.78ee88e9.gif",
-    order_id: orderId,
-    handler: function (response) {
-      alert(response.razorpay_payment_id);
-      alert(response.razorpay_order_id);
-      alert(response.razorpay_signature);
-    },
-    prefill: {
-      name: "",
-      email: "",
-      contact: "",
-    },
+    handler: async (response) => new Promise((resolve) => resolve(response)),
+    // alert(response.razorpay_payment_id);
+    // alert(response.razorpay_order_id);
+    // alert(response.razorpay_signature);
   };
   return options;
 };

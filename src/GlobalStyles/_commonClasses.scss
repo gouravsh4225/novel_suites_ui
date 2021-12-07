@@ -31,7 +31,12 @@
   flex: 1;
   width: 100%;
 }
-
+.d-flex {
+  display: flex;
+}
+.flex-align-center {
+  align-items: center;
+}
 .mblock-1 {
   margin-block: 1rem;
 }
@@ -68,7 +73,17 @@
 .text-center {
   text-align: center;
 }
+.text-left {
+  text-align: left;
+}
+.fw-bold {
+  font-weight: 600;
+}
 
+.bg-transparent {
+  background-color: transparent !important;
+  background: transparent !important;
+}
 /* Novel Class start here */
 .novel-card {
   background-color: white;
@@ -134,18 +149,18 @@
 Common Bg-class
 */
 .bg-success {
-  background: #4caf50;
+  background: #5cb85c;
   color: #ffffff;
 }
 .bg-error {
-  background: #f44336;
+  background: #d9534f;
   color: #ffffff;
 }
 .bg-warning {
-  background: #ffeb3b;
+  background: #f0ad4e;
   color: #000000;
 }
 .bg-info {
-  background: #2196f3;
+  background: #5bc0de;
   color: #ffffff;
 }
