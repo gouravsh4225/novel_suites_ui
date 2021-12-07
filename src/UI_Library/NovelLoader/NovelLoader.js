@@ -41,7 +41,6 @@ const createNovelNodeElement = () => {
       const createTag = document.createElement("div");
       createTag.setAttribute("id", `novel-loader`);
       document.body.appendChild(createTag);
-      console.log("in cretad");
       return resolve(true);
     }
     return resolve(true);

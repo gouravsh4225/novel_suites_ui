@@ -1,11 +1,14 @@
 import React, { Fragment } from "react";
+import { useHistory } from "react-router-dom";
 import NovelSuitesButton from "../../UI_Library/NovelSuitesButton/NovelSuitesButton";
 
 import "./Location.scss";
 
 const LocationCard = ({ locationList }) => {
+  const locationHistory = useHistory();
   const browserLocationRoomHandler = (e, location) => {
-    console.log("e,-->", e, location);
+    let roomUrl = `/location/${location._id}/rooms`;
+    locationHistory.push(roomUrl);
   };
   const learnMoreLocationHandler = () => {
     console.log("hey--");
@@ -54,13 +57,13 @@ const LocationCard = ({ locationList }) => {
                 type="button"
                 className="novel-button--primary "
                 buttonLabel="Book A room"
-                onClick={() => browserLocationRoomHandler(locationItem)}
+                onClick={(e) => browserLocationRoomHandler(e, locationItem)}
               />
               <NovelSuitesButton
                 type="button"
                 className="novel-button--secondary-text "
                 buttonLabel="Learn More"
-                onClick={() => learnMoreLocationHandler(locationItem)}
+                onClick={(e) => learnMoreLocationHandler(e, locationItem)}
               />
             </div>
           </div>
