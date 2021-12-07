@@ -39,28 +39,28 @@
   top: 12px;
   right: 12px;
   transition: transform 0.6s ease-in-out;
-  animation: toast-in-right 0.7s;
+  animation: toast-in-right 0.3s;
 }
 
 .bottom-right {
   bottom: 12px;
   right: 12px;
   transition: transform 0.6s ease-in-out;
-  animation: toast-in-right 0.7s;
+  animation: toast-in-right 0.3s;
 }
 
 .top-left {
   top: 12px;
   left: 12px;
   transition: transform 0.6s ease-in;
-  animation: toast-in-left 0.7s;
+  animation: toast-in-left 0.3s;
 }
 
 .bottom-left {
   bottom: 12px;
   left: 12px;
   transition: transform 0.6s ease-in;
-  animation: toast-in-left 0.7s;
+  animation: toast-in-left 0.3s;
 }
 .toast {
   height: 100%;

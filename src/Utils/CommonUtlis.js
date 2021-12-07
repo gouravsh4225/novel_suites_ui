@@ -1,6 +1,6 @@
-const setSessionUserItems = ({ access_token, user_data }) => {
+const setSessionUserItems = (access_token, data) => {
   sessionStorage.setItem("token", access_token);
-  sessionStorage.setItem("userDetails", JSON.stringify(user_data));
+  sessionStorage.setItem("userDetails", JSON.stringify(data));
 };
 
 const getSessionUserDetails = () => {

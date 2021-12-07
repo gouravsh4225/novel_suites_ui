@@ -1,14 +1,20 @@
 import React, { Fragment, useState } from "react";
+import { useHistory } from "react-router-dom";
 import NovelSuitesInput from "../../UI_Library/NovelSuitesInput/NovelSuitesInput";
 import NovelSuitesButton from "../../UI_Library/NovelSuitesButton/NovelSuitesButton";
 import logo from "../../assets/logo_novel_png.png";
 import {
   EmailValidationChecker,
   NumberValidationChecker,
+  CompareTwoString,
 } from "../../Utils/FormValidationUtlis";
 import "./SignUp.scss";
+import NovelAlerts from "../../UI_Library/NovelAlerts/NovelAlerts";
+import AuthService from "../../Services/AuthService/AuthService";
+import CommonUtlis from "../../Utils/CommonUtlis";
 
 const SignUpPage = () => {
+  const signUpHistory = useHistory();
   const [signUpFormInput, setSignUpFormInput] = useState({
     phone_number: {
       value: "",
@@ -97,6 +103,56 @@ const SignUpPage = () => {
 
   const onSignUpHandler = (event) => {
     event.preventDefault();
+    const { phone_number, name, email_address, password, confirm_password } =
+      signUpFormInput;
+    if (
+      !phone_number.value ||
+      !name.value ||
+      !email_address.value ||
+      !password.value ||
+      !confirm_password.value
+    ) {
+      NovelAlerts.error("Please enter all mandatory fields", {
+        toastrPos: "top-left",
+      });
+      return;
+    }
+    let isBothPasswordEqual = CompareTwoString(
+      password.value,
+      confirm_password.value
+    );
+    if (!isBothPasswordEqual) {
+      NovelAlerts.error("Password is not matched.", {
+        toastrPos: "top-left",
+      });
+      return;
+    }
+
+    let signUpFormData = {
+      name: name.value,
+      password: password.value,
+      phone_number: phone_number.value,
+      email_address: email_address.value,
+    };
+
+    AuthService.signUpUser(signUpFormData)
+      .then((userCratedResponse) => {
+        let { response } = userCratedResponse;
+        NovelAlerts.success(response.message);
+        CommonUtlis.setSessionUserItems(response.access_token, response.data);
+        setTimeout(() => {
+          signUpHistory.push("/");
+        }, 1000);
+      })
+      .catch((userCreatedError) => {
+        let { statusText, response } = userCreatedError;
+
+        if (response.message) {
+          NovelAlerts.error(`${response.message}`);
+        } else {
+          NovelAlerts.error(`${statusText}`);
+        }
+      });
   };
 
   const { phone_number, name, email_address, password, confirm_password } =

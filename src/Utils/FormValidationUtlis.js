@@ -25,4 +25,9 @@ const NumberValidationChecker = (numberStr, initialMessage = "", ...rest) => {
   return numberValidationJson;
 };
 
-export { EmailValidationChecker, NumberValidationChecker };
+const CompareTwoString = (original_str, compare_str) => {
+  if (!original_str && !compare_str) return false;
+  return original_str === compare_str;
+};
+
+export { EmailValidationChecker, NumberValidationChecker, CompareTwoString };

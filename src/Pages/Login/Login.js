@@ -81,7 +81,11 @@ const Login = ({ isOpen, onClose }) => {
       .then((res) => {
         NovelLoader.hide();
         let { response } = res;
-        CommonUtlis.setSessionUserItems(response);
+        CommonUtlis.setSessionUserItems(
+          response.access_token,
+          response.user_data
+        );
+        document.body.classList.remove("overflow-y-hidden");
         onClose();
       })
       .catch((error) => {
@@ -95,6 +99,7 @@ const Login = ({ isOpen, onClose }) => {
       });
   };
   const onSignUpHandler = () => {
+    document.body.classList.remove("overflow-y-hidden");
     reactRouterHistory.push("/create-user");
   };
 
