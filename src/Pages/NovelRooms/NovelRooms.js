@@ -17,6 +17,7 @@ import "./NovelRooms.scss";
 
 const NovelRooms = () => {
   const { locationId } = useParams();
+  const NovelRoomsHistory = useHistory();
   const [roomsList, setRoomList] = useState([]);
 
   useEffect(() => {
@@ -104,6 +105,11 @@ const NovelRooms = () => {
         });
     });
   };
+
+  const onBookDetailsHandler = (e, room) => {
+    NovelRoomsHistory.push(`/location/${locationId}/rooms/${room._id}`);
+  };
+
   return (
     <div className="novel-room-wrapper">
       <div className="container">
@@ -113,7 +119,11 @@ const NovelRooms = () => {
         </div>
         <div className="novel-rooms-lists">
           {roomsList.map((room, index) => (
-            <div className="novel-room-item" key={room._id}>
+            <div
+              className="novel-room-item"
+              key={room._id}
+              onClick={(e) => onBookDetailsHandler(e, room)}
+            >
               <div className="novel-room-item-image">
                 <img
                   src={
@@ -160,9 +170,9 @@ const NovelRooms = () => {
                     </div>
                   </div>
                 </div>
-                <div className="mt-1 grid-container grid-gap-1 novel-rooms-buttons">
+                {/* <div className="mt-1 grid-container grid-gap-1 novel-rooms-buttons">
                   <NovelSuitesButton
-                    buttonLabel="Book Now"
+                    buttonLabel="Check Book"
                     onClick={(e) => onBookRoomHandler(e, room)}
                     className="novel-button--primary "
                   />
@@ -171,7 +181,7 @@ const NovelRooms = () => {
                     onClick={(e) => onSeeMoreInformationHandler(e, room)}
                     className="novel-button--secondary-text"
                   />
-                </div>
+                </div> */}
               </div>
             </div>
           ))}

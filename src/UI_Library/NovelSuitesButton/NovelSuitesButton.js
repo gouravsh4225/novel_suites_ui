@@ -9,6 +9,8 @@ const NovelSuitesButton = ({
   buttonLabel,
   style,
   disabled,
+  children,
+  title,
 }) => {
   const onButtonClick = (event) => {
     event.preventDefault();
@@ -34,8 +36,9 @@ const NovelSuitesButton = ({
       className={getButtonAllClasses()}
       style={style}
       disabled={disabled}
+      title={title ? title : buttonLabel}
     >
-      {buttonLabel}
+      {buttonLabel ? buttonLabel : children}
     </button>
   );
 };

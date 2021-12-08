@@ -19,8 +19,16 @@ const confirmRazorPaymemtSuccess = (data) => {
     .catch(APIUtlis.handleErrorResponse);
 };
 
+const getRoomByLocationIdAndRoomId = (locationId, roomId) => {
+  const url = `rooms/location/${locationId}/room/${roomId}`;
+  return APIUtlis.getApi(url)
+    .then(APIUtlis.handleSuccessReponse)
+    .catch(APIUtlis.handleErrorResponse);
+};
+
 export {
   getAllRoomByLocation,
   getRoomBookRazorPayOrderId,
   confirmRazorPaymemtSuccess,
+  getRoomByLocationIdAndRoomId,
 };

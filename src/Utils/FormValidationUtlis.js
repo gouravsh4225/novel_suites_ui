@@ -30,4 +30,20 @@ const CompareTwoString = (original_str, compare_str) => {
   return original_str === compare_str;
 };
 
-export { EmailValidationChecker, NumberValidationChecker, CompareTwoString };
+const dateFormatYearMonthDate = (date) => {
+  const isDateCorrect = new Date(date);
+  if (isDateCorrect) {
+    let formattedDate = `${isDateCorrect.getFullYear()}-${
+      isDateCorrect.getMonth() + 1
+    }-${isDateCorrect.getDate()}`;
+    return formattedDate;
+  }
+  return false;
+};
+
+export {
+  EmailValidationChecker,
+  NumberValidationChecker,
+  CompareTwoString,
+  dateFormatYearMonthDate,
+};

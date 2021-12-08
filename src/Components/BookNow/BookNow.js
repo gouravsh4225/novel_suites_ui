@@ -11,6 +11,7 @@ import NovelSuitesButton from "../../UI_Library/NovelSuitesButton/NovelSuitesBut
 import NovelAlerts from "../../UI_Library/NovelAlerts/NovelAlerts";
 import "./BookNow.scss";
 import { NovelLoader } from "../../UI_Library/NovelLoader/NovelLoader";
+import { dateFormatYearMonthDate } from "../../Utils/FormValidationUtlis";
 
 const BookFormInitalData = () => {
   return {
@@ -140,17 +141,6 @@ const BookNow = ({ isOpen, onClose }) => {
     const { location, start_date, end_date } = bookFormInput;
     return ![location, start_date, end_date].every((item) => item.value);
   });
-
-  const dateFormatYearMonthDate = (date) => {
-    const isDateCorrect = new Date(date);
-    if (isDateCorrect) {
-      let formattedDate = `${isDateCorrect.getFullYear()}-${
-        isDateCorrect.getMonth() + 1
-      }-${isDateCorrect.getDate()}`;
-      return formattedDate;
-    }
-    return false;
-  };
 
   const { location, start_date, end_date } = bookFormInput;
 
