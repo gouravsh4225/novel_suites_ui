@@ -31,8 +31,4 @@ const RazorPayPaymentOptions = (paymetOption) => {
   };
   return options;
 };
-
-module.exports = {
-  loadRazorPayScript,
-  RazorPayPaymentOptions,
-};
+export { loadRazorPayScript, RazorPayPaymentOptions };
