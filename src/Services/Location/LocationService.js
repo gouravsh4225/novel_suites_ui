@@ -13,4 +13,11 @@ const checkAvailablity = ({ locationId, start_date, end_date }) => {
     .catch(APIUtlis.handleErrorResponse);
 };
 
-export { getAllLocation, checkAvailablity };
+const getLocationById = (locationId) => {
+  const url = `locations/${locationId}`;
+  return APIUtlis.getApi(url)
+    .then(APIUtlis.handleSuccessReponse)
+    .catch(APIUtlis.handleErrorResponse);
+};
+
+export { getAllLocation, checkAvailablity, getLocationById };

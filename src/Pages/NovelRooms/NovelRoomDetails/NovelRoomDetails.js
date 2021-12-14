@@ -1,23 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { getRoomByLocationIdAndRoomId } from "../../../Services/NovelRoomService/NovelRoomService";
+import { getLocationById } from "../../../Services/Location/LocationService";
 import { dateFormatYearMonthDate } from "../../../Utils/FormValidationUtlis";
 import NovelAlerts from "../../../UI_Library/NovelAlerts/NovelAlerts";
 import { NovelLoader } from "../../../UI_Library/NovelLoader/NovelLoader";
 import NovelSuitesButton from "../../../UI_Library/NovelSuitesButton/NovelSuitesButton";
+import NovelMenu from "../../../UI_Library/NovelMenu/NovelMenu";
 import NovelSuitesInput from "../../../UI_Library/NovelSuitesInput/NovelSuitesInput";
+
 import "./NovelRoomDetails.scss";
+import NovelSuitesLabel from "../../../UI_Library/NovelSuitesLabel/NovelSuitesLabel";
 
 const NovelRoomDetails = () => {
   const { locationId, roomId } = useParams();
   const novelRoomDetailsRouter = useHistory();
   const [room, setroom] = useState({});
+  const [menutarget, setMenuTarget] = useState(null);
+  const [selectedLocation, setSelectedLocation] = useState([]);
   useEffect(() => {
     NovelLoader.show();
     getRoomByLocationIdAndRoomId(locationId, roomId)
       .then((roomResponse) => {
         NovelLoader.hide();
-        console.log("room", roomResponse);
         let { response } = roomResponse;
         if (Array.isArray(response.data) && response.data.length) {
           setroom(response.data[0]);
@@ -28,11 +33,31 @@ const NovelRoomDetails = () => {
         let { message } = roomError;
         NovelAlerts.error(message);
       });
+    /** get current Location details */
+    getLocationById(locationId)
+      .then((locationReponse) => {
+        let { response } = locationReponse;
+        if (response && Array.isArray(response.data) && response.data.length) {
+          setSelectedLocation(response.data);
+        }
+      })
+      .catch((locationError) => {
+        console.log(locationError);
+      });
   }, []);
 
   const navigateToRooms = () => {
     const redirectUrl = `/location/${locationId}/rooms`;
     novelRoomDetailsRouter.push(redirectUrl);
+  };
+
+  const addGuestsHandler = (e) => {
+    const { target } = e;
+    setMenuTarget(e.currentTarget);
+  };
+
+  const onCloseGuestsHandler = () => {
+    setMenuTarget(null);
   };
 
   return (
@@ -49,7 +74,7 @@ const NovelRoomDetails = () => {
             onClick={navigateToRooms}
           >
             <span className="icon">
-              <i class="fa fa-arrow-left" aria-hidden="true"></i>
+              <i className="fa fa-arrow-left" aria-hidden="true"></i>
             </span>
           </NovelSuitesButton>
           <div className="novel-room-head mb-1">
@@ -79,39 +104,44 @@ const NovelRoomDetails = () => {
             <ul className="novel-room-feature-list">
               <li className="novel-room-feature-list-item">
                 <span className="feature-list-item-icon">
-                  <i class="fa fa-wifi" aria-hidden="true"></i>
+                  <i className="fa fa-wifi" aria-hidden="true"></i>
                 </span>
                 <span className="fature-list-item-title">Wifi</span>
               </li>
               <li className="novel-room-feature-list-item">
                 <span className="feature-list-item-icon">
-                  <i class="fa fa-television" aria-hidden="true"></i>
+                  <i className="fa fa-television" aria-hidden="true"></i>
                 </span>
                 <span className="fature-list-item-title">TV</span>
               </li>
               <li className="novel-room-feature-list-item">
                 <span className="feature-list-item-icon">
-                  <i class="fa fa-coffee" aria-hidden="true"></i>
+                  <i className="fa fa-coffee" aria-hidden="true"></i>
                 </span>
                 <span className="fature-list-item-title">COFFEE</span>
               </li>
               <li className="novel-room-feature-list-item">
                 <span className="feature-list-item-icon">
-                  <i class="fa fa-thermometer-empty" aria-hidden="true"></i>
+                  <i className="fa fa-thermometer-empty" aria-hidden="true"></i>
                 </span>
                 <span className="fature-list-item-title">HEATHEN</span>
               </li>
               <li className="novel-room-feature-list-item">
                 <span className="feature-list-item-icon">
-                  <i class="fa fa-television" aria-hidden="true"></i>
+                  <i className="fa fa-television" aria-hidden="true"></i>
                 </span>
                 <span className="fature-list-item-title">AC</span>
               </li>
               <li className="novel-room-feature-list-item">
                 <span className="feature-list-item-icon">
-                  <i class="fa fa-car" aria-hidden="true"></i>
+                  <i className="fa fa-car" aria-hidden="true"></i>
                 </span>
-                <span className="fature-list-item-title">Parking</span>
+                <span className="fature-list-item-title">
+                  Parking
+                  <div className="fs-textSm">
+                    (Parking charges will be added)
+                  </div>
+                </span>
               </li>
             </ul>
           </div>
@@ -168,7 +198,7 @@ const NovelRoomDetails = () => {
               <div className="novel-room-gallery">
                 <NovelSuitesButton className="novel-button--secondary-text novel-button--large">
                   <div className="novel-room-button">
-                    <i class="fa fa-picture-o" aria-hidden="true"></i>
+                    <i className="fa fa-picture-o" aria-hidden="true"></i>
                     <span className="ml-1">View Gallery </span>
                   </div>
                 </NovelSuitesButton>
@@ -180,6 +210,13 @@ const NovelRoomDetails = () => {
                   <h3>Reserve your Room</h3>
                 </div>
                 <form role="book-reverse" className="reverse-form">
+                  <div className="form-selected-location">
+                    {selectedLocation.length ? (
+                      <NovelSuitesLabel className="novel-menu-item mb-1 location-text">
+                        Location:{selectedLocation[0].short_address}
+                      </NovelSuitesLabel>
+                    ) : null}
+                  </div>
                   <div className="form-heading">
                     <div className="room-content">From</div>
                     <div className="room-prices-wrapper">
@@ -187,7 +224,9 @@ const NovelRoomDetails = () => {
                         className="fa fa-inr icon-cur"
                         aria-hidden="true"
                       ></span>
-                      <span className="price">2000.00</span>
+                      <span className="price">
+                        {room?.room_price?.toFixed(2)}
+                      </span>
                       <span className="fw-bold">/night</span>
                     </div>
                   </div>
@@ -221,6 +260,47 @@ const NovelRoomDetails = () => {
                       // name="end_date"
                     />
                   </div>
+                  <div className="reverse-form-night">
+                    <NovelSuitesInput
+                      readOnly="true"
+                      type="number"
+                      inputLabel="Total Night"
+                      inputLabelClasses="fw-normal textXl text-uppercase"
+                    />
+                    <NovelSuitesButton
+                      title="Guests"
+                      className="bg-white w-full"
+                      onClick={addGuestsHandler}
+                    >
+                      <div className="d-flex">
+                        1 Guests
+                        <span className="guest-icon ml-auto">
+                          <i
+                            className="fa fa-caret-down"
+                            aria-hidden="true"
+                          ></i>
+                        </span>
+                      </div>
+                    </NovelSuitesButton>
+                    <NovelMenu
+                      isOpen={Boolean(menutarget)}
+                      targetElement={menutarget}
+                      onClose={onCloseGuestsHandler}
+                    >
+                      <NovelMenu.MenuItem>1</NovelMenu.MenuItem>
+                      <NovelMenu.MenuItem>2</NovelMenu.MenuItem>
+                      <NovelMenu.MenuItem>3</NovelMenu.MenuItem>
+                    </NovelMenu>
+                  </div>
+                  <NovelSuitesButton
+                    className="novel-button--primary novel-button--large novel-button--block mt-1"
+                    title="Checkout"
+                  >
+                    <span>
+                      <i className="fa fa-cart-plus" aria-hidden="true"></i>
+                    </span>
+                    <span className="ml-1">Checkout</span>
+                  </NovelSuitesButton>
                 </form>
               </div>
             </div>

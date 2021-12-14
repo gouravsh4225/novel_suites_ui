@@ -79,6 +79,9 @@
 .text-center {
   text-align: center;
 }
+.text-end {
+  text-align: end;
+}
 .text-left {
   text-align: left;
 }
@@ -92,9 +95,24 @@
   text-transform: uppercase;
 }
 
+/** Font Size class*/
+.fs-textSm {
+  font-size: 0.5rem;
+}
+.fs-textMd {
+  font-size: 1rem;
+}
+.fs-textXl {
+  font-size: 2rem;
+}
+
 .bg-transparent {
   background-color: transparent !important;
   background: transparent !important;
+}
+
+.w-full {
+  width: 100%;
 }
 /* Novel Class start here */
 .novel-card {
@@ -151,7 +169,6 @@
   font-size: 14px;
   line-height: 1.42857143;
   color: #333333;
-  vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #cccccc;
 }
@@ -181,4 +198,8 @@ Common Bg-class
 .bg-info {
   background: #5bc0de;
   color: #ffffff;
+}
+.bg-white {
+  background-color: white;
+  background: white;
 }
