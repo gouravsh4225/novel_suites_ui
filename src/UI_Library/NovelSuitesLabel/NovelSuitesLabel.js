@@ -2,18 +2,16 @@ import React from "react";
 import UIElementHelper from "../UI_Element_helpers";
 import "./NovelSuitesLabel.scss";
 
-const NovelSuitesLabel = (props) => {
-  const {
-    labelName,
-    children,
-    type,
-    className,
-    style,
-    htmlFor,
-    isCenter,
-    ...rest
-  } = props;
-
+const NovelSuitesLabel = ({
+  labelName,
+  children,
+  type,
+  className,
+  style,
+  htmlFor,
+  isCenter,
+  ...rest
+}) => {
   const getAllLabelClass = () => {
     const typeClass = type ? getLabelType() : "";
     const textCenter = isCenter ? "text-center" : "text-left";
@@ -47,7 +45,7 @@ const NovelSuitesLabel = (props) => {
       htmlFor={htmlFor}
     >
       {labelName}
-      {children ? children : ""}
+      {children}
     </label>
   );
 };

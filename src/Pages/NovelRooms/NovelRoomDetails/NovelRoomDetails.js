@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { getRoomByLocationIdAndRoomId } from "../../../Services/NovelRoomService/NovelRoomService";
 import { getLocationById } from "../../../Services/Location/LocationService";
@@ -12,6 +12,7 @@ import {
   Label,
 } from "../../../UI_Library/UI_Library";
 import "./NovelRoomDetails.scss";
+import CommonUtlis from "../../../Utils/CommonUtlis";
 
 const NovelRoomDetails = () => {
   const { locationId, roomId } = useParams();
@@ -19,6 +20,22 @@ const NovelRoomDetails = () => {
   const [room, setroom] = useState({});
   const [menutarget, setMenuTarget] = useState(null);
   const [selectedLocation, setSelectedLocation] = useState([]);
+  const [reserveRoomForm, setReserveRoomForm] = useState({
+    check_in: {
+      value: "",
+      errorText: "",
+    },
+    check_out: {
+      value: "",
+      errorText: "",
+    },
+    total_night: {
+      value: 0,
+    },
+    total_guests: {
+      value: 1,
+    },
+  });
   useEffect(() => {
     Loader.show();
     getRoomByLocationIdAndRoomId(locationId, roomId)
@@ -60,6 +77,65 @@ const NovelRoomDetails = () => {
   const onCloseGuestsHandler = () => {
     setMenuTarget(null);
   };
+
+  const onChangeCheckInDateHandler = (event) => {
+    const { target } = event;
+    const { check_in } = reserveRoomForm;
+    check_in.value = target.value;
+    changeTotalNightStay();
+    setReserveRoomForm({
+      ...reserveRoomForm,
+      check_in,
+    });
+  };
+
+  const onChangeCheckOutDateHandler = (event) => {
+    const { target } = event;
+    const { check_out } = reserveRoomForm;
+    check_out.value = target.value;
+    changeTotalNightStay();
+    setReserveRoomForm({
+      ...reserveRoomForm,
+      check_out,
+    });
+  };
+
+  const changeTotalNightStay = () => {
+    const { check_in, check_out, total_night } = reserveRoomForm;
+    total_night.value = CommonUtlis.dayBetweenTwoDates(
+      check_in.value,
+      check_out.value
+    );
+    setReserveRoomForm({
+      ...reserveRoomForm,
+      total_night,
+    });
+  };
+  const onChoseGustsNumber = (event, selectedvalue) => {
+    const { total_guests } = reserveRoomForm;
+    total_guests.value = selectedvalue;
+    setMenuTarget(null);
+    setReserveRoomForm({
+      ...reserveRoomForm,
+      total_guests,
+    });
+  };
+
+  const getAllowedGusts = (allowedNumber = 0) => {
+    const convertGuestIntoArray = [];
+    for (let i = 1; i <= allowedNumber; i++) {
+      convertGuestIntoArray.push(i);
+    }
+    return convertGuestIntoArray;
+  };
+
+  const onReverseRoomSubmit = (event) => {
+    event.preventDefault();
+    const { check_in, check_out, total_guests, total_night } = reserveRoomForm;
+    console.log();
+  };
+
+  const { check_in, check_out, total_guests, total_night } = reserveRoomForm;
 
   return (
     <div className="novel-room-details-wrapper">
@@ -210,10 +286,14 @@ const NovelRoomDetails = () => {
                 <div className="reverse-ttile">
                   <h3>Reserve your Room</h3>
                 </div>
-                <form role="book-reverse" className="reverse-form">
+                <form
+                  role="book-reverse"
+                  className="reverse-form"
+                  onSubmit={onReverseRoomSubmit}
+                >
                   <div className="form-selected-location">
                     {selectedLocation.length ? (
-                      <Label className="novel-menu-item mb-1 location-text">
+                      <Label className="mb-1 location-text p-1 fw-bold">
                         Location:{selectedLocation[0].short_address}
                       </Label>
                     ) : null}
@@ -236,45 +316,47 @@ const NovelRoomDetails = () => {
                       type="date"
                       inputLabel="Check In"
                       inputLabelClasses="fw-normal text-uppercase"
-                      // errorText={!end_date?.value ? end_date?.errorText : ""}
+                      errorText={!check_in?.value ? check_in?.errorText : ""}
                       // min={
                       //   start_date?.value
                       //     ? start_date?.value
                       //     : dateFormatYearMonthDate(new Date())
                       // }
-                      // onChange={onChangeEndDateHandler}
-                      // value={end_date?.value ? end_date.value : ""}
-                      // name="end_date"
+                      onChange={onChangeCheckInDateHandler}
+                      value={check_in?.value ? check_in.value : ""}
+                      name="check_in"
                     />
                     <Input
                       type="date"
                       inputLabel="Check Out"
                       inputLabelClasses="fw-normal text-uppercase"
-                      // errorText={!end_date?.value ? end_date?.errorText : ""}
+                      errorText={!check_out?.value ? check_out?.errorText : ""}
                       // min={
                       //   start_date?.value
                       //     ? start_date?.value
                       //     : dateFormatYearMonthDate(new Date())
                       // }
-                      // onChange={onChangeEndDateHandler}
-                      // value={end_date?.value ? end_date.value : ""}
-                      // name="end_date"
+                      onChange={onChangeCheckOutDateHandler}
+                      value={check_out?.value ? check_out.value : ""}
+                      name="check_out"
                     />
                   </div>
                   <div className="reverse-form-night">
-                    <Input
-                      readOnly="true"
-                      type="number"
-                      inputLabel="Total Night"
-                      inputLabelClasses="fw-normal textXl text-uppercase"
-                    />
+                    <Label
+                      labelName=""
+                      type="info"
+                      className="w-full total-night-label fw-bold"
+                    >
+                      <span> Total Night</span>
+                      <span className="ml-auto">{total_night.value} Night</span>
+                    </Label>
                     <Button
                       title="Guests"
-                      className="bg-white w-full"
+                      className="bg-white w-full flex-1"
                       onClick={addGuestsHandler}
                     >
                       <div className="d-flex">
-                        1 Guests
+                        {total_guests.value} Guest
                         <span className="guest-icon ml-auto">
                           <i
                             className="fa fa-caret-down"
@@ -288,14 +370,22 @@ const NovelRoomDetails = () => {
                       targetElement={menutarget}
                       onClose={onCloseGuestsHandler}
                     >
-                      <Menu.MenuItem>1</Menu.MenuItem>
-                      <Menu.MenuItem>2</Menu.MenuItem>
-                      <Menu.MenuItem>3</Menu.MenuItem>
+                      {getAllowedGusts(room.allowed_gustes).map(
+                        (item, index) => (
+                          <Menu.MenuItem
+                            onClickItem={onChoseGustsNumber}
+                            key={item}
+                          >
+                            {item}
+                          </Menu.MenuItem>
+                        )
+                      )}
                     </Menu>
                   </div>
                   <Button
                     className="novel-button--primary novel-button--large novel-button--block mt-1"
                     title="Checkout"
+                    onClick={onReverseRoomSubmit}
                   >
                     <span>
                       <i className="fa fa-cart-plus" aria-hidden="true"></i>
