@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
 import { useHistory } from "react-router-dom";
-import NovelSuitesButton from "../../UI_Library/NovelSuitesButton/NovelSuitesButton";
-
+import { Button } from "../../UI_Library/UI_Library";
 import "./Location.scss";
 
 const LocationCard = ({ locationList }) => {
@@ -53,13 +52,13 @@ const LocationCard = ({ locationList }) => {
               </span>
             </div>
             <div className="grid-container grid-gap-1 location-buttons">
-              <NovelSuitesButton
+              <Button
                 type="button"
                 className="novel-button--primary "
                 buttonLabel="Book A room"
                 onClick={(e) => browserLocationRoomHandler(e, locationItem)}
               />
-              <NovelSuitesButton
+              <Button
                 type="button"
                 className="novel-button--secondary-text "
                 buttonLabel="Learn More"

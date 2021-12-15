@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router";
 import WorkUnderProcess from "../../Components/WorkUnderProcess/WorkUnderProcess";
-import NovelSuitesButton from "../../UI_Library/NovelSuitesButton/NovelSuitesButton";
+import { Button, Loader } from "../../UI_Library/UI_Library";
 import {
   getRoomBookRazorPayOrderId,
   getAllRoomByLocation,
@@ -12,7 +12,6 @@ import {
   loadRazorPayScript,
   RazorPayPaymentOptions,
 } from "../../Utils/RazorPayUtils";
-import { NovelLoader } from "../../UI_Library/NovelLoader/NovelLoader";
 import "./NovelRooms.scss";
 
 const NovelRooms = () => {
@@ -25,10 +24,10 @@ const NovelRooms = () => {
   }, []);
 
   const getAllRoomByLocationId = () => {
-    NovelLoader.show();
+    Loader.show();
     getAllRoomByLocation(locationId)
       .then((roomsResponeData) => {
-        NovelLoader.hide();
+        Loader.hide();
         let { data } = roomsResponeData.response;
         let { rooms } = data[0];
         if (Array.isArray(rooms)) {
@@ -36,7 +35,7 @@ const NovelRooms = () => {
         }
       })
       .catch((roomsResponeError) => {
-        NovelLoader.hide();
+        Loader.hide();
         console.log(roomsResponeError);
       });
   };
@@ -77,7 +76,7 @@ const NovelRooms = () => {
                 razorpay_signature,
               } = res;
 
-              NovelLoader.show();
+              Loader.show();
               confirmRazorPaymemtSuccess({
                 orderCreationId: data.id,
                 razorpayPaymentId: razorpay_payment_id,
@@ -85,14 +84,14 @@ const NovelRooms = () => {
                 razorpaySignature: razorpay_signature,
               })
                 .then((res) => {
-                  NovelLoader.hide();
+                  Loader.hide();
                   if (res) {
                     console.log("gotcha-->");
                   }
                 })
                 .catch((error) => {
                   console.log(error);
-                  NovelLoader.hide();
+                  Loader.hide();
                 });
             },
           };

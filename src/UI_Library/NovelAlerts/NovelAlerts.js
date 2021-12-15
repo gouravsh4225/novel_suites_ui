@@ -123,4 +123,4 @@ NovelAlerts.error = error;
 NovelAlerts.info = info;
 NovelAlerts.warning = warning;
 
-export default NovelAlerts;
+export { NovelAlerts };

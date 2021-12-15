@@ -14,4 +14,4 @@ const NovelBackDrop = ({ children, className, style }) => {
   );
 };
 
-export default NovelBackDrop;
+export { NovelBackDrop };

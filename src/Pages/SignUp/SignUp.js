@@ -1,7 +1,6 @@
 import React, { Fragment, useState } from "react";
 import { useHistory } from "react-router-dom";
-import NovelSuitesInput from "../../UI_Library/NovelSuitesInput/NovelSuitesInput";
-import NovelSuitesButton from "../../UI_Library/NovelSuitesButton/NovelSuitesButton";
+import { Button, Input, Toastr } from "../../UI_Library/UI_Library";
 import logo from "../../assets/logo_novel_png.png";
 import {
   EmailValidationChecker,
@@ -9,7 +8,6 @@ import {
   CompareTwoString,
 } from "../../Utils/FormValidationUtlis";
 import "./SignUp.scss";
-import NovelAlerts from "../../UI_Library/NovelAlerts/NovelAlerts";
 import AuthService from "../../Services/AuthService/AuthService";
 import CommonUtlis from "../../Utils/CommonUtlis";
 
@@ -112,7 +110,7 @@ const SignUpPage = () => {
       !password.value ||
       !confirm_password.value
     ) {
-      NovelAlerts.error("Please enter all mandatory fields", {
+      Toastr.error("Please enter all mandatory fields", {
         toastrPos: "top-left",
       });
       return;
@@ -122,7 +120,7 @@ const SignUpPage = () => {
       confirm_password.value
     );
     if (!isBothPasswordEqual) {
-      NovelAlerts.error("Password is not matched.", {
+      Toastr.error("Password is not matched.", {
         toastrPos: "top-left",
       });
       return;
@@ -138,7 +136,7 @@ const SignUpPage = () => {
     AuthService.signUpUser(signUpFormData)
       .then((userCratedResponse) => {
         let { response } = userCratedResponse;
-        NovelAlerts.success(response.message);
+        Toastr.success(response.message);
         CommonUtlis.setSessionUserItems(response.access_token, response.data);
         setTimeout(() => {
           signUpHistory.push("/");
@@ -148,9 +146,9 @@ const SignUpPage = () => {
         let { statusText, response } = userCreatedError;
 
         if (response.message) {
-          NovelAlerts.error(`${response.message}`);
+          Toastr.error(`${response.message}`);
         } else {
-          NovelAlerts.error(`${statusText}`);
+          Toastr.error(`${statusText}`);
         }
       });
   };
@@ -175,7 +173,7 @@ const SignUpPage = () => {
                 autoComplete="off"
                 className="sign-up-form"
               >
-                <NovelSuitesInput
+                <Input
                   inputLabel="Enter Your Phone Number"
                   inputLabelClasses="fw-bold"
                   type="text"
@@ -187,7 +185,7 @@ const SignUpPage = () => {
                   value={phone_number.value}
                   className="novel-suite-input--large mblock-0"
                 />
-                <NovelSuitesInput
+                <Input
                   inputLabel="Full Name"
                   inputLabelClasses="fw-bold"
                   type="text"
@@ -197,7 +195,7 @@ const SignUpPage = () => {
                   value={name.value}
                   className="novel-suite-input--large mblock-0"
                 />
-                <NovelSuitesInput
+                <Input
                   inputLabel="Email Address"
                   inputLabelClasses="fw-bold"
                   type="email"
@@ -211,7 +209,7 @@ const SignUpPage = () => {
                     email_address.errorText && "novel-suite-input--error"
                   }`}
                 />
-                <NovelSuitesInput
+                <Input
                   inputLabel="Password"
                   inputLabelClasses="fw-bold"
                   type="password"
@@ -223,7 +221,7 @@ const SignUpPage = () => {
                     password.errorText && "novel-suite-input--error"
                   }`}
                 />
-                <NovelSuitesInput
+                <Input
                   inputLabel="Comfirm Password"
                   inputLabelClasses="fw-bold"
                   type="password"
@@ -237,7 +235,7 @@ const SignUpPage = () => {
                     confirm_password.errorText && "novel-suite-input--error"
                   }`}
                 />
-                <NovelSuitesButton
+                <Button
                   type="submit"
                   className="novel-button--primary novel-button--block novel-button--small mt-1"
                   buttonLabel="Sign Up"

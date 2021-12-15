@@ -52,4 +52,4 @@ const NovelSuitesLabel = (props) => {
   );
 };
 
-export default NovelSuitesLabel;
+export { NovelSuitesLabel };

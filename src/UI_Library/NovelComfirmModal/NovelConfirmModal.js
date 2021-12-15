@@ -1,6 +1,5 @@
 import React, { useCallback } from "react";
-import NovelDialog from "../UI_Elements/NovelDialog/NovelDialog";
-import NovelSuitesButton from "../UI_Elements/NovelSuitesButton/NovelSuitesButton";
+import { Button, Modal } from "../UI_Library";
 import "./NovelConfirmModal.scss";
 
 const NOVELCOMFIRMTYPES = ["error", "success", "info", "warning", "default"];
@@ -20,30 +19,30 @@ const NovelConfirmModal = ({ children, onClose, isOpen, type, onConfirm }) => {
   }, [type]);
 
   return (
-    <NovelDialog
+    <Modal
       onEscKeyClose={onClose}
       isOpen={isOpen}
       isCenter={false}
       className="novel-confirm-modal-root"
     >
-      <NovelDialog.Header
+      <Modal.Header
         onCloseHandler={onClose}
         headerHeading="Confrim "
         className={addConfirmModalClass()}
       />
-      <NovelDialog.Content>{children}</NovelDialog.Content>
-      <NovelDialog.Footer>
+      <Modal.Content>{children}</Modal.Content>
+      <Modal.Footer>
         <div className="confirm-buttons">
-          <NovelSuitesButton buttonLabel="Close" onClick={onClose} />
-          <NovelSuitesButton
+          <Button buttonLabel="Close" onClick={onClose} />
+          <Button
             buttonLabel="Confirm"
             onClick={(e) => onConfirm}
             className="bg-error"
           />
         </div>
-      </NovelDialog.Footer>
-    </NovelDialog>
+      </Modal.Footer>
+    </Modal>
   );
 };
 
-export default NovelConfirmModal;
+export { NovelConfirmModal };

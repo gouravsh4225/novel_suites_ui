@@ -1,17 +1,19 @@
 import React, { Fragment, useState, useEffect, useMemo } from "react";
 import { useHistory } from "react-router";
-import NovelDialog from "../../UI_Library/NovelDialog/NovelDialog";
-import NovelDropdown from "../../UI_Library/NovelDropdown/NovelDropdown";
 import {
   getAllLocation,
   checkAvailablity,
 } from "../../Services/Location/LocationService";
-import NovelSuitesInput from "../../UI_Library/NovelSuitesInput/NovelSuitesInput";
-import NovelSuitesButton from "../../UI_Library/NovelSuitesButton/NovelSuitesButton";
-import NovelAlerts from "../../UI_Library/NovelAlerts/NovelAlerts";
-import "./BookNow.scss";
-import { NovelLoader } from "../../UI_Library/NovelLoader/NovelLoader";
+import {
+  Button,
+  Input,
+  Loader,
+  Toastr,
+  Modal,
+  DropDown,
+} from "../../UI_Library/UI_Library";
 import { dateFormatYearMonthDate } from "../../Utils/FormValidationUtlis";
+import "./BookNow.scss";
 
 const BookFormInitalData = () => {
   return {
@@ -63,7 +65,7 @@ const BookNow = ({ isOpen, onClose }) => {
     let datesValidateObject = validateDates(start_date.value, end_date.value);
     let { hasTrueValue, message } = datesValidateObject;
     if (hasTrueValue) {
-      NovelLoader.show();
+      Loader.show();
       let checkAvailableJson = {
         start_date: start_date.value,
         end_date: end_date.value,
@@ -71,7 +73,7 @@ const BookNow = ({ isOpen, onClose }) => {
       };
       checkAvailablity(checkAvailableJson)
         .then((response) => {
-          NovelLoader.hide();
+          Loader.hide();
           onClose();
           if (response) {
             console.log("in response");
@@ -81,7 +83,7 @@ const BookNow = ({ isOpen, onClose }) => {
         .catch((error) => console.log(error));
       console.log(checkAvailableJson, "==>");
     } else {
-      NovelAlerts.error(message, {
+      Toastr.error(message, {
         autoDelete: true,
       });
     }
@@ -146,13 +148,13 @@ const BookNow = ({ isOpen, onClose }) => {
 
   return (
     <Fragment>
-      <NovelDialog onEscKeyClose={onClose} isOpen={isOpen}>
-        <NovelDialog.Header headerHeading="Book Now" onCloseHandler={onClose} />
-        <NovelDialog.Content>
+      <Modal onEscKeyClose={onClose} isOpen={isOpen}>
+        <Modal.Header headerHeading="Book Now" onCloseHandler={onClose} />
+        <Modal.Content>
           <div className="book-container">
             <form onSubmit={onBookNowSubmit}>
               <div className="">
-                <NovelDropdown
+                <DropDown
                   items={locationList}
                   value={location?.value ? location?.value.short_address : ""}
                   placeholder="Please select one"
@@ -171,7 +173,7 @@ const BookNow = ({ isOpen, onClose }) => {
                 </p>
               </div>
               <div className="book-form-input mt-1">
-                <NovelSuitesInput
+                <Input
                   type="date"
                   inputLabel="Start Date"
                   inputLabelClasses="fw-bold"
@@ -181,7 +183,7 @@ const BookNow = ({ isOpen, onClose }) => {
                   value={start_date?.value ? start_date?.value : ""}
                   // name="start_date"
                 />
-                <NovelSuitesInput
+                <Input
                   type="date"
                   inputLabel="End Date"
                   inputLabelClasses="fw-bold"
@@ -196,7 +198,7 @@ const BookNow = ({ isOpen, onClose }) => {
                   // name="end_date"
                 />
               </div>
-              <NovelSuitesButton
+              <Button
                 type="submit"
                 onClick={onBookNowSubmit}
                 buttonLabel="Check Availablity"
@@ -205,8 +207,8 @@ const BookNow = ({ isOpen, onClose }) => {
               />
             </form>
           </div>
-        </NovelDialog.Content>
-      </NovelDialog>
+        </Modal.Content>
+      </Modal>
     </Fragment>
   );
 };

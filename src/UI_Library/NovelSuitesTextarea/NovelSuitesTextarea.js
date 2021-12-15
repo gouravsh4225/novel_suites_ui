@@ -1,5 +1,5 @@
 import React from "react";
-import NovelSuitesLabel from "../NovelSuitesLabel/NovelSuitesLabel";
+import { Label } from "../UI_Library";
 import UIElementHelper from "../UI_Element_helpers";
 import "./NovelSuitesTextarea.scss";
 
@@ -31,7 +31,7 @@ const NovelSuitesTextarea = (props) => {
   };
   return (
     <div className="novel-textarea-wrapper">
-      <NovelSuitesLabel
+      <Label
         labelName={inputLabel}
         htmlFor={name}
         className={UIElementHelper.getllClasses(
@@ -52,4 +52,4 @@ const NovelSuitesTextarea = (props) => {
   );
 };
 
-export default NovelSuitesTextarea;
+export { NovelSuitesTextarea };

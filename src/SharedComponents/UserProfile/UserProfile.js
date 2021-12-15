@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import UserAvatarLogo from "../../assets/user-avatar.png";
-import NovelMenu from "../../UI_Library/NovelMenu/NovelMenu";
-import NovelAlerts from "../../UI_Library/NovelAlerts/NovelAlerts";
+import { Toastr, Menu } from "../../UI_Library/UI_Library";
 import AuthService from "../../Services/AuthService/AuthService";
 import "./UserProfile.scss";
 import CommonUtlis from "../../Utils/CommonUtlis";
@@ -28,7 +27,7 @@ const UserProfile = ({ className }) => {
     console.log(selectedItem, "selectedItem");
     if (selectedItem.componentUrl) {
       // To do
-      NovelAlerts.info("Feature will come in next release");
+      Toastr.info("Feature will come in next release");
     } else {
       AuthService.logOutUser().then((res) => {
         window.location.reload();
@@ -60,20 +59,20 @@ const UserProfile = ({ className }) => {
         <img src={UserAvatarLogo} />
       </div>
       {getLoggedInUserDetails()}
-      <NovelMenu
+      <Menu
         isOpen={Boolean(isMenuElementOpen)}
         targetElement={isMenuElementOpen}
         onClose={closeMenu}
       >
         {getUserProfileMenuList().map((menuItem, index) => (
-          <NovelMenu.MenuItem
+          <Menu.MenuItem
             onClickItem={(e) => onMenuItemHandler(e, menuItem)}
             key={index}
           >
             {menuItem.itemLabel}
-          </NovelMenu.MenuItem>
+          </Menu.MenuItem>
         ))}
-      </NovelMenu>
+      </Menu>
     </div>
   );
 };

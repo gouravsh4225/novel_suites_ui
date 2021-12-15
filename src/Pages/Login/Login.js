@@ -1,12 +1,14 @@
 import React, { Fragment, useState } from "react";
 import { useHistory } from "react-router-dom";
-import NovelDialog from "../../UI_Library/NovelDialog/NovelDialog";
-import NovelSuitesInput from "../../UI_Library/NovelSuitesInput/NovelSuitesInput";
-import NovelSuitesButton from "../../UI_Library/NovelSuitesButton/NovelSuitesButton";
-import { NovelLoader } from "../../UI_Library/NovelLoader/NovelLoader";
+import {
+  Button,
+  Input,
+  Loader,
+  Toastr,
+  Modal,
+} from "../../UI_Library/UI_Library";
 import AuthService from "../../Services/AuthService/AuthService";
 import CommonUtlis from "../../Utils/CommonUtlis";
-import NovelAlerts from "../../UI_Library/NovelAlerts/NovelAlerts";
 import "./Login.scss";
 
 const Login = ({ isOpen, onClose }) => {
@@ -62,13 +64,13 @@ const Login = ({ isOpen, onClose }) => {
      */
     if (!phone_number.value || !password.value) {
       let message = "Please enter Phone number & Password";
-      NovelAlerts.error(message);
+      Toastr.error(message);
       return;
     } else if (phone_number.value && !password.value) {
-      NovelAlerts.error("Please enter Password");
+      Toastr.error("Please enter Password");
       return;
     } else if (!phone_number.value && password.value) {
-      NovelAlerts.error("Please enter Phone Number");
+      Toastr.error("Please enter Phone Number");
       return;
     }
 
@@ -76,10 +78,10 @@ const Login = ({ isOpen, onClose }) => {
       phone_number: phone_number.value,
       password: password.value,
     };
-    NovelLoader.show();
+    Loader.show();
     AuthService.loginSubmit(loginFormObject)
       .then((res) => {
-        NovelLoader.hide();
+        Loader.hide();
         let { response } = res;
         CommonUtlis.setSessionUserItems(
           response.access_token,
@@ -89,10 +91,10 @@ const Login = ({ isOpen, onClose }) => {
         onClose();
       })
       .catch((error) => {
-        NovelLoader.hide();
+        Loader.hide();
         let { errors } = error.response;
         if (Array.isArray(errors)) {
-          NovelAlerts.error(
+          Toastr.error(
             errors.map((item) => `${item.param}  ${item.msg},`).join(" ")
           );
         }
@@ -105,20 +107,16 @@ const Login = ({ isOpen, onClose }) => {
 
   return (
     <Fragment>
-      <NovelDialog
-        onEscKeyClose={onClose}
-        isOpen={isOpen}
-        isOutSideClicked={false}
-      >
-        <NovelDialog.Header
+      <Modal onEscKeyClose={onClose} isOpen={isOpen} isOutSideClicked={false}>
+        <Modal.Header
           headerHeading="Login"
           onCloseHandler={onClose}
           className="border-bottom-0"
         />
-        <NovelDialog.Content>
+        <Modal.Content>
           <div className="login-container">
             <form onSubmit={onLoginFormSubmit} autoComplete="new-password">
-              <NovelSuitesInput
+              <Input
                 inputLabel="Enter Your Phone Number"
                 validatior={["isRequires"]}
                 type="text"
@@ -129,7 +127,7 @@ const Login = ({ isOpen, onClose }) => {
                 className="novel-suite-input--small"
                 autoFocus={true}
               />
-              <NovelSuitesInput
+              <Input
                 inputLabel="Enter Your Password"
                 validatior={["isRequires"]}
                 type="password"
@@ -147,12 +145,12 @@ const Login = ({ isOpen, onClose }) => {
                   Forgot Password
                 </a>
               </div>
-              <NovelSuitesButton
+              <Button
                 buttonLabel="Login"
                 type="submit"
                 className="novel-button--primary novel-button--block mt-1"
                 onClick={(event) => onLoginFormSubmit(event)}
-              ></NovelSuitesButton>
+              />
             </form>
             <div className="sign-up-container mt-1 text-center">
               <p className="sign-up-heading">
@@ -161,8 +159,8 @@ const Login = ({ isOpen, onClose }) => {
               </p>
             </div>
           </div>
-        </NovelDialog.Content>
-      </NovelDialog>
+        </Modal.Content>
+      </Modal>
     </Fragment>
   );
 };

@@ -124,4 +124,4 @@ NovelDialog.Header = NovelDialogHeader;
 NovelDialog.Content = NovelDialogContent;
 NovelDialog.Footer = NovelDialogFooter;
 
-export default NovelDialog;
+export { NovelDialog };

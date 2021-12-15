@@ -43,4 +43,4 @@ const NovelSuitesButton = ({
   );
 };
 
-export default NovelSuitesButton;
+export { NovelSuitesButton };

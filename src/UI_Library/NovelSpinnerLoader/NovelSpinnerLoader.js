@@ -9,4 +9,4 @@ const NovelSpinnerLoader = () => {
   );
 };
 
-export default NovelSpinnerLoader;
+export { NovelSpinnerLoader };

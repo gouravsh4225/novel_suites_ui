@@ -3,14 +3,15 @@ import { useParams, useHistory } from "react-router-dom";
 import { getRoomByLocationIdAndRoomId } from "../../../Services/NovelRoomService/NovelRoomService";
 import { getLocationById } from "../../../Services/Location/LocationService";
 import { dateFormatYearMonthDate } from "../../../Utils/FormValidationUtlis";
-import NovelAlerts from "../../../UI_Library/NovelAlerts/NovelAlerts";
-import { NovelLoader } from "../../../UI_Library/NovelLoader/NovelLoader";
-import NovelSuitesButton from "../../../UI_Library/NovelSuitesButton/NovelSuitesButton";
-import NovelMenu from "../../../UI_Library/NovelMenu/NovelMenu";
-import NovelSuitesInput from "../../../UI_Library/NovelSuitesInput/NovelSuitesInput";
-
+import {
+  Button,
+  Input,
+  Loader,
+  Toastr,
+  Menu,
+  Label,
+} from "../../../UI_Library/UI_Library";
 import "./NovelRoomDetails.scss";
-import NovelSuitesLabel from "../../../UI_Library/NovelSuitesLabel/NovelSuitesLabel";
 
 const NovelRoomDetails = () => {
   const { locationId, roomId } = useParams();
@@ -19,19 +20,19 @@ const NovelRoomDetails = () => {
   const [menutarget, setMenuTarget] = useState(null);
   const [selectedLocation, setSelectedLocation] = useState([]);
   useEffect(() => {
-    NovelLoader.show();
+    Loader.show();
     getRoomByLocationIdAndRoomId(locationId, roomId)
       .then((roomResponse) => {
-        NovelLoader.hide();
+        Loader.hide();
         let { response } = roomResponse;
         if (Array.isArray(response.data) && response.data.length) {
           setroom(response.data[0]);
         }
       })
       .catch((roomError) => {
-        NovelLoader.hide();
+        Loader.hide();
         let { message } = roomError;
-        NovelAlerts.error(message);
+        Toastr.error(message);
       });
     /** get current Location details */
     getLocationById(locationId)
@@ -67,7 +68,7 @@ const NovelRoomDetails = () => {
           <img src="https://res.cloudinary.com/arbor1221/image/upload/v1498121225/Consulting_Advisory_Professional_services_2_ikqokw.jpg" />
         </div>
         <div className="novel-room-content">
-          <NovelSuitesButton
+          <Button
             className="novel-button--secondary-text novel-button--small back-button"
             style={{ padding: "10px 16px" }}
             title="Back To Rooms"
@@ -76,7 +77,7 @@ const NovelRoomDetails = () => {
             <span className="icon">
               <i className="fa fa-arrow-left" aria-hidden="true"></i>
             </span>
-          </NovelSuitesButton>
+          </Button>
           <div className="novel-room-head mb-1">
             <h2 className="novel-room-title">{room?.room_name}</h2>
           </div>
@@ -146,7 +147,7 @@ const NovelRoomDetails = () => {
             </ul>
           </div>
           {/* <div className="novel-room-book">
-            <NovelSuitesButton
+            <Button
               buttonLabel="Book Now"
               className="novel-button--primary"
               onClick={(e) => console.log("hey")}
@@ -196,12 +197,12 @@ const NovelRoomDetails = () => {
                 </div>
               </div>
               <div className="novel-room-gallery">
-                <NovelSuitesButton className="novel-button--secondary-text novel-button--large">
+                <Button className="novel-button--secondary-text novel-button--large">
                   <div className="novel-room-button">
                     <i className="fa fa-picture-o" aria-hidden="true"></i>
                     <span className="ml-1">View Gallery </span>
                   </div>
-                </NovelSuitesButton>
+                </Button>
               </div>
             </div>
             <div className="novel-room-booking">
@@ -212,9 +213,9 @@ const NovelRoomDetails = () => {
                 <form role="book-reverse" className="reverse-form">
                   <div className="form-selected-location">
                     {selectedLocation.length ? (
-                      <NovelSuitesLabel className="novel-menu-item mb-1 location-text">
+                      <Label className="novel-menu-item mb-1 location-text">
                         Location:{selectedLocation[0].short_address}
-                      </NovelSuitesLabel>
+                      </Label>
                     ) : null}
                   </div>
                   <div className="form-heading">
@@ -231,7 +232,7 @@ const NovelRoomDetails = () => {
                     </div>
                   </div>
                   <div className="form-reverse-dates">
-                    <NovelSuitesInput
+                    <Input
                       type="date"
                       inputLabel="Check In"
                       inputLabelClasses="fw-normal text-uppercase"
@@ -245,7 +246,7 @@ const NovelRoomDetails = () => {
                       // value={end_date?.value ? end_date.value : ""}
                       // name="end_date"
                     />
-                    <NovelSuitesInput
+                    <Input
                       type="date"
                       inputLabel="Check Out"
                       inputLabelClasses="fw-normal text-uppercase"
@@ -261,13 +262,13 @@ const NovelRoomDetails = () => {
                     />
                   </div>
                   <div className="reverse-form-night">
-                    <NovelSuitesInput
+                    <Input
                       readOnly="true"
                       type="number"
                       inputLabel="Total Night"
                       inputLabelClasses="fw-normal textXl text-uppercase"
                     />
-                    <NovelSuitesButton
+                    <Button
                       title="Guests"
                       className="bg-white w-full"
                       onClick={addGuestsHandler}
@@ -281,18 +282,18 @@ const NovelRoomDetails = () => {
                           ></i>
                         </span>
                       </div>
-                    </NovelSuitesButton>
-                    <NovelMenu
+                    </Button>
+                    <Menu
                       isOpen={Boolean(menutarget)}
                       targetElement={menutarget}
                       onClose={onCloseGuestsHandler}
                     >
-                      <NovelMenu.MenuItem>1</NovelMenu.MenuItem>
-                      <NovelMenu.MenuItem>2</NovelMenu.MenuItem>
-                      <NovelMenu.MenuItem>3</NovelMenu.MenuItem>
-                    </NovelMenu>
+                      <Menu.MenuItem>1</Menu.MenuItem>
+                      <Menu.MenuItem>2</Menu.MenuItem>
+                      <Menu.MenuItem>3</Menu.MenuItem>
+                    </Menu>
                   </div>
-                  <NovelSuitesButton
+                  <Button
                     className="novel-button--primary novel-button--large novel-button--block mt-1"
                     title="Checkout"
                   >
@@ -300,7 +301,7 @@ const NovelRoomDetails = () => {
                       <i className="fa fa-cart-plus" aria-hidden="true"></i>
                     </span>
                     <span className="ml-1">Checkout</span>
-                  </NovelSuitesButton>
+                  </Button>
                 </form>
               </div>
             </div>

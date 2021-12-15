@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { BackDrop } from "../UI_Library";
 import OutSideClicked from "../../SharedComponents/OutSideClicked/OutSideClicked";
-import NovelBackDrop from "../NovelBackDrop/NovelBackDrop";
 import UIElementHelper from "../UI_Element_helpers";
 import "./NovelMenu.scss";
 
@@ -106,7 +106,7 @@ const NovelMenu = ({ className, targetElement, onClose, children, isOpen }) => {
 
   const NovelMenuWrapper = () => {
     return (
-      <NovelBackDrop className="bg-transparent">
+      <BackDrop className="bg-transparent">
         <OutSideClicked onClikcedOutSide={onClose}>
           <div
             className={`${getMenuAllClasses("novel-menu-wrapper", className)} ${
@@ -118,7 +118,7 @@ const NovelMenu = ({ className, targetElement, onClose, children, isOpen }) => {
             {children}
           </div>
         </OutSideClicked>
-      </NovelBackDrop>
+      </BackDrop>
     );
   };
   if (isOpen) {
@@ -129,4 +129,4 @@ const NovelMenu = ({ className, targetElement, onClose, children, isOpen }) => {
 
 NovelMenu.MenuItem = NovelMenuItem;
 
-export default NovelMenu;
+export { NovelMenu };
