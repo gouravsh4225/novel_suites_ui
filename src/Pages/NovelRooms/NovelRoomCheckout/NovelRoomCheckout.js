@@ -1,6 +1,6 @@
 import React from "react";
 
-const NovelRoomCheckout = () => {
+const NovelRoomCheckOut = () => {
   return <div className="novel-room-checkout-wrapper">Workign</div>;
 };
-export default NovelRoomCheckout;
+export default NovelRoomCheckOut;

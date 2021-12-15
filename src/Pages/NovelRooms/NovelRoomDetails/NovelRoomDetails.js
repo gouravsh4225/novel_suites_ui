@@ -132,7 +132,22 @@ const NovelRoomDetails = () => {
   const onReverseRoomSubmit = (event) => {
     event.preventDefault();
     const { check_in, check_out, total_guests, total_night } = reserveRoomForm;
-    console.log();
+    let bookingDetails = {
+      location_id: selectedLocation[0]._id,
+      room_id: room._id,
+      start_date: check_in.value,
+      end_date: check_out.value,
+      total_night: total_night.value,
+      total_guests: total_guests.value,
+    };
+    localStorage.setItem("booking_details", JSON.stringify(bookingDetails));
+    novelRoomDetailsRouter.push("/room-checkout");
+  };
+
+  const isReverseFormValid = () => {
+    const { check_in, check_out } = reserveRoomForm;
+    if (check_out.value && check_in.value) return false;
+    return true;
   };
 
   const { check_in, check_out, total_guests, total_night } = reserveRoomForm;
@@ -317,11 +332,7 @@ const NovelRoomDetails = () => {
                       inputLabel="Check In"
                       inputLabelClasses="fw-normal text-uppercase"
                       errorText={!check_in?.value ? check_in?.errorText : ""}
-                      // min={
-                      //   start_date?.value
-                      //     ? start_date?.value
-                      //     : dateFormatYearMonthDate(new Date())
-                      // }
+                      min={dateFormatYearMonthDate(new Date())}
                       onChange={onChangeCheckInDateHandler}
                       value={check_in?.value ? check_in.value : ""}
                       name="check_in"
@@ -331,11 +342,11 @@ const NovelRoomDetails = () => {
                       inputLabel="Check Out"
                       inputLabelClasses="fw-normal text-uppercase"
                       errorText={!check_out?.value ? check_out?.errorText : ""}
-                      // min={
-                      //   start_date?.value
-                      //     ? start_date?.value
-                      //     : dateFormatYearMonthDate(new Date())
-                      // }
+                      min={
+                        check_in?.value
+                          ? check_in?.value
+                          : dateFormatYearMonthDate(new Date())
+                      }
                       onChange={onChangeCheckOutDateHandler}
                       value={check_out?.value ? check_out.value : ""}
                       name="check_out"
@@ -386,6 +397,7 @@ const NovelRoomDetails = () => {
                     className="novel-button--primary novel-button--large novel-button--block mt-1"
                     title="Checkout"
                     onClick={onReverseRoomSubmit}
+                    disabled={isReverseFormValid()}
                   >
                     <span>
                       <i className="fa fa-cart-plus" aria-hidden="true"></i>

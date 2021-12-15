@@ -9,6 +9,7 @@ import ContactUs from "./Pages/ContactUs/ContactUs";
 import NoPageFound from "./Components/NoPageFound/NoPageFound";
 import SignUpPage from "./Pages/SignUp/SignUp";
 import NovelRoomDetails from "./Pages/NovelRooms/NovelRoomDetails/NovelRoomDetails";
+import NovelRoomCheckOut from "./Pages/NovelRooms/NovelRoomCheckout/NovelRoomCheckout";
 
 const AppRoutes = () => {
   return (
@@ -28,6 +29,9 @@ const AppRoutes = () => {
         </Route>
         <Route exact={true} path="/location/:locationId/rooms/:roomId">
           <HeaderFooterLayout component={NovelRoomDetails} />
+        </Route>
+        <Route exact={true} path="/room-checkout">
+          <HeaderFooterLayout component={NovelRoomCheckOut} />
         </Route>
         <Route exact={true} path="/contact-us">
           <HeaderFooterLayout component={ContactUs} />
