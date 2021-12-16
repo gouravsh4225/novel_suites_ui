@@ -402,7 +402,7 @@ const NovelRoomDetails = () => {
                     <span>
                       <i className="fa fa-cart-plus" aria-hidden="true"></i>
                     </span>
-                    <span className="ml-1">Checkout</span>
+                    <span className="ml-1">Add To Cart</span>
                   </Button>
                 </form>
               </div>
