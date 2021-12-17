@@ -30,7 +30,7 @@ const AppRoutes = () => {
         <Route exact={true} path="/location/:locationId/rooms/:roomId">
           <HeaderFooterLayout component={NovelRoomDetails} />
         </Route>
-        <Route exact={true} path="/room-checkout">
+        <Route exact={true} path="/room-checkout/:id">
           <HeaderFooterLayout component={NovelRoomCheckOut} />
         </Route>
         <Route exact={true} path="/contact-us">

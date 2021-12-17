@@ -15,7 +15,7 @@ const getRoomBookRazorPayOrderId = () => {
 
 const confirmRazorPaymemtSuccess = (data) => {
   return APIUtlis.postApi("bookings/razorpay/success", data)
-    .then(APIUtlis.handleResponse)
+    .then(APIUtlis.handleSuccessReponse)
     .catch(APIUtlis.handleErrorResponse);
 };
 
@@ -26,9 +26,18 @@ const getRoomByLocationIdAndRoomId = (locationId, roomId) => {
     .catch(APIUtlis.handleErrorResponse);
 };
 
+const addUserToCartRoom = ({ cart_details }) => {
+  return APIUtlis.postApi("rooms/addtocart", {
+    cart_details,
+  })
+    .then(APIUtlis.handleSuccessReponse)
+    .catch(APIUtlis.handleErrorResponse);
+};
+
 export {
   getAllRoomByLocation,
   getRoomBookRazorPayOrderId,
   confirmRazorPaymemtSuccess,
   getRoomByLocationIdAndRoomId,
+  addUserToCartRoom,
 };
