@@ -39,6 +39,8 @@ const NovelRoomDetails = () => {
       value: 1,
     },
   });
+  const [isItemAddedInCart, setIsItemAddedInCart] = useState(false);
+
   useEffect(() => {
     Loader.show();
     getRoomByLocationIdAndRoomId(locationId, roomId)
@@ -134,6 +136,14 @@ const NovelRoomDetails = () => {
 
   const onAddToCartFormSubmit = (event) => {
     event.preventDefault();
+    if (!isItemAddedInCart) {
+      addItemInCart();
+    } else {
+      novelRoomDetailsRouter.push("/user-cart");
+    }
+  };
+
+  const addItemInCart = () => {
     const isUserLoggedIn = JSON.parse(CommonUtlis.getSessionUserDetails());
     if (!isUserLoggedIn) {
       Toastr.warning("Please login first, before adding into your cart.");
@@ -160,7 +170,8 @@ const NovelRoomDetails = () => {
         if (data && !errors.length) {
           let { _id } = data;
           Toastr.success(message);
-          novelRoomDetailsRouter.push(`/room-checkout/${_id}`);
+          setIsItemAddedInCart(true);
+          // novelRoomDetailsRouter.push(`/room-checkout/${_id}`);
         }
       })
       .catch((addCartError) => {
@@ -440,7 +451,9 @@ const NovelRoomDetails = () => {
                       <span>
                         <i className="fa fa-cart-plus" aria-hidden="true"></i>
                       </span>
-                      <span className="ml-1">Add To Cart</span>
+                      <span className="ml-1">
+                        {isItemAddedInCart ? "Go To Bag" : "Add To Cart"}
+                      </span>
                     </Button>
                   </form>
                 </div>
