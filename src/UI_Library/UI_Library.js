@@ -10,6 +10,7 @@ import { NovelDropdown as DropDown } from "./NovelDropdown/NovelDropdown";
 import { NovelMenu as Menu } from "./NovelMenu/NovelMenu";
 import { NovelSpinnerLoader as SpinnerLoader } from "./NovelSpinnerLoader/NovelSpinnerLoader";
 import { NovelSuitesLabel as Label } from "./NovelSuitesLabel/NovelSuitesLabel";
+import { NovelCard as Card } from "./NovelCard/NovelCard";
 export {
   Button,
   Input,
@@ -23,4 +24,5 @@ export {
   Menu,
   SpinnerLoader,
   Label,
+  Card,
 };

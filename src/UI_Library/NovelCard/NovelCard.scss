@@ -1,0 +1,12 @@
+.novel-card {
+  background-color: white;
+  padding: 1rem;
+  box-shadow: 0rem 0rem 1rem rgba(0, 0, 0, 0.18);
+  border-radius: 4px;
+  width: auto;
+  overflow: hidden;
+  height: auto;
+  .novel-card-content {
+    margin-block: 1rem;
+  }
+}

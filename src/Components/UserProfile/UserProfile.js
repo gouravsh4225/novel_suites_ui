@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import UserAvatarLogo from "../../assets/user-avatar.png";
 import { Toastr, Menu } from "../../UI_Library/UI_Library";
 import AuthService from "../../Services/AuthService/AuthService";
@@ -9,11 +10,13 @@ const getUserProfileMenuList = () => {
   return [
     { itemLabel: "My Account", componentUrl: "/user-account", id: 1 },
     { itemLabel: "My Booking", componentUrl: "/user-bookings", id: 2 },
-    { itemLabel: "Logout", id: 3 },
+    { itemLabel: "My Cart", componentUrl: "/user-cart", id: 3 },
+    { itemLabel: "Logout", id: 4 },
   ];
 };
 
 const UserProfile = ({ className }) => {
+  const UserProfileRouters = useHistory();
   const [isMenuElementOpen, setisMenuElementOpen] = useState(null);
   const openProfileMenu = (e) => {
     setisMenuElementOpen(e.currentTarget);
@@ -24,13 +27,13 @@ const UserProfile = ({ className }) => {
   };
 
   const onMenuItemHandler = (e, selectedItem) => {
-    console.log(selectedItem, "selectedItem");
     if (selectedItem.componentUrl) {
-      // To do
-      Toastr.info("Feature will come in next release");
+      let { componentUrl } = selectedItem;
+      UserProfileRouters.push(componentUrl);
     } else {
       AuthService.logOutUser().then((res) => {
-        window.location.reload();
+        UserProfileRouters.push("/");
+        // window.location.reload();
       });
     }
     setisMenuElementOpen(null);

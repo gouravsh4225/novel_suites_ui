@@ -26,10 +26,15 @@ const getRoomByLocationIdAndRoomId = (locationId, roomId) => {
     .catch(APIUtlis.handleErrorResponse);
 };
 
-const addUserToCartRoom = ({ cart_details }) => {
-  return APIUtlis.postApi("rooms/addtocart", {
-    cart_details,
-  })
+const addUserToCartRoom = (cart_details) => {
+  console.log(cart_details, "-->");
+  return APIUtlis.postApi("rooms/addtocart", cart_details)
+    .then(APIUtlis.handleSuccessReponse)
+    .catch(APIUtlis.handleErrorResponse);
+};
+
+const getUserCartDetailsByCartId = (id) => {
+  return APIUtlis.getApi(`rooms/cartdetailsByCartId/${id}`)
     .then(APIUtlis.handleSuccessReponse)
     .catch(APIUtlis.handleErrorResponse);
 };
@@ -40,4 +45,5 @@ export {
   confirmRazorPaymemtSuccess,
   getRoomByLocationIdAndRoomId,
   addUserToCartRoom,
+  getUserCartDetailsByCartId,
 };

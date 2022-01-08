@@ -1,4 +1,5 @@
 import { APIUtlis } from "../../Utils/APIUtlis";
+import CommonUtlis from "../../Utils/CommonUtlis";
 
 const loginSubmit = (formData) => {
   return APIUtlis.postApi("user-auth/login", formData)
@@ -19,9 +20,21 @@ const logOutUser = () => {
   });
 };
 
+const getUserCartDetails = () => {
+  const userData = JSON.parse(CommonUtlis.getSessionUserDetails());
+  if (userData) {
+    let { _id } = userData;
+    const url = `rooms/cartdetailsByUserId/${_id}`;
+    return APIUtlis.getApi(url)
+      .then(APIUtlis.handleSuccessReponse)
+      .catch(APIUtlis.handleErrorResponse);
+  }
+};
+
 const AuthService = {
   loginSubmit,
   signUpUser,
   logOutUser,
+  getUserCartDetails,
 };
 export default AuthService;

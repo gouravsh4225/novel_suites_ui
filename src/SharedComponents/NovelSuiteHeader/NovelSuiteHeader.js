@@ -8,7 +8,7 @@ import { SHOW_HEADER_HEIGHT } from "../../Constants/constant";
 import NovelSuiteMobileHeader from "./NovelSuiteMobileHeader";
 import Login from "../../Pages/Login/Login";
 import BookNow from "../../Components/BookNow/BookNow";
-import UserProfile from "../UserProfile/UserProfile";
+import UserProfile from "../../Components/UserProfile/UserProfile";
 import "./NovelSuiteHeader.scss";
 import CommonUtlis from "../../Utils/CommonUtlis";
 

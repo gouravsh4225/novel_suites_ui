@@ -29,9 +29,10 @@ const NovelRooms = () => {
       .then((roomsResponeData) => {
         Loader.hide();
         let { data } = roomsResponeData.response;
-        let { rooms } = data[0];
-        if (Array.isArray(rooms)) {
-          setRoomList(rooms);
+        console.log(data, "-->");
+        let { items } = data;
+        if (Array.isArray(items)) {
+          setRoomList(items);
         }
       })
       .catch((roomsResponeError) => {

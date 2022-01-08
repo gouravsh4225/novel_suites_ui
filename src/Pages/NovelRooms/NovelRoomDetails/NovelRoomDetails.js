@@ -142,23 +142,22 @@ const NovelRoomDetails = () => {
     Loader.show();
     const { check_in, check_out, total_guests, total_night } = reserveRoomForm;
     let addCartSendJson = {
-      cart_details: {
-        locationId: selectedLocation[0]._id,
-        roomId: room._id,
-        userId: isUserLoggedIn._id,
-        start_date: check_in.value,
-        end_date: check_out.value,
-        total_night: total_night.value,
-        total_guests: total_guests.value,
-      },
+      locationId: selectedLocation[0]._id,
+      roomId: room._id,
+      userId: isUserLoggedIn._id,
+      start_date: check_in.value,
+      end_date: check_out.value,
+      total_night: total_night.value,
+      total_guests: total_guests.value,
     };
-    console.log(addCartSendJson, "addCartSendJson");
+    console.log(addCartSendJson, "caddd");
     addUserToCartRoom(addCartSendJson)
       .then((addedCartResponse) => {
         Loader.hide();
         const { response } = addedCartResponse;
+        console.log(response, "get resposne");
         const { data, message, errors } = response;
-        if (data.cart_details && !errors.length) {
+        if (data && !errors.length) {
           let { _id } = data;
           Toastr.success(message);
           novelRoomDetailsRouter.push(`/room-checkout/${_id}`);

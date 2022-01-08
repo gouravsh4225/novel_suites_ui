@@ -10,6 +10,9 @@ import NoPageFound from "./Components/NoPageFound/NoPageFound";
 import SignUpPage from "./Pages/SignUp/SignUp";
 import NovelRoomDetails from "./Pages/NovelRooms/NovelRoomDetails/NovelRoomDetails";
 import NovelRoomCheckOut from "./Pages/NovelRooms/NovelRoomCheckout/NovelRoomCheckout";
+import UserProfileCart from "./Components/UserProfile/UserProfileCart/UserProfileCart";
+import UserAccount from "./Components/UserProfile/UserAccount/UserAccount";
+import UserBooking from "./Components/UserProfile/UserBooking/UserBooking";
 
 const AppRoutes = () => {
   return (
@@ -32,6 +35,15 @@ const AppRoutes = () => {
         </Route>
         <Route exact={true} path="/room-checkout/:id">
           <HeaderFooterLayout component={NovelRoomCheckOut} />
+        </Route>
+        <Route exact={true} path="/user-cart">
+          <HeaderFooterLayout component={UserProfileCart} />
+        </Route>
+        <Route exact={true} path="/user-account">
+          <HeaderFooterLayout component={UserAccount} />
+        </Route>
+        <Route exact={true} path="/user-bookings">
+          <HeaderFooterLayout component={UserBooking} />
         </Route>
         <Route exact={true} path="/contact-us">
           <HeaderFooterLayout component={ContactUs} />
