@@ -29,6 +29,9 @@
 .m-auto {
   margin: auto;
 }
+.ml-5px {
+  margin-left: 5px;
+}
 
 .flex-1 {
   flex: 1;
@@ -39,6 +42,9 @@
 }
 .flex-align-center {
   align-items: center;
+}
+.flex-justify-space-between {
+  justify-content: space-between;
 }
 .mblock-1 {
   margin-block: 1rem;
@@ -117,16 +123,6 @@
 .w-full {
   width: 100%;
 }
-/* Novel Class start here */
-.novel-card {
-  background-color: white;
-  padding: 1rem;
-  box-shadow: 0rem 0rem 1rem rgba(0, 0, 0, 0.18);
-  border-radius: 4px;
-  .novel-card-content {
-    margin-block: 1rem;
-  }
-}
 
 /* Grid Classes start */
 .grid-container {
@@ -161,6 +157,9 @@
 }
 .pos-relative {
   position: relative;
+}
+.pos-sticky {
+  position: sticky;
 }
 
 .novel-form-input,
@@ -206,4 +205,19 @@ Common Bg-class
 .bg-white {
   background-color: white;
   background: white;
+}
+/** Box Shadow classes */
+.no-box-shadow {
+  box-shadow: none !important;
+}
+
+.h-full {
+  height: 100% !important;
+}
+
+.image-fit-cover {
+  object-fit: cover;
+}
+.image-fit-contain {
+  object-fit: contain;
 }

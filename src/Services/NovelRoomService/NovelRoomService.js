@@ -27,8 +27,13 @@ const getRoomByLocationIdAndRoomId = (locationId, roomId) => {
 };
 
 const addUserToCartRoom = (cart_details) => {
-  console.log(cart_details, "-->");
   return APIUtlis.postApi("rooms/addtocart", cart_details)
+    .then(APIUtlis.handleSuccessReponse)
+    .catch(APIUtlis.handleErrorResponse);
+};
+
+const removeItemFromCart = (cartId) => {
+  return APIUtlis.deleteApi(`rooms/deletecartdetailsByCartId/${cartId}`)
     .then(APIUtlis.handleSuccessReponse)
     .catch(APIUtlis.handleErrorResponse);
 };
@@ -45,5 +50,6 @@ export {
   confirmRazorPaymemtSuccess,
   getRoomByLocationIdAndRoomId,
   addUserToCartRoom,
+  removeItemFromCart,
   getUserCartDetailsByCartId,
 };

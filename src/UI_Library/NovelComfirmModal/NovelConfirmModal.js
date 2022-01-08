@@ -1,4 +1,5 @@
 import React, { useCallback } from "react";
+import { createPortal } from "react-dom";
 import { Button, Modal } from "../UI_Library";
 import "./NovelConfirmModal.scss";
 
@@ -17,32 +18,42 @@ const NovelConfirmModal = ({ children, onClose, isOpen, type, onConfirm }) => {
     }
     return "";
   }, [type]);
+  const ConfirmModalWrapper = () => {
+    return (
+      <Modal
+        onEscKeyClose={onClose}
+        isOpen={isOpen}
+        isCenter={false}
+        className="novel-confirm-modal-root"
+      >
+        <Modal.Header
+          onCloseHandler={onClose}
+          headerHeading="Confrim "
+          className={addConfirmModalClass()}
+        />
+        <Modal.Content>{children}</Modal.Content>
+        <Modal.Footer>
+          <div className="confirm-buttons">
+            <Button
+              buttonLabel="Close"
+              className="mr-1 no-box-shadow border-solid bg-white"
+              onClick={onClose}
+            />
+            <Button
+              buttonLabel="Confirm"
+              onClick={(e) => onConfirm()}
+              className="bg-error border-solid no-box-shadow"
+            />
+          </div>
+        </Modal.Footer>
+      </Modal>
+    );
+  };
 
-  return (
-    <Modal
-      onEscKeyClose={onClose}
-      isOpen={isOpen}
-      isCenter={false}
-      className="novel-confirm-modal-root"
-    >
-      <Modal.Header
-        onCloseHandler={onClose}
-        headerHeading="Confrim "
-        className={addConfirmModalClass()}
-      />
-      <Modal.Content>{children}</Modal.Content>
-      <Modal.Footer>
-        <div className="confirm-buttons">
-          <Button buttonLabel="Close" onClick={onClose} />
-          <Button
-            buttonLabel="Confirm"
-            onClick={(e) => onConfirm}
-            className="bg-error"
-          />
-        </div>
-      </Modal.Footer>
-    </Modal>
-  );
+  if (isOpen) {
+    return createPortal(<ConfirmModalWrapper />, document.body);
+  }
+  return null;
 };
 
 export { NovelConfirmModal };

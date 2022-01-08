@@ -16,11 +16,17 @@ const dayBetweenTwoDates = (startDate, endDate) => {
   }
   return 0;
 };
+const numberWithCommas = (numbers) => {
+  var parts = numbers.toString().split(".");
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return parts.join(".");
+};
 
 const CommonUtlis = {
   setSessionUserItems,
   getSessionUserDetails,
   dayBetweenTwoDates,
+  numberWithCommas,
 };
 
 export default CommonUtlis;
