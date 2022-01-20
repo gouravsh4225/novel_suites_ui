@@ -8,13 +8,25 @@ import {
   Toastr,
 } from "../../../UI_Library/UI_Library";
 import AuthService from "../../../Services/AuthService/AuthService";
-import { removeItemFromCart } from "../../../Services/NovelRoomService/NovelRoomService";
+import {
+  removeItemFromCart,
+  addToSaveLaterList,
+  getRoomBookRazorPayOrderId,
+  confirmRazorPaymemtSuccess,
+} from "../../../Services/NovelRoomService/NovelRoomService";
 import CommonUtlis from "../../../Utils/CommonUtlis";
-import { dateFormatYearMonthDate } from "../../../Utils/FormValidationUtlis";
+import {
+  loadRazorPayScript,
+  RazorPayPaymentOptions,
+} from "../../../Utils/RazorPayUtils";
 import "./UserProfileCart.scss";
+import CartCard from "./CartCard";
 
 const UserProfileCart = () => {
-  const [userCarts, setUserCarts] = useState([]);
+  const [userCarts, setUserCarts] = useState({
+    currentCartData: [],
+    saveLaterCartData: [],
+  });
   const [userDetails, setUserDetails] = useState({});
   const [isConfirmOpen, setIsConfirmOpen] = useState({
     open: false,
@@ -27,10 +39,15 @@ const UserProfileCart = () => {
       .then((cartResponse) => {
         Loader.hide();
         let { data } = cartResponse.response;
-        if (data.items && Array.isArray(data.items) && data.items.length) {
-          let { user_details } = data.items[0];
+        const { cartData, saveLaterData } = data;
+        /** for fetch current Cart data */
+        if (data && Array.isArray(cartData) && cartData.length) {
+          let { user_details } = cartData[0];
           setUserDetails(user_details[0]);
-          setUserCarts(data.items);
+          setUserCarts({
+            currentCartData: cartData,
+            saveLaterCartData: saveLaterData,
+          });
         }
       })
       .catch((cartError) => {
@@ -43,26 +60,26 @@ const UserProfileCart = () => {
     getUserCartData();
   }, []);
 
-  const getTotalItemTotalPrices = () => {
+  const getTotalItemTotalPrices = (data) => {
     return (
       <Fragment>
         <Label className="fw-bold">
-          My Booking Bag ({userCarts.length}
-          {userCarts.length < 1 ? ` Item` : ` Items`})
+          My Booking Bag ({data.length}
+          {data.length < 1 ? ` Item` : ` Items`})
         </Label>
         <Label className="fw-bold">
           Total :
           <span className="fa fa-inr fs-textMd" aria-hidden="true"></span>
           <span className="ml-5px">
-            {CommonUtlis.numberWithCommas(getTotalPrice())}
+            {CommonUtlis.numberWithCommas(getTotalPrice(data))}
           </span>
         </Label>
       </Fragment>
     );
   };
 
-  const getTotalPrice = () => {
-    return userCarts.reduce((previousValue, currentValue) => {
+  const getTotalPrice = (priceList) => {
+    return priceList.reduce((previousValue, currentValue) => {
       const { rooms_deatails, total_night } = currentValue;
       return previousValue + rooms_deatails[0].room_price * total_night;
     }, 0);
@@ -80,7 +97,6 @@ const UserProfileCart = () => {
     Loader.show();
     removeItemFromCart(selected_remove_item._id)
       .then((responseData) => {
-        console.log("remove response", responseData);
         const { response } = responseData;
         const { message } = response;
         Loader.hide();
@@ -90,6 +106,7 @@ const UserProfileCart = () => {
           isOpen: false,
           selected_remove_item: {},
         });
+        getUserCartData();
       })
       .catch((erorr) => {
         Loader.hide();
@@ -97,6 +114,93 @@ const UserProfileCart = () => {
       });
   };
 
+  const onSaveForLaterHandler = (e, saveLaterItems) => {
+    const { _id } = saveLaterItems;
+    saveLaterItems.is_save_later = true;
+    Loader.show();
+    addToSaveLaterList(_id, saveLaterItems)
+      .then((res) => {
+        Loader.hide();
+        let { response } = res;
+        Toastr.success("Item is added successfully on save later");
+        getUserCartData();
+      })
+      .catch((error) => {
+        Loader.hide();
+      });
+  };
+
+  const onPayAmountHandler = () => {
+    const totalPrice = getTotalPrice(currentCartData);
+    const cart_ids = currentCartData.map((item) => item._id);
+    console.log(cart_ids, "cart_ids");
+    loadRazorPayScript().then((res) => {
+      if (!res) {
+        alert("RazorPay script SDK load to failed");
+        return;
+      }
+      let sessionUserData = JSON.parse(CommonUtlis.getSessionUserDetails());
+      let prefill = {
+        name: sessionUserData.name,
+        email: sessionUserData.email_address,
+        contact: sessionUserData.phone_number,
+      };
+      console.log(prefill, "pref");
+      getRoomBookRazorPayOrderId()
+        .then((res) => {
+          let { data } = res.response;
+          console.log("cart_ids--> in api", cart_ids);
+          const razorPayoptions = {
+            prefill: prefill,
+            key: process.env.REACT_APP_RAZORPAY_KEY_ID,
+            amount: data.amount.toString(),
+            currency: data.currency,
+            name: "Novel Suite",
+            description: "h",
+            order_id: data.id,
+            image:
+              "https://novel-suites-ui.vercel.app/static/media/logo_novel.78ee88e9.gif",
+            handler: (res) => {
+              let {
+                razorpay_order_id,
+                razorpay_payment_id,
+                razorpay_signature,
+              } = res;
+              console.log("hey--->", cart_ids);
+              Loader.show();
+              confirmRazorPaymemtSuccess({
+                orderCreationId: data.id,
+                razorpayPaymentId: razorpay_payment_id,
+                razorpayOrderId: razorpay_order_id,
+                razorpaySignature: razorpay_signature,
+                cart_ids: cart_ids,
+              })
+                .then((res) => {
+                  Loader.hide();
+                  if (res) {
+                    console.log("gotcha-->");
+                  }
+                })
+                .catch((error) => {
+                  console.log(error);
+                  Loader.hide();
+                });
+            },
+            theme: {
+              color: "black",
+            },
+          };
+          console.log(razorPayoptions, "-->Options");
+          const razorpayPaymentObject = window.Razorpay(razorPayoptions);
+          razorpayPaymentObject.open();
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
+    });
+  };
+
+  const { currentCartData, saveLaterCartData } = userCarts;
   return (
     <Fragment>
       <ConfirmModal
@@ -139,97 +243,48 @@ const UserProfileCart = () => {
                 </Card>
               </section>
               <section className="mt-1 d-flex flex-align-center flex-justify-space-between">
-                {getTotalItemTotalPrices()}
+                {getTotalItemTotalPrices(currentCartData)}
               </section>
               <div className="mt-1">
-                {userCarts.map((cartItem) => {
-                  let {
-                    rooms_deatails,
-                    location_details,
-                    start_date,
-                    total_night,
-                  } = cartItem;
+                {currentCartData.map((cartItem) => {
                   return (
-                    <Card
+                    <CartCard
                       key={cartItem._id}
-                      className="mt-1 no-box-shadow user-card-border"
-                    >
-                      <Card.Content className="m-0">
-                        <div className="cart-media grid-container grid-gap-1">
-                          <img
-                            className="h-full image-fit-cover user-card-border"
-                            src="https://res.cloudinary.com/arbor1221/image/upload/v1498121225/Consulting_Advisory_Professional_services_2_ikqokw.jpg"
-                            alt={`${rooms_deatails[0].room_name}`}
-                          />
-                          <div className="cart-media-content">
-                            <p className="fw-bold cart-hotel-heading">
-                              {location_details[0].hotel_name},{" "}
-                              {location_details[0].short_address}
-                            </p>
-                            <p>{rooms_deatails[0].room_name}</p>
-                            <p>
-                              <span className="fw-bold">Start Day:</span>
-                              <span className="ml-5px">
-                                {dateFormatYearMonthDate(start_date)}
-                              </span>
-                            </p>
-                            <p>
-                              <span className="fw-bold">Nights:</span>
-                              <span className="ml-5px">{total_night}</span>
-                            </p>
-                          </div>
-                          <p className="text-end fw-bold">
-                            <span
-                              className="fa fa-inr"
-                              aria-hidden="true"
-                            ></span>
-                            <span className="cart-media-price ml-5px">
-                              {rooms_deatails[0].room_price * total_night}
-                            </span>
-                          </p>
-                        </div>
-                      </Card.Content>
-                      <div className="user-card-border mt-1"></div>
-                      <Card.Footer className="cart-media-footer mt-1">
-                        <Button
-                          className="bg-error remove-button"
-                          title="Remove"
-                          onClick={(e) => onRemoveCartItem(e, cartItem)}
-                        >
-                          <span
-                            className="fa fa-trash"
-                            aria-hidden="true"
-                          ></span>
-                          <span className="ml-5px">Remove</span>
-                        </Button>
-                        <Button
-                          className="remove-button ml-1 no-box-shadow"
-                          title="Remove"
-                        >
-                          <span
-                            className="fa fa-bookmark-o"
-                            aria-hidden="true"
-                          ></span>
-                          <span className="ml-5px">Save For Later</span>
-                        </Button>
-                      </Card.Footer>
-                    </Card>
+                      data={cartItem}
+                      onRemoveCartItem={onRemoveCartItem}
+                      onSaveForLaterHandler={onSaveForLaterHandler}
+                    />
                   );
                 })}
               </div>
+              <section className="mt-1">
+                <Label className="fw-bold">
+                  Save For Later Bag ({saveLaterCartData.length}
+                  {saveLaterCartData.length < 1 ? ` Item` : ` Items`})
+                </Label>
+                {saveLaterCartData.map((saveItem) => (
+                  <CartCard
+                    key={saveItem._id}
+                    data={saveItem}
+                    onRemoveCartItem={onRemoveCartItem}
+                  />
+                ))}
+              </section>
             </section>
             <section className="grid-summary">
               <Card className="no-box-shadow user-card-border pos-sticky summary-card">
                 <p className="fw-bold fs-textMd ">
-                  Price Details ({userCarts.length}
-                  {userCarts.length < 1 ? ` Item` : ` Items`})
+                  Price Details ({currentCartData.length}
+                  {currentCartData.length < 1 ? ` Item` : ` Items`})
                 </p>
                 <Card.Content>
                   <div className="d-flex flex-justify-space-between">
                     <p>Total MRP</p>
                     <p>
                       <span className="fa fa-inr"></span>
-                      {CommonUtlis.numberWithCommas(getTotalPrice())}
+                      {CommonUtlis.numberWithCommas(
+                        getTotalPrice(currentCartData)
+                      )}
                     </p>
                   </div>
                   <div className="d-flex flex-justify-space-between">
@@ -243,15 +298,28 @@ const UserProfileCart = () => {
                     <p>Total</p>
                     <p>
                       <span className="fa fa-inr"></span>
-                      {CommonUtlis.numberWithCommas(getTotalPrice())}
+                      {CommonUtlis.numberWithCommas(
+                        getTotalPrice(currentCartData)
+                      )}
                     </p>
                   </div>
                 </Card.Content>
                 <Card.Footer>
                   <Button
                     className="novel-button--block no-box-shadow bg-error"
-                    buttonLabel="Book Room"
-                  />
+                    onClick={onPayAmountHandler}
+                  >
+                    <span>Pay</span>
+                    <span
+                      className="fa fa-inr ml-5px"
+                      aria-hidden="true"
+                    ></span>
+                    <span className="ml-5px">
+                      {CommonUtlis.numberWithCommas(
+                        getTotalPrice(currentCartData)
+                      )}
+                    </span>
+                  </Button>
                 </Card.Footer>
               </Card>
             </section>

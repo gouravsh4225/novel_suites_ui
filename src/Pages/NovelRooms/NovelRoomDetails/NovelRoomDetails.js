@@ -13,6 +13,8 @@ import {
   Toastr,
   Menu,
   Label,
+  Carousel,
+  Modal,
 } from "../../../UI_Library/UI_Library";
 import CommonUtlis from "../../../Utils/CommonUtlis";
 import "./NovelRoomDetails.scss";
@@ -40,6 +42,10 @@ const NovelRoomDetails = () => {
     },
   });
   const [isItemAddedInCart, setIsItemAddedInCart] = useState(false);
+  const [isOpenGallery, setIsOpenGallery] = useState({
+    open: false,
+    data: [],
+  });
 
   useEffect(() => {
     Loader.show();
@@ -160,18 +166,14 @@ const NovelRoomDetails = () => {
       total_night: total_night.value,
       total_guests: total_guests.value,
     };
-    console.log(addCartSendJson, "caddd");
     addUserToCartRoom(addCartSendJson)
       .then((addedCartResponse) => {
         Loader.hide();
         const { response } = addedCartResponse;
-        console.log(response, "get resposne");
         const { data, message, errors } = response;
         if (data && !errors.length) {
-          let { _id } = data;
           Toastr.success(message);
           setIsItemAddedInCart(true);
-          // novelRoomDetailsRouter.push(`/room-checkout/${_id}`);
         }
       })
       .catch((addCartError) => {
@@ -186,10 +188,35 @@ const NovelRoomDetails = () => {
     return true;
   };
 
-  const { check_in, check_out, total_guests, total_night } = reserveRoomForm;
+  const onBookRoom = () => {};
 
+  const onViewGalleryHandler = () => {
+    const { room_pics } = room;
+    setIsOpenGallery({
+      open: true,
+      data: room_pics ? room_pics : [],
+    });
+  };
+  const onCloseGalleryHandler = () => {
+    setIsOpenGallery({
+      open: false,
+      data: [],
+    });
+  };
+
+  const { check_in, check_out, total_guests, total_night } = reserveRoomForm;
+  const { open, data } = isOpenGallery;
   return (
     <Fragment>
+      <Modal isOpen={open} isCenter={false}>
+        <Modal.Header
+          headerHeading="Room Gallery"
+          onCloseHandler={onCloseGalleryHandler}
+        ></Modal.Header>
+        <Modal.Content className="w-full">
+          <Carousel items={data} intervalTime={3000} />
+        </Modal.Content>
+      </Modal>
       <div className="novel-room-details-wrapper">
         <section className="novel-room-media pos-relative fluid-container">
           <div className="novel-room-image">
@@ -333,7 +360,10 @@ const NovelRoomDetails = () => {
                   </div>
                 </div>
                 <div className="novel-room-gallery">
-                  <Button className="novel-button--secondary-text novel-button--large">
+                  <Button
+                    className="novel-button--secondary-text novel-button--large"
+                    onClick={onViewGalleryHandler}
+                  >
                     <div className="novel-room-button">
                       <i className="fa fa-picture-o" aria-hidden="true"></i>
                       <span className="ml-1">View Gallery </span>

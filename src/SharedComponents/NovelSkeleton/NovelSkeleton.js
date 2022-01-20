@@ -18,10 +18,11 @@ const RoundedImage = ({ children, className }) => {
   );
 };
 
-const SquareImage = ({ children, className }) => {
+const SquareImage = ({ children, className, ...rest }) => {
   return (
     <div
       className={addAllSkeletonCssClass("skeleton-sqaure-image", className)}
+      {...rest}
     ></div>
   );
 };
@@ -34,17 +35,19 @@ const FullWidthImage = ({ children, className }) => {
   );
 };
 
-const HalfHeading = ({ children, className }) => {
+const HalfHeading = ({ children, className, ...rest }) => {
   return (
     <div
       className={addAllSkeletonCssClass("skeleton-half-heading", className)}
+      {...rest}
     ></div>
   );
 };
-const FullHeading = ({ children, className }) => {
+const FullHeading = ({ children, className, ...rest }) => {
   return (
     <div
       className={addAllSkeletonCssClass("skeleton-full-heading", className)}
+      {...rest}
     ></div>
   );
 };

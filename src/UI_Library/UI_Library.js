@@ -11,6 +11,7 @@ import { NovelMenu as Menu } from "./NovelMenu/NovelMenu";
 import { NovelSpinnerLoader as SpinnerLoader } from "./NovelSpinnerLoader/NovelSpinnerLoader";
 import { NovelSuitesLabel as Label } from "./NovelSuitesLabel/NovelSuitesLabel";
 import { NovelCard as Card } from "./NovelCard/NovelCard";
+import { NovelCarouselContainer as Carousel } from "./NovelCarousel/NovelCarousel";
 export {
   Button,
   Input,
@@ -25,4 +26,5 @@ export {
   SpinnerLoader,
   Label,
   Card,
+  Carousel,
 };

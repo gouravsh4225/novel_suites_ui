@@ -31,10 +31,20 @@ const getUserCartDetails = () => {
   }
 };
 
+const getUserBookings = () => {
+  const userData = JSON.parse(CommonUtlis.getSessionUserDetails());
+  const { _id } = userData;
+  const url = `bookings/user-bookings/${_id}`;
+  return APIUtlis.getApi(url)
+    .then(APIUtlis.handleSuccessReponse)
+    .catch(APIUtlis.handleErrorResponse);
+};
+
 const AuthService = {
   loginSubmit,
   signUpUser,
   logOutUser,
   getUserCartDetails,
+  getUserBookings,
 };
 export default AuthService;

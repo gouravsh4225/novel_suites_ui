@@ -38,6 +38,15 @@ const removeItemFromCart = (cartId) => {
     .catch(APIUtlis.handleErrorResponse);
 };
 
+const addToSaveLaterList = (cartId, cartObject) => {
+  return APIUtlis.updateApi(
+    `rooms/updatecartdetailsByCartId/${cartId}`,
+    cartObject
+  )
+    .then(APIUtlis.handleSuccessReponse)
+    .catch(APIUtlis.handleErrorResponse);
+};
+
 const getUserCartDetailsByCartId = (id) => {
   return APIUtlis.getApi(`rooms/cartdetailsByCartId/${id}`)
     .then(APIUtlis.handleSuccessReponse)
@@ -51,5 +60,6 @@ export {
   getRoomByLocationIdAndRoomId,
   addUserToCartRoom,
   removeItemFromCart,
+  addToSaveLaterList,
   getUserCartDetailsByCartId,
 };

@@ -46,64 +46,62 @@ const NovelRooms = () => {
   };
 
   const onBookRoomHandler = (e, roomSelected) => {
-    loadRazorPayScript().then((res) => {
-      if (!res) {
-        alert("RazorPay script SDK load to failed");
-        return;
-      }
-      let sessionUserData = JSON.parse(CommonUtlis.getSessionUserDetails());
-      let prefill = {
-        name: sessionUserData.name,
-        email: sessionUserData.email_address,
-        contact: sessionUserData.phone_number,
-      };
-      getRoomBookRazorPayOrderId()
-        .then((res) => {
-          let { data } = res.response;
-          const razorPayoptions = {
-            key: process.env.REACT_APP_RAZORPAY_KEY_ID,
-            amount: data.amount.toString(),
-            currency: data.currency,
-            name: roomSelected.room_name,
-            description: roomSelected.description,
-            prefill: prefill,
-            order_id: data.id,
-            image:
-              "https://novel-suites-ui.vercel.app/static/media/logo_novel.78ee88e9.gif",
-            handler: (res) => {
-              let {
-                razorpay_order_id,
-                razorpay_payment_id,
-                razorpay_signature,
-              } = res;
-
-              Loader.show();
-              confirmRazorPaymemtSuccess({
-                orderCreationId: data.id,
-                razorpayPaymentId: razorpay_payment_id,
-                razorpayOrderId: razorpay_order_id,
-                razorpaySignature: razorpay_signature,
-              })
-                .then((res) => {
-                  Loader.hide();
-                  if (res) {
-                    console.log("gotcha-->");
-                  }
-                })
-                .catch((error) => {
-                  console.log(error);
-                  Loader.hide();
-                });
-            },
-          };
-
-          const razorpayPaymentObject = new window.Razorpay(razorPayoptions);
-          razorpayPaymentObject.open();
-        })
-        .catch((error) => {
-          console.log("error", error);
-        });
-    });
+    // loadRazorPayScript().then((res) => {
+    //   if (!res) {
+    //     alert("RazorPay script SDK load to failed");
+    //     return;
+    //   }
+    //   let sessionUserData = JSON.parse(CommonUtlis.getSessionUserDetails());
+    //   let prefill = {
+    //     name: sessionUserData.name,
+    //     email: sessionUserData.email_address,
+    //     contact: sessionUserData.phone_number,
+    //   };
+    //   getRoomBookRazorPayOrderId()
+    //     .then((res) => {
+    //       let { data } = res.response;
+    //       const razorPayoptions = {
+    //         key: process.env.REACT_APP_RAZORPAY_KEY_ID,
+    //         amount: data.amount.toString(),
+    //         currency: data.currency,
+    //         name: roomSelected.room_name,
+    //         description: roomSelected.description,
+    //         prefill: prefill,
+    //         order_id: data.id,
+    //         image:
+    //           "https://novel-suites-ui.vercel.app/static/media/logo_novel.78ee88e9.gif",
+    //         handler: (res) => {
+    //           let {
+    //             razorpay_order_id,
+    //             razorpay_payment_id,
+    //             razorpay_signature,
+    //           } = res;
+    //           Loader.show();
+    //           confirmRazorPaymemtSuccess({
+    //             orderCreationId: data.id,
+    //             razorpayPaymentId: razorpay_payment_id,
+    //             razorpayOrderId: razorpay_order_id,
+    //             razorpaySignature: razorpay_signature,
+    //           })
+    //             .then((res) => {
+    //               Loader.hide();
+    //               if (res) {
+    //                 console.log("gotcha-->");
+    //               }
+    //             })
+    //             .catch((error) => {
+    //               console.log(error);
+    //               Loader.hide();
+    //             });
+    //         },
+    //       };
+    //       const razorpayPaymentObject = new window.Razorpay(razorPayoptions);
+    //       razorpayPaymentObject.open();
+    //     })
+    //     .catch((error) => {
+    //       console.log("error", error);
+    //     });
+    // });
   };
 
   const onBookDetailsHandler = (e, room) => {
