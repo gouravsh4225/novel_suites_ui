@@ -13,6 +13,7 @@ import NovelRoomCheckOut from "./Pages/NovelRooms/NovelRoomCheckout/NovelRoomChe
 import UserProfileCart from "./Components/UserProfile/UserProfileCart/UserProfileCart";
 import UserAccount from "./Components/UserProfile/UserAccount/UserAccount";
 import UserBooking from "./Components/UserProfile/UserBooking/UserBooking";
+import LoginPage from "./Pages/PublicPages/LoginPage/LoginPage";
 
 const AppRoutes = () => {
   return (
@@ -21,6 +22,11 @@ const AppRoutes = () => {
         <Route exact={true} path="/">
           <HeaderFooterLayout component={HomePage} />
         </Route>
+        <Route
+          exact={false}
+          path="/login?redirect=/:path"
+          component={LoginPage}
+        />
         <Route exact={true} path="/about-us">
           <HeaderFooterLayout component={AboutUs} />
         </Route>

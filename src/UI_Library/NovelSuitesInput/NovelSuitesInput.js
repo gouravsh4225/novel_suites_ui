@@ -18,6 +18,7 @@ const NovelSuitesInput = (props) => {
     validatior,
     placeholder,
     autoFocus,
+    errorTextClasses,
     type,
     ...rest
   } = props;
@@ -75,7 +76,13 @@ const NovelSuitesInput = (props) => {
         {...defaultNovelInputProps}
       />
       {errorText ? (
-        <div className="novel-input-wrapper--error">{errorText}</div>
+        <div
+          className={`novel-input-wrapper--error ${
+            errorTextClasses ? errorTextClasses : ""
+          }`}
+        >
+          {errorText}
+        </div>
       ) : null}
     </div>
   );

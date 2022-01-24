@@ -159,7 +159,95 @@ const SignUpPage = () => {
   return (
     <Fragment>
       <div className="sign-up-wrapper">
-        <div className="sign-card">
+        <section className="sign-up-left-section mt-auto mb-auto">
+          <div className="sign-up-form mr-auto ml-auto">
+            <p className="sign-up-form--heading">
+              Create your Novel Suite Account
+            </p>
+            <form
+              onSubmit={onSignUpHandler}
+              autoComplete="off"
+              className="sign-up-form--inputs"
+            >
+              <Input
+                inputLabel="Enter Your Phone Number"
+                inputLabelClasses="fw-bold"
+                type="text"
+                errorText={phone_number.errorText ? phone_number.errorText : ""}
+                name="phone_number"
+                onChange={onChangePhoneNumber}
+                value={phone_number.value}
+                className="novel-suite-input--large mb-1"
+              />
+              <Input
+                inputLabel="Full Name"
+                inputLabelClasses="fw-bold"
+                type="text"
+                errorText={!name.value ? name.errorText : ""}
+                name="name"
+                onChange={onChangeFullName}
+                value={name.value}
+                className="novel-suite-input--large mb-1"
+              />
+              <Input
+                inputLabel="Email Address"
+                inputLabelClasses="fw-bold"
+                type="email"
+                errorText={
+                  email_address.errorText ? email_address.errorText : ""
+                }
+                name="email_address"
+                onChange={onChangeEmailAddress}
+                value={email_address.value}
+                className={`novel-suite-input--large mb-1 ${
+                  email_address.errorText && "novel-suite-input--error"
+                }`}
+              />
+              <Input
+                inputLabel="Password"
+                inputLabelClasses="fw-bold"
+                type="password"
+                errorText={password.errorText ? password.errorText : ""}
+                name="password"
+                onChange={onChangePassword}
+                value={password.value}
+                className={`novel-suite-input--large mb-1 ${
+                  password.errorText && "novel-suite-input--error"
+                }`}
+              />
+              <Input
+                inputLabel="Comfirm Password"
+                inputLabelClasses="fw-bold"
+                type="password"
+                errorText={
+                  confirm_password.errorText ? confirm_password.errorText : ""
+                }
+                name="confirm_password"
+                onChange={onChangeConfirmPassword}
+                value={confirm_password.value}
+                className={`novel-suite-input--large mb-1 ${
+                  confirm_password.errorText && "novel-suite-input--error"
+                }`}
+              />
+              <Button
+                type="submit"
+                className="novel-button--primary novel-button--block novel-button--small mt-1"
+                buttonLabel="Sign Up"
+                onClick={onSignUpHandler}
+              />
+            </form>
+            <div className="text-center mt-1">
+              <a
+                href="/login"
+                className="text-center text-decoration-none mt-1 novel-button"
+              >
+                Already Have a Account
+              </a>
+            </div>
+          </div>
+        </section>
+        <section className="sign-up-right-section"></section>
+        {/* <div className="sign-card">
           <div className="sign-container">
             <div className="sign-up-form-container">
               <div className="form-heading mb-1">
@@ -183,7 +271,7 @@ const SignUpPage = () => {
                   name="phone_number"
                   onChange={onChangePhoneNumber}
                   value={phone_number.value}
-                  className="novel-suite-input--large mblock-0"
+                  className="novel-suite-input--large mb-1"
                 />
                 <Input
                   inputLabel="Full Name"
@@ -193,7 +281,7 @@ const SignUpPage = () => {
                   name="name"
                   onChange={onChangeFullName}
                   value={name.value}
-                  className="novel-suite-input--large mblock-0"
+                  className="novel-suite-input--large mb-1"
                 />
                 <Input
                   inputLabel="Email Address"
@@ -205,7 +293,7 @@ const SignUpPage = () => {
                   name="email_address"
                   onChange={onChangeEmailAddress}
                   value={email_address.value}
-                  className={`novel-suite-input--large mblock-0 ${
+                  className={`novel-suite-input--large mb-1 ${
                     email_address.errorText && "novel-suite-input--error"
                   }`}
                 />
@@ -217,7 +305,7 @@ const SignUpPage = () => {
                   name="password"
                   onChange={onChangePassword}
                   value={password.value}
-                  className={`novel-suite-input--large mblock-0 ${
+                  className={`novel-suite-input--large mb-1 ${
                     password.errorText && "novel-suite-input--error"
                   }`}
                 />
@@ -231,7 +319,7 @@ const SignUpPage = () => {
                   name="confirm_password"
                   onChange={onChangeConfirmPassword}
                   value={confirm_password.value}
-                  className={`novel-suite-input--large mblock-0 ${
+                  className={`novel-suite-input--large mb-1 ${
                     confirm_password.errorText && "novel-suite-input--error"
                   }`}
                 />
@@ -247,7 +335,7 @@ const SignUpPage = () => {
               <img src={logo} />
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </Fragment>
   );

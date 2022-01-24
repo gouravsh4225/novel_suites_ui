@@ -81,7 +81,10 @@ const UserProfileCart = () => {
   const getTotalPrice = (priceList) => {
     return priceList.reduce((previousValue, currentValue) => {
       const { rooms_deatails, total_night } = currentValue;
-      return previousValue + rooms_deatails[0].room_price * total_night;
+      if (rooms_deatails.length) {
+        return previousValue + rooms_deatails[0].room_price * total_night;
+      }
+      return previousValue;
     }, 0);
   };
 
@@ -257,19 +260,22 @@ const UserProfileCart = () => {
                   );
                 })}
               </div>
-              <section className="mt-1">
-                <Label className="fw-bold">
-                  Save For Later Bag ({saveLaterCartData.length}
-                  {saveLaterCartData.length < 1 ? ` Item` : ` Items`})
-                </Label>
-                {saveLaterCartData.map((saveItem) => (
-                  <CartCard
-                    key={saveItem._id}
-                    data={saveItem}
-                    onRemoveCartItem={onRemoveCartItem}
-                  />
-                ))}
-              </section>
+              {/* load save for later when data length is greather than 1 */}
+              {saveLaterCartData.length ? (
+                <section className="mt-1">
+                  <Label className="fw-bold">
+                    Save For Later Bag ({saveLaterCartData.length}
+                    {saveLaterCartData.length < 1 ? ` Item` : ` Items`})
+                  </Label>
+                  {saveLaterCartData.map((saveItem) => (
+                    <CartCard
+                      key={saveItem._id}
+                      data={saveItem}
+                      onRemoveCartItem={onRemoveCartItem}
+                    />
+                  ))}
+                </section>
+              ) : null}
             </section>
             <section className="grid-summary">
               <Card className="no-box-shadow user-card-border pos-sticky summary-card">

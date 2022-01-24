@@ -16,15 +16,15 @@ const CartCard = ({ data, onRemoveCartItem, onSaveForLaterHandler }) => {
         <div className="cart-media grid-container grid-gap-1">
           <img
             className="h-full image-fit-cover user-card-border"
-            src="https://res.cloudinary.com/arbor1221/image/upload/v1498121225/Consulting_Advisory_Professional_services_2_ikqokw.jpg"
-            alt={`${rooms_deatails[0].room_name}`}
+            src={rooms_deatails[0]?.room_pics[0]}
+            alt={`${rooms_deatails[0]?.room_name}`}
           />
           <div className="cart-media-content">
             <p className="fw-bold cart-hotel-heading">
               {location_details[0].hotel_name},{" "}
               {location_details[0].short_address}
             </p>
-            <p>{rooms_deatails[0].room_name}</p>
+            <p>{rooms_deatails[0]?.room_name}</p>
             <p>
               <span className="fw-bold">Start Day:</span>
               <span className="ml-5px">
@@ -39,7 +39,7 @@ const CartCard = ({ data, onRemoveCartItem, onSaveForLaterHandler }) => {
           <p className="text-end fw-bold">
             <span className="fa fa-inr" aria-hidden="true"></span>
             <span className="cart-media-price ml-5px">
-              {rooms_deatails[0].room_price * total_night}
+              {rooms_deatails[0]?.room_price * total_night}
             </span>
           </p>
         </div>

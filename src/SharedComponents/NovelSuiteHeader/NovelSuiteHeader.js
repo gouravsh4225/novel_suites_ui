@@ -20,7 +20,8 @@ const getNavigationMenu = () => {
   ];
 };
 
-const NovelSuiteHeader = () => {
+const NovelSuiteHeader = (props) => {
+  const { className, ...rest } = props;
   const [isScrolled, setIsScrolled] = useState(false);
   const [isSideBarMenuOpen, setIsSideBarMenuOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
@@ -57,7 +58,11 @@ const NovelSuiteHeader = () => {
   };
 
   const openLoginHandler = () => {
-    setIsLoginOpen(true);
+    console.log("hey clicke");
+    routerHistory.push({
+      pathname: "/login?redirect=/nav",
+    });
+    // setIsLoginOpen(true);
   };
 
   const closeLoginHandler = () => {
@@ -92,7 +97,7 @@ const NovelSuiteHeader = () => {
       <header
         className={`appheader-wrapper fluid-container  ${
           isScrolled && "header-active"
-        }`}
+        } ${className ? className : ""} `}
       >
         <div className="mobile-navigation">
           <NovelSuiteMobileHeader

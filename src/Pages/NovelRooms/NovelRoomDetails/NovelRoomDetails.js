@@ -152,7 +152,10 @@ const NovelRoomDetails = () => {
   const addItemInCart = () => {
     const isUserLoggedIn = JSON.parse(CommonUtlis.getSessionUserDetails());
     if (!isUserLoggedIn) {
-      Toastr.warning("Please login first, before adding into your cart.");
+      // Toastr.warning("Please login first, before adding into your cart.");
+      novelRoomDetailsRouter.push({
+        pathname: `/login?redirect=${window.location.pathname}`,
+      });
       return;
     }
     Loader.show();
