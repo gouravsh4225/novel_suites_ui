@@ -1,15 +1,15 @@
 import React, { Fragment, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Button, Input, Toastr } from "../../UI_Library/UI_Library";
-import logo from "../../assets/logo_novel_png.png";
+import { Button, Input, Toastr } from "../../../UI_Library/UI_Library";
+// import logo from "../../../assets/logo_novel_png.png";
 import {
   EmailValidationChecker,
   NumberValidationChecker,
   CompareTwoString,
-} from "../../Utils/FormValidationUtlis";
+} from "../../../Utils/FormValidationUtlis";
 import "./SignUp.scss";
-import AuthService from "../../Services/AuthService/AuthService";
-import CommonUtlis from "../../Utils/CommonUtlis";
+import AuthService from "../../../Services/AuthService/AuthService";
+import CommonUtlis from "../../../Utils/CommonUtlis";
 
 const SignUpPage = () => {
   const signUpHistory = useHistory();
@@ -170,7 +170,7 @@ const SignUpPage = () => {
               className="sign-up-form--inputs"
             >
               <Input
-                inputLabel="Enter Your Phone Number"
+                inputLabel="Mobile Number"
                 inputLabelClasses="fw-bold"
                 type="text"
                 errorText={phone_number.errorText ? phone_number.errorText : ""}
@@ -216,7 +216,7 @@ const SignUpPage = () => {
                 }`}
               />
               <Input
-                inputLabel="Comfirm Password"
+                inputLabel="Confirm Password"
                 inputLabelClasses="fw-bold"
                 type="password"
                 errorText={
@@ -239,7 +239,7 @@ const SignUpPage = () => {
             <div className="text-center mt-1">
               <a
                 href="/login"
-                className="text-center text-decoration-none mt-1 novel-button"
+                className="text-center text-decoration-none mt-1 text-archor-color cursor-pointer"
               >
                 Already Have a Account
               </a>

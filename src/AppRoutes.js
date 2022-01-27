@@ -7,13 +7,14 @@ import NovelRooms from "./Pages/NovelRooms/NovelRooms";
 import HeaderFooterLayout from "./PageLayout/HeaderFooterLayout/HeaderFooterLayout";
 import ContactUs from "./Pages/ContactUs/ContactUs";
 import NoPageFound from "./Components/NoPageFound/NoPageFound";
-import SignUpPage from "./Pages/SignUp/SignUp";
+import SignUpPage from "./Pages/PublicPages/SignUp/SignUp";
 import NovelRoomDetails from "./Pages/NovelRooms/NovelRoomDetails/NovelRoomDetails";
 import NovelRoomCheckOut from "./Pages/NovelRooms/NovelRoomCheckout/NovelRoomCheckout";
 import UserProfileCart from "./Components/UserProfile/UserProfileCart/UserProfileCart";
 import UserAccount from "./Components/UserProfile/UserAccount/UserAccount";
 import UserBooking from "./Components/UserProfile/UserBooking/UserBooking";
 import LoginPage from "./Pages/PublicPages/LoginPage/LoginPage";
+import ForgotPasswordPage from "./Pages/PublicPages/ForgotPassword/ForgotPasswordPage";
 
 const AppRoutes = () => {
   return (
@@ -23,10 +24,11 @@ const AppRoutes = () => {
           <HeaderFooterLayout component={HomePage} />
         </Route>
         <Route
-          exact={false}
-          path="/login?redirect=/:path"
-          component={LoginPage}
+          exact={true}
+          path="/forgot-password"
+          component={ForgotPasswordPage}
         />
+        <Route exact={true} path="/login" component={LoginPage} />
         <Route exact={true} path="/about-us">
           <HeaderFooterLayout component={AboutUs} />
         </Route>

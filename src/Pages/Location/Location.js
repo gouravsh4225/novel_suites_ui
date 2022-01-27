@@ -28,7 +28,6 @@ const Location = () => {
     getAllLocation()
       .then((res) => {
         let { response } = res;
-        console.log(response, "-->");
         const locationDataResponse = Array.isArray(response.data)
           ? response.data
           : [];

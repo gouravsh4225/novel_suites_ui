@@ -154,7 +154,8 @@ const NovelRoomDetails = () => {
     if (!isUserLoggedIn) {
       // Toastr.warning("Please login first, before adding into your cart.");
       novelRoomDetailsRouter.push({
-        pathname: `/login?redirect=${window.location.pathname}`,
+        pathname: `/login`,
+        search: `?redirect=${window.location.pathname}`,
       });
       return;
     }

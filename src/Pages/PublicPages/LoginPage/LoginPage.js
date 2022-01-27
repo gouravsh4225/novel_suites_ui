@@ -7,7 +7,7 @@ import "./LoginPage.scss";
 import { getUserCartDetailsByCartId } from "../../../Services/NovelRoomService/NovelRoomService";
 
 const LoginPage = () => {
-  const { pathname } = useLocation();
+  const { pathname, search } = useLocation();
   const loginPageRouter = useHistory();
   const [loginForm, setLoginForm] = useState({
     phone_number: {
@@ -85,17 +85,8 @@ const LoginPage = () => {
           response.access_token,
           response.user_data
         );
-        const checkRedirectPath = pathname
-          ? pathname.split("/login?redirect=")[1]
-          : "/";
-
-        if (checkRedirectPath === "nav") {
-          loginPageRouter.push({
-            pathname: `/`,
-          });
-        } else {
-          loginPageRouter.push(`${checkRedirectPath}`);
-        }
+        const checkRedirectPath = search ? search.split("?redirect=")[1] : "/";
+        loginPageRouter.push(`${checkRedirectPath}`);
       })
       .catch((error) => {
         Loader.hide();
@@ -113,6 +104,10 @@ const LoginPage = () => {
     loginPageRouter.push("/create-user");
   };
 
+  const onForgotPasswordHandler = () => {
+    loginPageRouter.push("/forgot-password");
+  };
+
   return (
     <div className="login-wrapper">
       <section className="login-left-section mt-auto mb-auto">
@@ -125,7 +120,7 @@ const LoginPage = () => {
               className="login-forms"
             >
               <Input
-                inputLabel="Enter Your Phone Number"
+                inputLabel="Mobile Number"
                 validatior={["isRequires"]}
                 type="text"
                 errorText={loginForm.phone_number.errorText}
@@ -137,7 +132,7 @@ const LoginPage = () => {
                 inputLabelClasses="fw-bold"
               />
               <Input
-                inputLabel="Enter Your Password"
+                inputLabel="Password"
                 validatior={["isRequires"]}
                 type="password"
                 errorText={loginForm.password.errorText}
@@ -152,9 +147,14 @@ const LoginPage = () => {
                 className="login-forgot-password"
                 style={{ display: "flex", justifyContent: "flex-end" }}
               >
-                <a href="#" className="text-decoration-none">
+                <span
+                  className="text-decoration-none text-archor-color cursor-pointer"
+                  onClick={onForgotPasswordHandler}
+                  title="Forgot Password"
+                  tabIndex="0"
+                >
                   Forgot Password
-                </a>
+                </span>
               </div>
               <Button
                 buttonLabel="Login"
@@ -166,7 +166,14 @@ const LoginPage = () => {
             <div className="sign-up-container mt-1 text-center">
               <p className="sign-up-heading">
                 Don't have an account?
-                <span onClick={onSignUpHandler}>Sign Up</span>
+                <span
+                  onClick={onSignUpHandler}
+                  className="text-archor-color ml-5px fs-textMd cursor-pointer text-decoration-none"
+                  title="Sign Up"
+                  tabIndex="0"
+                >
+                  Sign Up
+                </span>
               </p>
             </div>
           </section>

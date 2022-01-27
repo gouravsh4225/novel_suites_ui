@@ -28,6 +28,7 @@ const NovelSuiteHeader = (props) => {
   const [isBookNowOpen, setIsBookNowOpen] = useState(false);
   useEffect(() => {
     window.addEventListener("scroll", () => {
+      console.log("hey-->");
       if (window.scrollY > SHOW_HEADER_HEIGHT) {
         setIsScrolled(true);
       } else setIsScrolled(false);
@@ -60,9 +61,9 @@ const NovelSuiteHeader = (props) => {
   const openLoginHandler = () => {
     console.log("hey clicke");
     routerHistory.push({
-      pathname: "/login?redirect=/nav",
+      pathname: "/login",
+      search: "?redirect=/",
     });
-    // setIsLoginOpen(true);
   };
 
   const closeLoginHandler = () => {

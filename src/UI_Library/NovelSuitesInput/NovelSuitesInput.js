@@ -30,7 +30,6 @@ const NovelSuitesInput = (props) => {
     "arial-label": name,
     required: required,
     placeholder: placeholder,
-
     ...rest,
   };
   const onInputChange = (event) => {
