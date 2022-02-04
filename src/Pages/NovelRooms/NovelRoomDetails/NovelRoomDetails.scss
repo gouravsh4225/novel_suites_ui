@@ -7,15 +7,6 @@
     @include mobileMedia() {
       grid-template-columns: repeat(1, minmax(0, 1fr));
     }
-    .novel-room-image {
-      z-index: -1;
-      img {
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
-        display: block;
-      }
-    }
     .novel-room-content {
       padding-block: 1rem;
       padding-inline: 2.2rem;
@@ -31,38 +22,6 @@
           line-height: 1.5;
         }
       }
-      .novel-room-feature {
-        color: #636363;
-        .novel-room-feature-title {
-          font-size: 1.3rem;
-          font-weight: 600;
-          margin-bottom: 1rem;
-        }
-        .novel-room-feature-list {
-          @include displayType(grid);
-          // @include smallMobileMedia() {
-          //   grid-template-columns: repeat(1, minmax(0, 1fr));
-          // }
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-          grid-row-gap: 0.7rem;
-          font-size: 1.2rem;
-
-          .novel-room-feature-list-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding-inline: 1rem;
-            font-size: 1.2rem;
-            .feature-list-item-icon {
-              font-size: 1.2rem;
-              color: black;
-            }
-            .fature-list-item-title {
-              font-weight: 600;
-            }
-          }
-        }
-      }
       .novel-room-book {
         @include displayType(flex);
         @include flexAlignItem(center);
@@ -74,6 +33,38 @@
         }
         @include tabletMedia() {
           display: block;
+        }
+      }
+    }
+  }
+  .novel-room-feature {
+    color: #636363;
+    .novel-room-feature-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    .novel-room-feature-list {
+      @include displayType(grid);
+      // @include smallMobileMedia() {
+      //   grid-template-columns: repeat(1, minmax(0, 1fr));
+      // }
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-row-gap: 0.7rem;
+      font-size: 1.2rem;
+
+      .novel-room-feature-list-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding-inline: 1rem;
+        font-size: 1.2rem;
+        .feature-list-item-icon {
+          font-size: 1.2rem;
+          color: black;
+        }
+        .fature-list-item-title {
+          font-weight: 600;
         }
       }
     }

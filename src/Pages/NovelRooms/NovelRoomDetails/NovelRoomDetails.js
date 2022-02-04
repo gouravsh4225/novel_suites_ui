@@ -218,13 +218,17 @@ const NovelRoomDetails = () => {
           onCloseHandler={onCloseGalleryHandler}
         ></Modal.Header>
         <Modal.Content className="w-full">
-          <Carousel items={data} intervalTime={3000} />
+          <Carousel items={data} />
         </Modal.Content>
       </Modal>
       <div className="novel-room-details-wrapper">
-        <section className="novel-room-media pos-relative fluid-container">
-          <div className="novel-room-image">
-            <img src="https://res.cloudinary.com/arbor1221/image/upload/v1498121225/Consulting_Advisory_Professional_services_2_ikqokw.jpg" />
+        <section className="novel-room-media pos-relative container">
+          <div className="novel-room-image pblock-1">
+            <Carousel
+              items={room.room_pics ? room.room_pics : []}
+              intervalTime={3000}
+            />
+            {/* <img src="https://res.cloudinary.com/arbor1221/image/upload/v1498121225/Consulting_Advisory_Professional_services_2_ikqokw.jpg" /> */}
           </div>
           <div className="novel-room-content">
             <Button
@@ -243,7 +247,10 @@ const NovelRoomDetails = () => {
             <div className="novel-room-head mb-1">
               {/* <p className="novel-room-descri">{room?.room_description}</p> */}
               <p className="novel-room-descri">
-                Aliquip fugiat ut duis duis est veniam do incididunt aute. Amet
+                {room?.room_description
+                  ? room?.room_description
+                  : "Description is not available right now."}
+                {/* Aliquip fugiat ut duis duis est veniam do incididunt aute. Amet
                 cillum fugiat ad esse dolor officia voluptate adipisicing do
                 adipisicing do elit id. Nisi ea velit ipsum cupidatat dolore sit
                 mollit mollit. Deserunt excepteur aliqua ullamco velit. Lorem
@@ -257,66 +264,9 @@ const NovelRoomDetails = () => {
                 aliquip proident dolor aute. Eiusmod proident consequat
                 voluptate consectetur ad dolor aute pariatur irure magna
                 consectetur adipisicing. Dolore sint Lorem id culpa cupidatat
-                anim elit qui Lorem ullamco
+                anim elit qui Lorem ullamco */}
               </p>
             </div>
-            <div className="novel-room-feature mb-1">
-              <h4 className="novel-room-feature-title">Features</h4>
-              <ul className="novel-room-feature-list">
-                <li className="novel-room-feature-list-item">
-                  <span className="feature-list-item-icon">
-                    <i className="fa fa-wifi" aria-hidden="true"></i>
-                  </span>
-                  <span className="fature-list-item-title">Wifi</span>
-                </li>
-                <li className="novel-room-feature-list-item">
-                  <span className="feature-list-item-icon">
-                    <i className="fa fa-television" aria-hidden="true"></i>
-                  </span>
-                  <span className="fature-list-item-title">TV</span>
-                </li>
-                <li className="novel-room-feature-list-item">
-                  <span className="feature-list-item-icon">
-                    <i className="fa fa-coffee" aria-hidden="true"></i>
-                  </span>
-                  <span className="fature-list-item-title">COFFEE</span>
-                </li>
-                <li className="novel-room-feature-list-item">
-                  <span className="feature-list-item-icon">
-                    <i
-                      className="fa fa-thermometer-empty"
-                      aria-hidden="true"
-                    ></i>
-                  </span>
-                  <span className="fature-list-item-title">HEATHEN</span>
-                </li>
-                <li className="novel-room-feature-list-item">
-                  <span className="feature-list-item-icon">
-                    <i className="fa fa-television" aria-hidden="true"></i>
-                  </span>
-                  <span className="fature-list-item-title">AC</span>
-                </li>
-                <li className="novel-room-feature-list-item">
-                  <span className="feature-list-item-icon">
-                    <i className="fa fa-car" aria-hidden="true"></i>
-                  </span>
-                  <span className="fature-list-item-title">
-                    Parking
-                    <div className="fs-textSm">
-                      (Parking charges will be added)
-                    </div>
-                  </span>
-                </li>
-              </ul>
-            </div>
-            {/* <div className="novel-room-book">
-            <Button
-              buttonLabel="Book Now"
-              className="novel-button--primary"
-              onClick={(e) => console.log("hey")}
-              style={{ minWidth: "70%" }}
-            />
-          </div> */}
           </div>
         </section>
 
@@ -362,6 +312,55 @@ const NovelRoomDetails = () => {
                       Bathrooms
                     </div>
                   </div>
+                </div>
+                <div className="novel-room-feature mb-1">
+                  <h4 className="novel-room-feature-title">Features</h4>
+                  <ul className="novel-room-feature-list">
+                    <li className="novel-room-feature-list-item">
+                      <span className="feature-list-item-icon">
+                        <i className="fa fa-wifi" aria-hidden="true"></i>
+                      </span>
+                      <span className="fature-list-item-title">Wifi</span>
+                    </li>
+                    <li className="novel-room-feature-list-item">
+                      <span className="feature-list-item-icon">
+                        <i className="fa fa-television" aria-hidden="true"></i>
+                      </span>
+                      <span className="fature-list-item-title">TV</span>
+                    </li>
+                    <li className="novel-room-feature-list-item">
+                      <span className="feature-list-item-icon">
+                        <i className="fa fa-coffee" aria-hidden="true"></i>
+                      </span>
+                      <span className="fature-list-item-title">COFFEE</span>
+                    </li>
+                    <li className="novel-room-feature-list-item">
+                      <span className="feature-list-item-icon">
+                        <i
+                          className="fa fa-thermometer-empty"
+                          aria-hidden="true"
+                        ></i>
+                      </span>
+                      <span className="fature-list-item-title">HEATHEN</span>
+                    </li>
+                    <li className="novel-room-feature-list-item">
+                      <span className="feature-list-item-icon">
+                        <i className="fa fa-television" aria-hidden="true"></i>
+                      </span>
+                      <span className="fature-list-item-title">AC</span>
+                    </li>
+                    <li className="novel-room-feature-list-item">
+                      <span className="feature-list-item-icon">
+                        <i className="fa fa-car" aria-hidden="true"></i>
+                      </span>
+                      <span className="fature-list-item-title">
+                        Parking
+                        <div className="fs-textSm">
+                          (Parking charges will be added)
+                        </div>
+                      </span>
+                    </li>
+                  </ul>
                 </div>
                 <div className="novel-room-gallery">
                   <Button

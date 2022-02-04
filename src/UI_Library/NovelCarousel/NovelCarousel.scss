@@ -4,13 +4,14 @@
   .novel-carousel-items {
     height: 100%;
     width: 100%;
+    padding: 0.4rem;
+    border: 1px solid #eaeaec;
     .novel-carousel-image {
-      border: 1px solid #eaeaec;
-      padding: 0.4rem;
       height: 100%;
       width: 100%;
       aspect-ratio: 9 / 5;
       transition: all 0.5s ease-in;
+      border-radius: 4px;
     }
   }
   .novel-carousel-preview {

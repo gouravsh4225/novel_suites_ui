@@ -1,5 +1,5 @@
 import React from "react";
-import WorkUnderProcess from "../../Components/WorkUnderProcess/WorkUnderProcess";
+import WorkUnderProcess from "../../../Components/WorkUnderProcess/WorkUnderProcess";
 import "./AboutUs.scss";
 
 const AboutUs = () => {

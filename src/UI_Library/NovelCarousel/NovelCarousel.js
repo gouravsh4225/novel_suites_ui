@@ -65,7 +65,7 @@ const NovelCarousel = ({
     <div className="novel-carousel-container">
       <div className="novel-carousel-items">
         {items.map((item, index) => (
-          <>
+          <Fragment key={index}>
             {currentPage === index ? (
               <NovelCarouselItem
                 key={index}
@@ -73,7 +73,7 @@ const NovelCarousel = ({
                 className={currentPage === index ? "active-item" : ""}
               />
             ) : null}
-          </>
+          </Fragment>
         ))}
       </div>
       <div className="novel-carousel-preview">
