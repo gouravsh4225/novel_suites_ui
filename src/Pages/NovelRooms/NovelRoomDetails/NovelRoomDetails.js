@@ -5,42 +5,23 @@ import {
   addUserToCartRoom,
 } from "../../../Services/NovelRoomService/NovelRoomService";
 import { getLocationById } from "../../../Services/Location/LocationService";
-import { dateFormatYearMonthDate } from "../../../Utils/FormValidationUtlis";
+// import { dateFormatYearMonthDate } from "../../../Utils/FormValidationUtlis";
 import {
   Button,
-  Input,
   Loader,
   Toastr,
-  Menu,
-  Label,
   Carousel,
   Modal,
 } from "../../../UI_Library/UI_Library";
-import CommonUtlis from "../../../Utils/CommonUtlis";
+// import CommonUtlis from "../../../Utils/CommonUtlis";
 import "./NovelRoomDetails.scss";
+import NovelRoomReverseForm from "./NovelRoomReverseForm";
 
 const NovelRoomDetails = () => {
   const { locationId, roomId } = useParams();
   const novelRoomDetailsRouter = useHistory();
   const [room, setroom] = useState({});
-  const [menutarget, setMenuTarget] = useState(null);
   const [selectedLocation, setSelectedLocation] = useState([]);
-  const [reserveRoomForm, setReserveRoomForm] = useState({
-    check_in: {
-      value: "",
-      errorText: "",
-    },
-    check_out: {
-      value: "",
-      errorText: "",
-    },
-    total_night: {
-      value: 0,
-    },
-    total_guests: {
-      value: 1,
-    },
-  });
   const [isItemAddedInCart, setIsItemAddedInCart] = useState(false);
   const [isOpenGallery, setIsOpenGallery] = useState({
     open: false,
@@ -80,117 +61,57 @@ const NovelRoomDetails = () => {
     novelRoomDetailsRouter.push(redirectUrl);
   };
 
-  const addGuestsHandler = (e) => {
-    const { target } = e;
-    setMenuTarget(e.currentTarget);
-  };
+  // const onAddToCartFormSubmit = (event) => {
+  //   event.preventDefault();
+  //   if (!isItemAddedInCart) {
+  //     addItemInCart();
+  //   } else {
+  //     novelRoomDetailsRouter.push("/user-cart");
+  //   }
+  // };
 
-  const onCloseGuestsHandler = () => {
-    setMenuTarget(null);
-  };
+  // const addItemInCart = () => {
+  //   const isUserLoggedIn = JSON.parse(CommonUtlis.getSessionUserDetails());
+  //   if (!isUserLoggedIn) {
+  //     // Toastr.warning("Please login first, before adding into your cart.");
+  //     novelRoomDetailsRouter.push({
+  //       pathname: `/login`,
+  //       search: `?redirect=${window.location.pathname}`,
+  //     });
+  //     return;
+  //   }
+  //   Loader.show();
+  //   const { check_in, check_out, total_guests, total_night } = reserveRoomForm;
+  //   let addCartSendJson = {
+  //     locationId: selectedLocation[0]._id,
+  //     roomId: room._id,
+  //     userId: isUserLoggedIn._id,
+  //     start_date: check_in.value,
+  //     end_date: check_out.value,
+  //     total_night: total_night.value,
+  //     total_guests: total_guests.value,
+  //   };
+  //   addUserToCartRoom(addCartSendJson)
+  //     .then((addedCartResponse) => {
+  //       Loader.hide();
+  //       const { response } = addedCartResponse;
+  //       const { data, message, errors } = response;
+  //       if (data && !errors.length) {
+  //         Toastr.success(message);
+  //         setIsItemAddedInCart(true);
+  //       }
+  //     })
+  //     .catch((addCartError) => {
+  //       Loader.hide();
+  //       console.log(addCartError);
+  //     });
+  // };
 
-  const onChangeCheckInDateHandler = (event) => {
-    const { target } = event;
-    const { check_in } = reserveRoomForm;
-    check_in.value = target.value;
-    changeTotalNightStay();
-    setReserveRoomForm({
-      ...reserveRoomForm,
-      check_in,
-    });
-  };
-
-  const onChangeCheckOutDateHandler = (event) => {
-    const { target } = event;
-    const { check_out } = reserveRoomForm;
-    check_out.value = target.value;
-    changeTotalNightStay();
-    setReserveRoomForm({
-      ...reserveRoomForm,
-      check_out,
-    });
-  };
-
-  const changeTotalNightStay = () => {
-    const { check_in, check_out, total_night } = reserveRoomForm;
-    total_night.value = CommonUtlis.dayBetweenTwoDates(
-      check_in.value,
-      check_out.value
-    );
-    setReserveRoomForm({
-      ...reserveRoomForm,
-      total_night,
-    });
-  };
-  const onChoseGustsNumber = (event, selectedvalue) => {
-    const { total_guests } = reserveRoomForm;
-    total_guests.value = selectedvalue;
-    setMenuTarget(null);
-    setReserveRoomForm({
-      ...reserveRoomForm,
-      total_guests,
-    });
-  };
-
-  const getAllowedGusts = (allowedNumber = 0) => {
-    const convertGuestIntoArray = [];
-    for (let i = 1; i <= allowedNumber; i++) {
-      convertGuestIntoArray.push(i);
-    }
-    return convertGuestIntoArray;
-  };
-
-  const onAddToCartFormSubmit = (event) => {
-    event.preventDefault();
-    if (!isItemAddedInCart) {
-      addItemInCart();
-    } else {
-      novelRoomDetailsRouter.push("/user-cart");
-    }
-  };
-
-  const addItemInCart = () => {
-    const isUserLoggedIn = JSON.parse(CommonUtlis.getSessionUserDetails());
-    if (!isUserLoggedIn) {
-      // Toastr.warning("Please login first, before adding into your cart.");
-      novelRoomDetailsRouter.push({
-        pathname: `/login`,
-        search: `?redirect=${window.location.pathname}`,
-      });
-      return;
-    }
-    Loader.show();
-    const { check_in, check_out, total_guests, total_night } = reserveRoomForm;
-    let addCartSendJson = {
-      locationId: selectedLocation[0]._id,
-      roomId: room._id,
-      userId: isUserLoggedIn._id,
-      start_date: check_in.value,
-      end_date: check_out.value,
-      total_night: total_night.value,
-      total_guests: total_guests.value,
-    };
-    addUserToCartRoom(addCartSendJson)
-      .then((addedCartResponse) => {
-        Loader.hide();
-        const { response } = addedCartResponse;
-        const { data, message, errors } = response;
-        if (data && !errors.length) {
-          Toastr.success(message);
-          setIsItemAddedInCart(true);
-        }
-      })
-      .catch((addCartError) => {
-        Loader.hide();
-        console.log(addCartError);
-      });
-  };
-
-  const isReverseFormValid = () => {
-    const { check_in, check_out } = reserveRoomForm;
-    if (check_out.value && check_in.value) return false;
-    return true;
-  };
+  // const isReverseFormValid = () => {
+  //   const { check_in, check_out } = reserveRoomForm;
+  //   if (check_out.value && check_in.value) return false;
+  //   return true;
+  // };
 
   const onBookRoom = () => {};
 
@@ -207,8 +128,6 @@ const NovelRoomDetails = () => {
       data: [],
     });
   };
-
-  const { check_in, check_out, total_guests, total_night } = reserveRoomForm;
   const { open, data } = isOpenGallery;
   return (
     <Fragment>
@@ -224,10 +143,7 @@ const NovelRoomDetails = () => {
       <div className="novel-room-details-wrapper">
         <section className="novel-room-media pos-relative container">
           <div className="novel-room-image pblock-1">
-            <Carousel
-              items={room.room_pics ? room.room_pics : []}
-              intervalTime={3000}
-            />
+            <Carousel items={room.room_pics ? room.room_pics : []} />
             {/* <img src="https://res.cloudinary.com/arbor1221/image/upload/v1498121225/Consulting_Advisory_Professional_services_2_ikqokw.jpg" /> */}
           </div>
           <div className="novel-room-content">
@@ -379,116 +295,10 @@ const NovelRoomDetails = () => {
                   <div className="reverse-ttile">
                     <h3>Reserve your Room</h3>
                   </div>
-                  <form
-                    role="book-reverse"
-                    className="reverse-form"
-                    onSubmit={onAddToCartFormSubmit}
-                  >
-                    <div className="form-selected-location">
-                      {selectedLocation.length ? (
-                        <Label className="mb-1 location-text p-1 fw-bold">
-                          Location:{selectedLocation[0].short_address}
-                        </Label>
-                      ) : null}
-                    </div>
-                    <div className="form-heading">
-                      <div className="room-content">From</div>
-                      <div className="room-prices-wrapper">
-                        <span
-                          className="fa fa-inr icon-cur"
-                          aria-hidden="true"
-                        ></span>
-                        <span className="price">
-                          {room?.room_price?.toFixed(2)}
-                        </span>
-                        <span className="fw-bold">/night</span>
-                      </div>
-                    </div>
-                    <div className="form-reverse-dates">
-                      <Input
-                        type="date"
-                        inputLabel="Check In"
-                        inputLabelClasses="fw-normal text-uppercase"
-                        errorText={!check_in?.value ? check_in?.errorText : ""}
-                        min={dateFormatYearMonthDate(new Date())}
-                        onChange={onChangeCheckInDateHandler}
-                        value={check_in?.value ? check_in.value : ""}
-                        name="check_in"
-                      />
-                      <Input
-                        type="date"
-                        inputLabel="Check Out"
-                        inputLabelClasses="fw-normal text-uppercase"
-                        errorText={
-                          !check_out?.value ? check_out?.errorText : ""
-                        }
-                        min={
-                          check_in?.value
-                            ? check_in?.value
-                            : dateFormatYearMonthDate(new Date())
-                        }
-                        onChange={onChangeCheckOutDateHandler}
-                        value={check_out?.value ? check_out.value : ""}
-                        name="check_out"
-                      />
-                    </div>
-                    <div className="reverse-form-night">
-                      <Label
-                        labelName=""
-                        type="info"
-                        className="w-full total-night-label fw-bold"
-                      >
-                        <span> Total Night</span>
-                        <span className="ml-auto">
-                          {total_night.value} Night
-                        </span>
-                      </Label>
-                      <Button
-                        title="Guests"
-                        className="bg-white w-full flex-1"
-                        onClick={addGuestsHandler}
-                      >
-                        <div className="d-flex">
-                          {total_guests.value} Guest
-                          <span className="guest-icon ml-auto">
-                            <i
-                              className="fa fa-caret-down"
-                              aria-hidden="true"
-                            ></i>
-                          </span>
-                        </div>
-                      </Button>
-                      <Menu
-                        isOpen={Boolean(menutarget)}
-                        targetElement={menutarget}
-                        onClose={onCloseGuestsHandler}
-                      >
-                        {getAllowedGusts(room.allowed_gustes).map(
-                          (item, index) => (
-                            <Menu.MenuItem
-                              onClickItem={onChoseGustsNumber}
-                              key={item}
-                            >
-                              {item}
-                            </Menu.MenuItem>
-                          )
-                        )}
-                      </Menu>
-                    </div>
-                    <Button
-                      className="novel-button--primary novel-button--large novel-button--block mt-1"
-                      title="Checkout"
-                      onClick={onAddToCartFormSubmit}
-                      disabled={isReverseFormValid()}
-                    >
-                      <span>
-                        <i className="fa fa-cart-plus" aria-hidden="true"></i>
-                      </span>
-                      <span className="ml-1">
-                        {isItemAddedInCart ? "Go To Bag" : "Add To Cart"}
-                      </span>
-                    </Button>
-                  </form>
+                  <NovelRoomReverseForm
+                    selectedLocation={selectedLocation}
+                    room={room}
+                  />
                 </div>
               </div>
             </div>

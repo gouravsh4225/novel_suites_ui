@@ -32,7 +32,7 @@ const NovelCarousel = ({
   style,
   children,
   imageKey,
-  intervalTime,
+  intervalTime = false,
   ...rest
 }) => {
   const [currentPage, setCurrentPage] = useState(0);

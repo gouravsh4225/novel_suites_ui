@@ -129,6 +129,9 @@
 .w-full {
   width: 100%;
 }
+.w-50 {
+  width: 50%;
+}
 
 /* Grid Classes start */
 .grid-container {
@@ -168,6 +171,9 @@
 }
 .border-solid {
   border: 1px solid currentColor !important;
+}
+.br-round {
+  border-radius: 30px !important;
 }
 .pos-relative {
   position: relative;
