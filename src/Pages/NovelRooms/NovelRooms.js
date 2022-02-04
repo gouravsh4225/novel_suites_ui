@@ -8,10 +8,10 @@ import {
   confirmRazorPaymemtSuccess,
 } from "../../Services/NovelRoomService/NovelRoomService";
 import CommonUtlis from "../../Utils/CommonUtlis";
-import {
-  loadRazorPayScript,
-  RazorPayPaymentOptions,
-} from "../../Utils/RazorPayUtils";
+// import {
+//   loadRazorPayScript,
+//   RazorPayPaymentOptions,
+// } from "../../Utils/RazorPayUtils";
 import "./NovelRooms.scss";
 
 const NovelRooms = () => {
