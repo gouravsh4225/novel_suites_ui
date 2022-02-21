@@ -15,6 +15,7 @@ import UserAccount from "./Components/UserProfile/UserAccount/UserAccount";
 import UserBooking from "./Components/UserProfile/UserBooking/UserBooking";
 import LoginPage from "./Pages/PublicPages/LoginPage/LoginPage";
 import ForgotPasswordPage from "./Pages/PublicPages/ForgotPassword/ForgotPasswordPage";
+import BookingSuccess from "./Pages/Booking/BookingSuccess/BookingSuccess";
 
 const AppRoutes = () => {
   return (
@@ -40,6 +41,9 @@ const AppRoutes = () => {
         </Route>
         <Route exact={true} path="/location/:locationId/rooms/:roomId">
           <HeaderFooterLayout component={NovelRoomDetails} />
+        </Route>
+        <Route exact={true} path="/booking-success/:id">
+          <HeaderFooterLayout component={BookingSuccess} />
         </Route>
         <Route exact={true} path="/room-checkout/:id">
           <HeaderFooterLayout component={NovelRoomCheckOut} />

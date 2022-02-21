@@ -5,10 +5,11 @@ import "./NovelCard.scss";
 const getAllStylingClass = (inital, propsClass) =>
   UIElementHelper.getllClasses(inital, propsClass);
 
-const NovelCardContent = ({ children, className, ...rest }) => {
+const NovelCardContent = ({ children, className, style, ...rest }) => {
   return (
     <div
       className={getAllStylingClass("novel-card-content", className)}
+      style={style}
       {...rest}
     >
       {children}

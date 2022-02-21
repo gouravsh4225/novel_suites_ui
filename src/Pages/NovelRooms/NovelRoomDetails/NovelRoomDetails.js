@@ -17,7 +17,7 @@ import NovelRoomReverseForm from "./NovelRoomReverseForm";
 
 const NovelRoomDetails = () => {
   const { locationId, roomId } = useParams();
-  const novelRoomDetailsRouter = useHistory();
+  const router = useHistory();
   const [room, setroom] = useState({});
   const [selectedLocation, setSelectedLocation] = useState([]);
   const [isOpenGallery, setIsOpenGallery] = useState({
@@ -55,7 +55,7 @@ const NovelRoomDetails = () => {
 
   const navigateToRooms = () => {
     const redirectUrl = `/location/${locationId}/rooms`;
-    novelRoomDetailsRouter.push(redirectUrl);
+    router.push(redirectUrl);
   };
 
   const onViewGalleryHandler = () => {
@@ -72,7 +72,9 @@ const NovelRoomDetails = () => {
     });
   };
   const onPayHandler = (data) => {
-    console.log(data);
+    console.log(data, "data");
+    // const navigateUrl = `/booking-success/sdfgsgs`;
+    // router.push(navigateUrl);
   };
 
   const { open, data } = isOpenGallery;

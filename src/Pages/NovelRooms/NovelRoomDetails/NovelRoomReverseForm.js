@@ -190,7 +190,11 @@ const NovelRoomReverseForm = ({ selectedLocation, room, onPayHandler }) => {
                 razorpay_payment_id,
                 razorpay_signature,
               } = res;
-              onPayHandler(res);
+              const data = {
+                razorObject: res,
+                reserveRoomForm,
+              };
+              onPayHandler(data);
               // Loader.show();
               // confirmRazorPaymemtSuccess({
               //   orderCreationId: data.id,

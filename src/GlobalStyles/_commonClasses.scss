@@ -55,6 +55,9 @@
 .flex-justify-space-between {
   justify-content: space-between;
 }
+.flex-justify-center {
+  justify-content: center;
+}
 .mblock-1 {
   margin-block: 1rem;
 }
@@ -111,6 +114,9 @@
 }
 .text-uppercase {
   text-transform: uppercase;
+}
+.text-capitalize {
+  text-transform: capitalize;
 }
 
 /** Font Size class*/
@@ -218,6 +224,9 @@ Common Bg-class
 .bg-success {
   background: #5cb85c;
   color: #ffffff;
+}
+.text-success-color {
+  color: #5cb85c;
 }
 .bg-error {
   background: #d9534f;
