@@ -40,10 +40,6 @@ const dateFormatYearMonthDate = (date) => {
     let formattedDate = `${fullYear}-${addZeroInFrontNumber(
       month
     )}-${addZeroInFrontNumber(day)}`;
-    console.log(formattedDate, "formattedDate");
-    // let formattedDate = `${isDateCorrect.getFullYear()}-${
-    //   isDateCorrect.getMonth() + 1
-    // }-${isDateCorrect.getDate()}`;
     return formattedDate;
   }
   return false;

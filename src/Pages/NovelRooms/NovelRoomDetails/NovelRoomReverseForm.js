@@ -1,12 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { Label, Input, Button, Menu } from "../../../UI_Library/UI_Library";
+import { useHistory, useLocation } from "react-router-dom";
+import {
+  Label,
+  Input,
+  Button,
+  Menu,
+  SwitchToggle,
+  Toastr,
+} from "../../../UI_Library/UI_Library";
 import CommonUtlis from "../../../Utils/CommonUtlis";
 import {
   dateFormatYearMonthDate,
   addDayInDate,
 } from "../../../Utils/FormValidationUtlis";
+import { loadRazorPayScript } from "../../../Utils/RazorPayUtils";
+import { getRoomBookRazorPayOrderId } from "../../../Services/NovelRoomService/NovelRoomService";
 
-const NovelRoomReverseForm = ({ selectedLocation, room }) => {
+const NovelRoomReverseForm = ({ selectedLocation, room, onPayHandler }) => {
+  const routerPage = useHistory();
+  const { pathname } = useLocation();
   const [menutarget, setMenuTarget] = useState(null);
   const [reserveRoomForm, setReserveRoomForm] = useState({
     check_in: {
@@ -14,7 +26,7 @@ const NovelRoomReverseForm = ({ selectedLocation, room }) => {
       errorText: "",
     },
     check_out: {
-      value: dateFormatYearMonthDate(addDayInDate(new Date(), 1)),
+      value: dateFormatYearMonthDate(addDayInDate(new Date(), 1)).toString(),
       errorText: "",
     },
     total_night: {
@@ -24,8 +36,34 @@ const NovelRoomReverseForm = ({ selectedLocation, room }) => {
       value: 1,
     },
     total_price: {
-      value: 1000,
+      value: 0,
     },
+    diningType: [
+      {
+        label: "Break - fast",
+        value: false,
+        price: 500,
+        labelFor: "breakfast",
+      },
+      {
+        label: "lunch",
+        value: false,
+        price: 500,
+        labelFor: "lunch",
+      },
+      {
+        label: "Dinner",
+        value: false,
+        price: 500,
+        labelFor: "dinner",
+      },
+      {
+        label: "Vehicle Parking",
+        value: false,
+        price: 100,
+        labelFor: "Vehicle Parking",
+      },
+    ],
   });
 
   useEffect(() => {
@@ -111,13 +149,120 @@ const NovelRoomReverseForm = ({ selectedLocation, room }) => {
   };
 
   const onPayNowHandler = () => {
-    console.log("hey-->");
+    let sessionUserData = JSON.parse(CommonUtlis.getSessionUserDetails());
+    if (!sessionUserData) {
+      Toastr.warning(
+        "Please login first.You will be redirect to login Page now."
+      );
+      routerPage.push({
+        pathname: "/login",
+        search: `?redirect=${pathname}`,
+      });
+      return;
+    }
+    loadRazorPayScript().then((res) => {
+      if (!res) {
+        alert("RazorPay script SDK load to failed");
+        return;
+      }
+      let prefill = {
+        name: sessionUserData.name,
+        email: sessionUserData.email_address,
+        contact: sessionUserData.phone_number,
+      };
+      console.log(prefill, "pref");
+      getRoomBookRazorPayOrderId()
+        .then((res) => {
+          let { data } = res.response;
+          const razorPayoptions = {
+            prefill: prefill,
+            key: process.env.REACT_APP_RAZORPAY_KEY_ID,
+            amount: data.amount.toString(),
+            currency: data.currency,
+            name: "Novel Suite",
+            description: "",
+            order_id: data.id,
+            image:
+              "https://novel-suites.s3.ap-south-1.amazonaws.com/novel-suite-assets/logo_novel_png.png",
+            handler: (res) => {
+              let {
+                razorpay_order_id,
+                razorpay_payment_id,
+                razorpay_signature,
+              } = res;
+              onPayHandler(res);
+              // Loader.show();
+              // confirmRazorPaymemtSuccess({
+              //   orderCreationId: data.id,
+              //   razorpayPaymentId: razorpay_payment_id,
+              //   razorpayOrderId: razorpay_order_id,
+              //   razorpaySignature: razorpay_signature,
+              //   cart_ids: cart_ids,
+              // })
+              //   .then((res) => {
+              //     Loader.hide();
+              //     if (res) {
+              //       console.log("gotcha-->");
+              //     }
+              //   })
+              //   .catch((error) => {
+              //     console.log(error);
+              //     Loader.hide();
+              //   });
+            },
+            theme: {
+              color: "black",
+            },
+          };
+          const razorpayPaymentObject = window.Razorpay(razorPayoptions);
+          razorpayPaymentObject.open();
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
+    });
   };
+
+  const onChangeDiningTypesHandler = (toggelValue, item) => {
+    const { diningType } = reserveRoomForm;
+    diningType.forEach((type) => {
+      if (type.labelFor === item.labelFor) {
+        type.value = toggelValue;
+      }
+    });
+    setReserveRoomForm({
+      ...reserveRoomForm,
+      diningType,
+    });
+  };
+
+  const getTotalPayment = () => {
+    let diningExtraSum = 0;
+    let totalAmount = 0;
+    if (Object.keys(room).length) {
+      diningExtraSum = diningType.reduce((prev, current) => {
+        if (current.value) {
+          return prev + current.price;
+        } else {
+          return prev;
+        }
+      }, 0);
+    }
+    if (total_night.value) {
+      totalAmount =
+        total_night.value * room.room_price +
+        diningExtraSum * total_night.value;
+    } else {
+      totalAmount = room.room_price + diningExtraSum;
+    }
+    return totalAmount;
+  };
+
   /** End here */
 
-  const { check_in, check_out, total_guests, total_night, total_price } =
+  const { check_in, check_out, total_guests, total_night, diningType } =
     reserveRoomForm;
-  console.log(check_in, "-->check", reserveRoomForm);
+
   return (
     <form
       role="book-reverse"
@@ -198,6 +343,18 @@ const NovelRoomReverseForm = ({ selectedLocation, room }) => {
           ))}
         </Menu>
       </div>
+      <div className="d-flex flex-wrap flex-justify-space-between">
+        {diningType.map((item) => (
+          <SwitchToggle
+            className="mt-1"
+            labelName={item.label}
+            labelFor={item.labelFor}
+            onChange={(e) => onChangeDiningTypesHandler(e, item)}
+            isToggled={item.value}
+            key={item.label}
+          />
+        ))}
+      </div>
       <div className="w-50 m-auto mt-1 cursor-pointer">
         <Button
           className="novel-button--block bg-error mt-1 br-round"
@@ -208,21 +365,10 @@ const NovelRoomReverseForm = ({ selectedLocation, room }) => {
           <span>Pay</span>
           <span className="fa fa-inr ml-5px" aria-hidden="true"></span>
           <span className="ml-5px">
-            {CommonUtlis.numberWithCommas(total_price.value)}
+            {CommonUtlis.numberWithCommas(getTotalPayment())}
           </span>
         </Button>
       </div>
-      {/* <Button
-        className="novel-button--primary novel-button--large novel-button--block mt-1"
-        title="Checkout"
-        onClick={onPayNowHandler}
-        disabled={isReverseFormValid()}
-      >
-        <span className="ml-1">Pay Now</span>
-        <span className="ml-1">
-          {total_price.value}
-          </span>
-      </Button> */}
     </form>
   );
 };

@@ -5,7 +5,6 @@ import {
   addUserToCartRoom,
 } from "../../../Services/NovelRoomService/NovelRoomService";
 import { getLocationById } from "../../../Services/Location/LocationService";
-// import { dateFormatYearMonthDate } from "../../../Utils/FormValidationUtlis";
 import {
   Button,
   Loader,
@@ -13,7 +12,6 @@ import {
   Carousel,
   Modal,
 } from "../../../UI_Library/UI_Library";
-// import CommonUtlis from "../../../Utils/CommonUtlis";
 import "./NovelRoomDetails.scss";
 import NovelRoomReverseForm from "./NovelRoomReverseForm";
 
@@ -22,7 +20,6 @@ const NovelRoomDetails = () => {
   const novelRoomDetailsRouter = useHistory();
   const [room, setroom] = useState({});
   const [selectedLocation, setSelectedLocation] = useState([]);
-  const [isItemAddedInCart, setIsItemAddedInCart] = useState(false);
   const [isOpenGallery, setIsOpenGallery] = useState({
     open: false,
     data: [],
@@ -61,60 +58,6 @@ const NovelRoomDetails = () => {
     novelRoomDetailsRouter.push(redirectUrl);
   };
 
-  // const onAddToCartFormSubmit = (event) => {
-  //   event.preventDefault();
-  //   if (!isItemAddedInCart) {
-  //     addItemInCart();
-  //   } else {
-  //     novelRoomDetailsRouter.push("/user-cart");
-  //   }
-  // };
-
-  // const addItemInCart = () => {
-  //   const isUserLoggedIn = JSON.parse(CommonUtlis.getSessionUserDetails());
-  //   if (!isUserLoggedIn) {
-  //     // Toastr.warning("Please login first, before adding into your cart.");
-  //     novelRoomDetailsRouter.push({
-  //       pathname: `/login`,
-  //       search: `?redirect=${window.location.pathname}`,
-  //     });
-  //     return;
-  //   }
-  //   Loader.show();
-  //   const { check_in, check_out, total_guests, total_night } = reserveRoomForm;
-  //   let addCartSendJson = {
-  //     locationId: selectedLocation[0]._id,
-  //     roomId: room._id,
-  //     userId: isUserLoggedIn._id,
-  //     start_date: check_in.value,
-  //     end_date: check_out.value,
-  //     total_night: total_night.value,
-  //     total_guests: total_guests.value,
-  //   };
-  //   addUserToCartRoom(addCartSendJson)
-  //     .then((addedCartResponse) => {
-  //       Loader.hide();
-  //       const { response } = addedCartResponse;
-  //       const { data, message, errors } = response;
-  //       if (data && !errors.length) {
-  //         Toastr.success(message);
-  //         setIsItemAddedInCart(true);
-  //       }
-  //     })
-  //     .catch((addCartError) => {
-  //       Loader.hide();
-  //       console.log(addCartError);
-  //     });
-  // };
-
-  // const isReverseFormValid = () => {
-  //   const { check_in, check_out } = reserveRoomForm;
-  //   if (check_out.value && check_in.value) return false;
-  //   return true;
-  // };
-
-  const onBookRoom = () => {};
-
   const onViewGalleryHandler = () => {
     const { room_pics } = room;
     setIsOpenGallery({
@@ -128,6 +71,10 @@ const NovelRoomDetails = () => {
       data: [],
     });
   };
+  const onPayHandler = (data) => {
+    console.log(data);
+  };
+
   const { open, data } = isOpenGallery;
   return (
     <Fragment>
@@ -144,7 +91,6 @@ const NovelRoomDetails = () => {
         <section className="novel-room-media pos-relative container">
           <div className="novel-room-image pblock-1">
             <Carousel items={room.room_pics ? room.room_pics : []} />
-            {/* <img src="https://res.cloudinary.com/arbor1221/image/upload/v1498121225/Consulting_Advisory_Professional_services_2_ikqokw.jpg" /> */}
           </div>
           <div className="novel-room-content">
             <Button
@@ -198,11 +144,11 @@ const NovelRoomDetails = () => {
             <div className="novel-room-reverse">
               <div className="novel-room-more-details">
                 <h2 className="fw-normal text-center">{room?.room_name}</h2>
-                {/* <p className="fw-normal text-center">{room?.room_description}</p> */}
                 <p className="fw-normal ">
-                  Eiusmod labore et eu elit anim. Aliqua quis do amet officia
+                  {room?.room_description}
+                  {/* Eiusmod labore et eu elit anim. Aliqua quis do amet officia
                   laborum commodo. Ut consequat exercitation occaecat aute
-                  consectetur ea sunt enim anim qui cillum aute.
+                  consectetur ea sunt enim anim qui cillum aute. */}
                 </p>
                 <div className="novel-room-amenities mt-2">
                   <div className="novel-amentites-item">
@@ -298,6 +244,7 @@ const NovelRoomDetails = () => {
                   <NovelRoomReverseForm
                     selectedLocation={selectedLocation}
                     room={room}
+                    onPayHandler={onPayHandler}
                   />
                 </div>
               </div>
