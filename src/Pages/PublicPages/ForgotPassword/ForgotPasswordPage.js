@@ -42,12 +42,20 @@ const ForgotPasswordPage = () => {
                 <Button
                   buttonLabel="Forgot Password"
                   type="submit"
-                  className="mt-1 novel-button--primary"
+                  className="mt-1 novel-button--primary forgot-button"
                   onClick={(event) => onForgotPasswordFormSubmit(event)}
                 />
               </div>
             </form>
           </section>
+          <div className="text-center mt-1">
+            <a
+              href="/login"
+              className="text-center text-decoration-none mt-1 text-archor-color cursor-pointer"
+            >
+              Already Have a Account
+            </a>
+          </div>
         </div>
       </section>
       <section className="forgot-password--right"></section>

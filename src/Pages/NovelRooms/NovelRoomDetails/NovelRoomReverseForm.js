@@ -222,6 +222,8 @@ const NovelRoomReverseForm = ({ selectedLocation, room, onPayHandler }) => {
           razorpayPaymentObject.open();
         })
         .catch((error) => {
+          const { response } = error;
+          Toastr.error(response.message);
           console.log("error", error);
         });
     });
