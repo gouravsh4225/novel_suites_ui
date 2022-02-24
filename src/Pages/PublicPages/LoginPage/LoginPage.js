@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import AuthService from "../../../Services/AuthService/AuthService";
 import CommonUtlis from "../../../Utils/CommonUtlis";
-import { Loader, Input, Button, Toastr } from "../../../UI_Library/UI_Library";
+import { Loader, Input, Button, Toast } from "../../../UI_Library/UI_Library";
 import "./LoginPage.scss";
 import { getUserCartDetailsByCartId } from "../../../Services/NovelRoomService/NovelRoomService";
 
@@ -61,13 +61,13 @@ const LoginPage = () => {
      */
     if (!phone_number.value || !password.value) {
       let message = "Please enter Phone number & Password";
-      Toastr.error(message);
+      Toast.error(message);
       return;
     } else if (phone_number.value && !password.value) {
-      Toastr.error("Please enter Password");
+      Toast.error("Please enter Password");
       return;
     } else if (!phone_number.value && password.value) {
-      Toastr.error("Please enter Phone Number");
+      Toast.error("Please enter Phone Number");
       return;
     }
 
@@ -93,7 +93,7 @@ const LoginPage = () => {
         console.log(error, "console.log(error)");
         let { errors } = error.response;
         if (Array.isArray(errors)) {
-          Toastr.error(
+          Toast.error(
             errors.map((item) => `${item.param}  ${item.msg},`).join(" ")
           );
         }

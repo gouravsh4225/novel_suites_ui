@@ -2,7 +2,7 @@ import { NovelSuitesButton as Button } from "./NovelSuitesButton/NovelSuitesButt
 import { NovelSuitesInput as Input } from "./NovelSuitesInput/NovelSuitesInput";
 import { NovelSuitesTextarea as Textarea } from "./NovelSuitesTextarea/NovelSuitesTextarea";
 import { NovelLoader as Loader } from "./NovelLoader/NovelLoader";
-import { NovelAlerts as Toastr } from "./NovelAlerts/NovelAlerts";
+import { NovelAlerts as Toast } from "./NovelAlerts/NovelAlerts";
 import { NovelBackDrop as BackDrop } from "./NovelBackDrop/NovelBackDrop";
 import { NovelConfirmModal as ConfirmModal } from "./NovelComfirmModal/NovelConfirmModal";
 import { NovelDialog as Modal } from "./NovelDialog/NovelDialog";
@@ -19,7 +19,7 @@ export {
   Input,
   Textarea,
   Loader,
-  Toastr,
+  Toast,
   BackDrop,
   ConfirmModal,
   Modal,

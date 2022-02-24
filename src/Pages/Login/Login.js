@@ -4,7 +4,7 @@ import {
   Button,
   Input,
   Loader,
-  Toastr,
+  Toast,
   Modal,
 } from "../../UI_Library/UI_Library";
 import AuthService from "../../Services/AuthService/AuthService";
@@ -64,13 +64,13 @@ const Login = ({ isOpen, onClose }) => {
      */
     if (!phone_number.value || !password.value) {
       let message = "Please enter Phone number & Password";
-      Toastr.error(message);
+      Toast.error(message);
       return;
     } else if (phone_number.value && !password.value) {
-      Toastr.error("Please enter Password");
+      Toast.error("Please enter Password");
       return;
     } else if (!phone_number.value && password.value) {
-      Toastr.error("Please enter Phone Number");
+      Toast.error("Please enter Phone Number");
       return;
     }
 
@@ -94,7 +94,7 @@ const Login = ({ isOpen, onClose }) => {
         Loader.hide();
         let { errors } = error.response;
         if (Array.isArray(errors)) {
-          Toastr.error(
+          Toast.error(
             errors.map((item) => `${item.param}  ${item.msg},`).join(" ")
           );
         }

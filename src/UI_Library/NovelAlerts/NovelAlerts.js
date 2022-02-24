@@ -29,7 +29,7 @@ const getDefaultAndPropsOptions = (options = {}) => {
     dismissTime: 3000,
     autoDelete: true,
     description: "",
-    toastrPos: "top-right",
+    toastPos: "top-right",
     ...options,
   };
 };
@@ -37,7 +37,7 @@ const getDefaultAndPropsOptions = (options = {}) => {
 const NovelAlertsContent = (props) => {
   const { options, type, message } = props;
   const [contentList, setContentList] = useState([]);
-  const { dismissTime, autoDelete, description, toastrPos } =
+  const { dismissTime, autoDelete, description, toastPos } =
     getDefaultAndPropsOptions(options);
 
   useEffect(() => {
@@ -76,11 +76,11 @@ const NovelAlertsContent = (props) => {
   };
   return (
     <Fragment>
-      <div className={`novel-alert-root ${toastrPos}`}>
+      <div className={`novel-alert-root ${toastPos}`}>
         {contentList.map((contentItem) => (
           <div
             key={contentItem.id}
-            className={`novel-alert-container bg-${contentItem.type} ${toastrPos} toast`}
+            className={`novel-alert-container bg-${contentItem.type} ${toastPos} toast`}
           >
             <div className="novel-alert-message-container">
               {renderMessage(contentItem.message)}

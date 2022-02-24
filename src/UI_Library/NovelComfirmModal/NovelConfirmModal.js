@@ -29,7 +29,7 @@ const NovelConfirmModal = ({ children, onClose, isOpen, type, onConfirm }) => {
         <Modal.Header
           onCloseHandler={onClose}
           headerHeading="Confrim "
-          className={addConfirmModalClass()}
+          className={addConfirmModalClass}
         />
         <Modal.Content>{children}</Modal.Content>
         <Modal.Footer>

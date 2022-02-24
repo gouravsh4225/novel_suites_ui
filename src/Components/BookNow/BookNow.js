@@ -8,7 +8,7 @@ import {
   Button,
   Input,
   Loader,
-  Toastr,
+  Toast,
   Modal,
   DropDown,
 } from "../../UI_Library/UI_Library";
@@ -83,7 +83,7 @@ const BookNow = ({ isOpen, onClose }) => {
         .catch((error) => console.log(error));
       console.log(checkAvailableJson, "==>");
     } else {
-      Toastr.error(message, {
+      Toast.error(message, {
         autoDelete: true,
       });
     }

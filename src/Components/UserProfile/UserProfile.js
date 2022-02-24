@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import UserAvatarLogo from "../../assets/user-avatar.png";
-import { Toastr, Menu } from "../../UI_Library/UI_Library";
+import { Toast, Menu } from "../../UI_Library/UI_Library";
 import AuthService from "../../Services/AuthService/AuthService";
 import "./UserProfile.scss";
 import CommonUtlis from "../../Utils/CommonUtlis";

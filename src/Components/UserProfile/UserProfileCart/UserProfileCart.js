@@ -5,7 +5,7 @@ import {
   Label,
   ConfirmModal,
   Loader,
-  Toastr,
+  Toast,
 } from "../../../UI_Library/UI_Library";
 import AuthService from "../../../Services/AuthService/AuthService";
 import {
@@ -103,7 +103,7 @@ const UserProfileCart = () => {
         const { response } = responseData;
         const { message } = response;
         Loader.hide();
-        Toastr.success(message);
+        Toast.success(message);
         getUserCartData();
         setIsConfirmOpen({
           isOpen: false,
@@ -125,7 +125,7 @@ const UserProfileCart = () => {
       .then((res) => {
         Loader.hide();
         let { response } = res;
-        Toastr.success("Item is added successfully on save later");
+        Toast.success("Item is added successfully on save later");
         getUserCartData();
       })
       .catch((error) => {

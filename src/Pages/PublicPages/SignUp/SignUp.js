@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Button, Input, Toastr } from "../../../UI_Library/UI_Library";
+import { Button, Input, Toast } from "../../../UI_Library/UI_Library";
 // import logo from "../../../assets/logo_novel_png.png";
 import {
   EmailValidationChecker,
@@ -110,8 +110,8 @@ const SignUpPage = () => {
       !password.value ||
       !confirm_password.value
     ) {
-      Toastr.error("Please enter all mandatory fields", {
-        toastrPos: "top-left",
+      Toast.error("Please enter all mandatory fields", {
+        toastPos: "top-left",
       });
       return;
     }
@@ -120,8 +120,8 @@ const SignUpPage = () => {
       confirm_password.value
     );
     if (!isBothPasswordEqual) {
-      Toastr.error("Password is not matched.", {
-        toastrPos: "top-left",
+      Toast.error("Password is not matched.", {
+        toastPos: "top-left",
       });
       return;
     }
@@ -136,7 +136,7 @@ const SignUpPage = () => {
     AuthService.signUpUser(signUpFormData)
       .then((userCratedResponse) => {
         let { response } = userCratedResponse;
-        Toastr.success(response.message);
+        Toast.success(response.message);
         CommonUtlis.setSessionUserItems(response.access_token, response.data);
         setTimeout(() => {
           signUpHistory.push("/");
@@ -146,9 +146,9 @@ const SignUpPage = () => {
         let { statusText, response } = userCreatedError;
 
         if (response.message) {
-          Toastr.error(`${response.message}`);
+          Toast.error(`${response.message}`);
         } else {
-          Toastr.error(`${statusText}`);
+          Toast.error(`${statusText}`);
         }
       });
   };
