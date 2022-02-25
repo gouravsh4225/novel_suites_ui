@@ -40,11 +40,25 @@ const getUserBookings = () => {
     .catch(APIUtlis.handleErrorResponse);
 };
 
+const sendOtpToPhone = (sendOtpdata) => {
+  return APIUtlis.postApi("user-auth/send-otp", sendOtpdata)
+    .then(APIUtlis.handleSuccessReponse)
+    .catch(APIUtlis.handleErrorResponse);
+};
+
+const veryOtpPhone = (verifyData) => {
+  return APIUtlis.postApi("user-auth/verify-code", verifyData)
+    .then(APIUtlis.handleSuccessReponse)
+    .catch(APIUtlis.handleErrorResponse);
+};
+
 const AuthService = {
   loginSubmit,
   signUpUser,
   logOutUser,
   getUserCartDetails,
   getUserBookings,
+  sendOtpToPhone,
+  veryOtpPhone,
 };
 export default AuthService;

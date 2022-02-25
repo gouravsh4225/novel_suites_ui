@@ -30,6 +30,7 @@ const AppRoutes = () => {
           component={ForgotPasswordPage}
         />
         <Route exact={true} path="/login" component={LoginPage} />
+        <Route path="/register" component={SignUpPage} exact={true} />
         <Route exact={true} path="/about-us">
           <HeaderFooterLayout component={AboutUs} />
         </Route>
@@ -60,7 +61,6 @@ const AppRoutes = () => {
         <Route exact={true} path="/contact-us">
           <HeaderFooterLayout component={ContactUs} />
         </Route>
-        <Route path="/create-user" component={SignUpPage} />
         <Route path="*" exact={true}>
           <HeaderFooterLayout component={NoPageFound} />
         </Route>

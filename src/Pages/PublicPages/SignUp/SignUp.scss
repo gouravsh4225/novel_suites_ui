@@ -14,12 +14,18 @@
       width: 100%;
       &--heading {
         @include fontFamily();
-        @include letterSpacing(2px);
+        @include letterSpacing(3px);
         @include fontWeight(600);
-        font-size: 1.8rem;
-        text-transform: capitalize;
+        font-size: 1.5rem;
+        text-transform: uppercase;
+        margin-bottom: 0.5rem;
+        color: rgba(0, 0, 0, 0.7);
         text-align: center;
-        margin-bottom: 2rem;
+      }
+      &--subheading {
+        color: rgba(0, 0, 0, 0.6);
+        text-align: left;
+        font-size: 1.1rem;
       }
     }
   }

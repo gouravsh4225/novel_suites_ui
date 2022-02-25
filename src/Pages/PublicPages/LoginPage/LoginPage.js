@@ -101,7 +101,7 @@ const LoginPage = () => {
   };
 
   const onSignUpHandler = () => {
-    loginPageRouter.push("/create-user");
+    loginPageRouter.push("/register");
   };
 
   const onForgotPasswordHandler = () => {

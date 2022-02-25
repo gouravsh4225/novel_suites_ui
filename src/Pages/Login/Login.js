@@ -102,7 +102,7 @@ const Login = ({ isOpen, onClose }) => {
   };
   const onSignUpHandler = () => {
     document.body.classList.remove("overflow-y-hidden");
-    reactRouterHistory.push("/create-user");
+    reactRouterHistory.push("/register");
   };
 
   return (

@@ -1,7 +1,6 @@
 import React, { Fragment, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Button, Input, Toast } from "../../../UI_Library/UI_Library";
-// import logo from "../../../assets/logo_novel_png.png";
+import { Button, Input, Loader, Toast } from "../../../UI_Library/UI_Library";
 import {
   EmailValidationChecker,
   NumberValidationChecker,
@@ -34,7 +33,18 @@ const SignUpPage = () => {
       value: "",
       errorText: "",
     },
+    verify_code: {
+      value: "",
+      errorText: "",
+    },
   });
+  const [signUpFormSteps, setSignUpFormSteps] = useState([
+    "Mobile Number",
+    "Personal Details",
+  ]);
+
+  const [currentFormStep, setCurrentFormStep] = useState(0);
+  const [isOtpSent, setIsOtpSent] = useState(false);
 
   const onChangePhoneNumber = (e, inputValue) => {
     const { phone_number } = signUpFormInput;
@@ -99,6 +109,18 @@ const SignUpPage = () => {
     });
   };
 
+  const onChangeVerifyCode = (e, inputValue) => {
+    const { verify_code } = signUpFormInput;
+    verify_code.value = inputValue;
+    verify_code.errorText = !inputValue
+      ? "Verify Code is required for next step"
+      : "";
+    setSignUpFormInput({
+      ...signUpFormInput,
+      verify_code,
+    });
+  };
+
   const onSignUpHandler = (event) => {
     event.preventDefault();
     const { phone_number, name, email_address, password, confirm_password } =
@@ -153,189 +175,254 @@ const SignUpPage = () => {
       });
   };
 
-  const { phone_number, name, email_address, password, confirm_password } =
-    signUpFormInput;
+  const onSendOtpHandler = (event) => {
+    event.preventDefault();
+    const { phone_number } = signUpFormInput;
+    if (phone_number.value && !phone_number.errorText) {
+      Loader.show();
+      AuthService.sendOtpToPhone({
+        phone_number: `+91${phone_number.value}`,
+      })
+        .then((otpResponse) => {
+          setIsOtpSent(true);
+          Loader.hide();
+          console.log(otpResponse, "otpResponse");
+          Toast.success(`Otp is sent to +91${phone_number.value}`, {
+            dismissTime: 4000,
+          });
+        })
+        .catch((otpError) => {
+          Loader.hide();
+          console.log(otpError, "otpError");
+          Toast.error("Got some erorr");
+        });
+    }
+  };
+
+  const onVerifyCodeHandler = (event) => {
+    const { verify_code, phone_number } = signUpFormInput;
+    if (verify_code.value) {
+      let json = {
+        phone_number: `+91${phone_number.value}`,
+        code: verify_code.value,
+      };
+      Loader.show();
+      AuthService.veryOtpPhone(json)
+        .then((responseData) => {
+          Loader.hide();
+          setCurrentFormStep(1);
+        })
+        .catch((error) => {
+          Loader.hide();
+          Toast.error("Got some Error.Please try to send again");
+        });
+    } else {
+      Toast.error("Please enter Verify Code");
+      return;
+    }
+  };
+
+  const onChangeStepper = (current) => {
+    setCurrentFormStep(current);
+  };
+
+  const onClickPerviousHandler = () => {
+    const { verify_code } = signUpFormInput;
+    verify_code.value = "";
+    verify_code.errorText = "";
+    setSignUpFormInput({
+      ...signUpFormInput,
+      verify_code,
+    });
+    setIsOtpSent(false);
+    setCurrentFormStep((current) => current - 1);
+  };
+
+  const isMobileFormValid = () => {
+    const { phone_number } = signUpFormInput;
+    return phone_number.value && !phone_number.errorText ? false : true;
+  };
+
+  const {
+    phone_number,
+    name,
+    email_address,
+    password,
+    confirm_password,
+    verify_code,
+  } = signUpFormInput;
 
   return (
     <Fragment>
       <div className="sign-up-wrapper">
-        <section className="sign-up-left-section mt-auto mb-auto">
+        <section region="novel-bg" className="sign-up-right-section"></section>
+
+        <section
+          region="sign-up form"
+          className="sign-up-left-section mt-auto mb-auto"
+        >
           <div className="sign-up-form mr-auto ml-auto">
-            <p className="sign-up-form--heading">
-              Create your Novel Suite Account
+            <p className="sign-up-form--heading fw-normal letter-spacing-3">
+              Sign Up
             </p>
-            <form
-              onSubmit={onSignUpHandler}
-              autoComplete="off"
-              className="sign-up-form--inputs"
-            >
-              <Input
-                inputLabel="Mobile Number"
-                inputLabelClasses="fw-bold"
-                type="text"
-                errorText={phone_number.errorText ? phone_number.errorText : ""}
-                name="phone_number"
-                onChange={onChangePhoneNumber}
-                value={phone_number.value}
-                className="novel-suite-input--large mb-1"
-              />
-              <Input
-                inputLabel="Full Name"
-                inputLabelClasses="fw-bold"
-                type="text"
-                errorText={!name.value ? name.errorText : ""}
-                name="name"
-                onChange={onChangeFullName}
-                value={name.value}
-                className="novel-suite-input--large mb-1"
-              />
-              <Input
-                inputLabel="Email Address"
-                inputLabelClasses="fw-bold"
-                type="email"
-                errorText={
-                  email_address.errorText ? email_address.errorText : ""
-                }
-                name="email_address"
-                onChange={onChangeEmailAddress}
-                value={email_address.value}
-                className={`novel-suite-input--large mb-1 ${
-                  email_address.errorText && "novel-suite-input--error"
-                }`}
-              />
-              <Input
-                inputLabel="Password"
-                inputLabelClasses="fw-bold"
-                type="password"
-                errorText={password.errorText ? password.errorText : ""}
-                name="password"
-                onChange={onChangePassword}
-                value={password.value}
-                className={`novel-suite-input--large mb-1 ${
-                  password.errorText && "novel-suite-input--error"
-                }`}
-              />
-              <Input
-                inputLabel="Confirm Password"
-                inputLabelClasses="fw-bold"
-                type="password"
-                errorText={
-                  confirm_password.errorText ? confirm_password.errorText : ""
-                }
-                name="confirm_password"
-                onChange={onChangeConfirmPassword}
-                value={confirm_password.value}
-                className={`novel-suite-input--large mb-1 ${
-                  confirm_password.errorText && "novel-suite-input--error"
-                }`}
-              />
-              <Button
-                type="submit"
-                className="novel-button--primary novel-button--block novel-button--small mt-1"
-                buttonLabel="Sign Up"
-                onClick={onSignUpHandler}
-              />
-            </form>
-            <div className="text-center mt-1">
+            {currentFormStep === 0 ? (
+              <form autoComplete="off" className="w-full">
+                <div className="mt-1">
+                  <Input
+                    inputLabel="Mobile Number*"
+                    inputLabelClasses="fw-normal"
+                    type="text"
+                    errorText={
+                      phone_number.errorText ? phone_number.errorText : ""
+                    }
+                    name="phone_number"
+                    onChange={onChangePhoneNumber}
+                    value={phone_number.value}
+                    errorTextClasses="mt-0"
+                    className="h-full"
+                    placeholder="9876543210"
+                  />
+                </div>
+                {isOtpSent ? (
+                  <Fragment>
+                    <div className="mt-1">
+                      <Input
+                        inputLabel="Verify Code*"
+                        inputLabelClasses="fw-normal"
+                        type="text"
+                        errorText={
+                          verify_code.errorText ? verify_code.errorText : ""
+                        }
+                        name="verify_code"
+                        onChange={onChangeVerifyCode}
+                        value={verify_code.value}
+                        errorTextClasses="mt-0"
+                        className="h-full"
+                      />
+                    </div>
+                    <div className="d-flex">
+                      <Button
+                        type="submit"
+                        className="novel-button--primary novel-button--small mt-1  ml-auto mr-auto"
+                        onClick={onVerifyCodeHandler}
+                        buttonLabel="Next"
+                      />
+                    </div>
+                  </Fragment>
+                ) : (
+                  <div className="d-flex">
+                    <Button
+                      type="submit"
+                      className="novel-button--primary novel-button--small mt-1 ml-auto mr-auto"
+                      onClick={onSendOtpHandler}
+                      disabled={isMobileFormValid()}
+                    >
+                      <div className="d-flex">
+                        <span
+                          className="fa fa-paper-plane"
+                          aria-hidden="true"
+                        ></span>
+                        <span className="ml-1">Send Otp</span>
+                      </div>
+                    </Button>
+                  </div>
+                )}
+              </form>
+            ) : null}
+            {currentFormStep === 1 ? (
+              <Fragment>
+                <form
+                  onSubmit={onSignUpHandler}
+                  autoComplete="off"
+                  className="w-full"
+                >
+                  <div className="mt-1">
+                    <Input
+                      inputLabel="Full Name *"
+                      inputLabelClasses="fw-normal"
+                      type="text"
+                      errorText={!name.value ? name.errorText : ""}
+                      name="name"
+                      onChange={onChangeFullName}
+                      value={name.value}
+                      className="h-full"
+                    />
+                  </div>
+                  <div className="mt-1">
+                    <Input
+                      inputLabel="Email Address*"
+                      inputLabelClasses="fw-normal"
+                      type="email"
+                      errorText={
+                        email_address.errorText ? email_address.errorText : ""
+                      }
+                      name="email_address*"
+                      onChange={onChangeEmailAddress}
+                      value={email_address.value}
+                      className={`h-full ${
+                        email_address.errorText && "novel-suite-input--error"
+                      }`}
+                    />
+                  </div>
+                  <div className="mt-1">
+                    <Input
+                      inputLabel="Password*"
+                      inputLabelClasses="fw-normal"
+                      type="password"
+                      errorText={password.errorText ? password.errorText : ""}
+                      name="password"
+                      onChange={onChangePassword}
+                      value={password.value}
+                      className={`h-full ${
+                        password.errorText && "novel-suite-input--error"
+                      }`}
+                    />
+                  </div>
+                  <div className="mt-1">
+                    <Input
+                      inputLabel="Confirm Password*"
+                      inputLabelClasses="fw-normal"
+                      type="password"
+                      errorText={
+                        confirm_password.errorText
+                          ? confirm_password.errorText
+                          : ""
+                      }
+                      name="confirm_password"
+                      onChange={onChangeConfirmPassword}
+                      value={confirm_password.value}
+                      className={`h-full ${
+                        confirm_password.errorText && "novel-suite-input--error"
+                      }`}
+                    />
+                  </div>
+                  <div className="d-flex">
+                    <Button
+                      type="submit"
+                      className="novel-button--secondary-text novel-button--small mt-1 mr-auto ml-auto"
+                      onClick={onClickPerviousHandler}
+                      buttonLabel="Previous"
+                    />
+                    <Button
+                      type="submit"
+                      className="novel-button--primary novel-button--small mt-1 ml-auto mr-auto"
+                      buttonLabel="Sign Up"
+                      onClick={onSignUpHandler}
+                    />
+                  </div>
+                </form>
+              </Fragment>
+            ) : null}
+            <div className="text-center">
               <a
                 href="/login"
-                className="text-center text-decoration-none mt-1 text-archor-color cursor-pointer"
+                className="novel-button mt-1 novel-button--link novel-button--small ml-auto"
               >
                 Already Have a Account
               </a>
             </div>
           </div>
         </section>
-        <section className="sign-up-right-section"></section>
-        {/* <div className="sign-card">
-          <div className="sign-container">
-            <div className="sign-up-form-container">
-              <div className="form-heading mb-1">
-                <h3 className="mt-1 form-title">welcome </h3>
-                <h5 className="form-sub-title">
-                  Create your Novel Suite account
-                </h5>
-              </div>
-              <form
-                onSubmit={onSignUpHandler}
-                autoComplete="off"
-                className="sign-up-form"
-              >
-                <Input
-                  inputLabel="Enter Your Phone Number"
-                  inputLabelClasses="fw-bold"
-                  type="text"
-                  errorText={
-                    phone_number.errorText ? phone_number.errorText : ""
-                  }
-                  name="phone_number"
-                  onChange={onChangePhoneNumber}
-                  value={phone_number.value}
-                  className="novel-suite-input--large mb-1"
-                />
-                <Input
-                  inputLabel="Full Name"
-                  inputLabelClasses="fw-bold"
-                  type="text"
-                  errorText={!name.value ? name.errorText : ""}
-                  name="name"
-                  onChange={onChangeFullName}
-                  value={name.value}
-                  className="novel-suite-input--large mb-1"
-                />
-                <Input
-                  inputLabel="Email Address"
-                  inputLabelClasses="fw-bold"
-                  type="email"
-                  errorText={
-                    email_address.errorText ? email_address.errorText : ""
-                  }
-                  name="email_address"
-                  onChange={onChangeEmailAddress}
-                  value={email_address.value}
-                  className={`novel-suite-input--large mb-1 ${
-                    email_address.errorText && "novel-suite-input--error"
-                  }`}
-                />
-                <Input
-                  inputLabel="Password"
-                  inputLabelClasses="fw-bold"
-                  type="password"
-                  errorText={password.errorText ? password.errorText : ""}
-                  name="password"
-                  onChange={onChangePassword}
-                  value={password.value}
-                  className={`novel-suite-input--large mb-1 ${
-                    password.errorText && "novel-suite-input--error"
-                  }`}
-                />
-                <Input
-                  inputLabel="Comfirm Password"
-                  inputLabelClasses="fw-bold"
-                  type="password"
-                  errorText={
-                    confirm_password.errorText ? confirm_password.errorText : ""
-                  }
-                  name="confirm_password"
-                  onChange={onChangeConfirmPassword}
-                  value={confirm_password.value}
-                  className={`novel-suite-input--large mb-1 ${
-                    confirm_password.errorText && "novel-suite-input--error"
-                  }`}
-                />
-                <Button
-                  type="submit"
-                  className="novel-button--primary novel-button--block novel-button--small mt-1"
-                  buttonLabel="Sign Up"
-                  onClick={onSignUpHandler}
-                />
-              </form>
-            </div>
-            <div className="sign-up-logo">
-              <img src={logo} />
-            </div>
-          </div>
-        </div> */}
       </div>
     </Fragment>
   );
