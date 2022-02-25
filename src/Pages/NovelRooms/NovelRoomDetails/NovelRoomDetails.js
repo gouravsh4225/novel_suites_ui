@@ -3,12 +3,13 @@ import { useParams, useHistory } from "react-router-dom";
 import {
   getRoomByLocationIdAndRoomId,
   addUserToCartRoom,
+  confirmRazorPaymemtSuccess,
 } from "../../../Services/NovelRoomService/NovelRoomService";
 import { getLocationById } from "../../../Services/Location/LocationService";
 import {
   Button,
   Loader,
-  Toastr,
+  Toast,
   Carousel,
   Modal,
 } from "../../../UI_Library/UI_Library";
@@ -38,7 +39,7 @@ const NovelRoomDetails = () => {
       .catch((roomError) => {
         Loader.hide();
         let { message } = roomError;
-        Toastr.error(message);
+        Toast.error(message);
       });
     /** get current Location details */
     getLocationById(locationId)
@@ -73,6 +74,35 @@ const NovelRoomDetails = () => {
   };
   const onPayHandler = (data) => {
     console.log(data, "data");
+    const { razorObject, reserveRoomForm, sessionUserData } = data;
+    let razorPayBookingJson = {
+      razorpayPaymentId: razorObject.razorpay_payment_id,
+      razorpayOrderId: razorObject.razorpay_order_id,
+      razorpaySignature: razorObject.razorpay_signature,
+    };
+    // let bookinDetailsJson = {
+    //   userId:sessionUserData._id,
+    //   locationId:,
+    //   roomId:,
+    //   start_date:,
+    //   end_date:,
+    //   total_guest:,
+    //   total_night:,
+    // }
+    // Loader.show();
+
+    /** Need some
+     *
+     *
+     *
+     */
+    let confirmPaymentJson = {
+      ...razorPayBookingJson,
+    };
+    console.log(confirmPaymentJson, "confirm");
+    // confirmRazorPaymemtSuccess()
+    //   .then((response) => {})
+    //   .catch((error) => {});
     // const navigateUrl = `/booking-success/sdfgsgs`;
     // router.push(navigateUrl);
   };
