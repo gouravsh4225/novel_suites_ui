@@ -16,6 +16,7 @@ import UserBooking from "./Components/UserProfile/UserBooking/UserBooking";
 import LoginPage from "./Pages/PublicPages/LoginPage/LoginPage";
 import ForgotPasswordPage from "./Pages/PublicPages/ForgotPassword/ForgotPasswordPage";
 import BookingSuccess from "./Pages/Booking/BookingSuccess/BookingSuccess";
+import ResetPassword from "./Pages/PublicPages/ResetPassword/ResetPassword";
 
 const AppRoutes = () => {
   return (
@@ -29,8 +30,12 @@ const AppRoutes = () => {
           path="/forgot-password"
           component={ForgotPasswordPage}
         />
+        <Route exact={true} path="/reset-password/:number">
+          <HeaderFooterLayout component={ResetPassword} />
+        </Route>
         <Route exact={true} path="/login" component={LoginPage} />
         <Route path="/register" component={SignUpPage} exact={true} />
+
         <Route exact={true} path="/about-us">
           <HeaderFooterLayout component={AboutUs} />
         </Route>

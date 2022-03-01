@@ -55,7 +55,7 @@ const LocationCard = ({ locationList }) => {
               <Button
                 type="button"
                 className="novel-button--primary "
-                buttonLabel="Book A room"
+                buttonLabel="Check rooms"
                 onClick={(e) => browserLocationRoomHandler(e, locationItem)}
               />
               <Button

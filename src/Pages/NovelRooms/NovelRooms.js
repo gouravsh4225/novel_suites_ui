@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router";
-import WorkUnderProcess from "../../Components/WorkUnderProcess/WorkUnderProcess";
 import { Button, Loader } from "../../UI_Library/UI_Library";
 import {
   getRoomBookRazorPayOrderId,
@@ -116,18 +115,18 @@ const NovelRooms = () => {
           <p className="novel-room--para">Find yourself a perfect room</p>
         </div>
         <div className="novel-rooms-lists">
-          {roomsList.map((room, index) => (
+          {roomsList.map((room) => (
             <div
               className="novel-room-item"
               key={room._id}
-              onClick={(e) => onBookDetailsHandler(e, room)}
+              // onClick={(e) => onBookDetailsHandler(e, room)}
             >
               <div className="novel-room-item-image">
                 <img
                   src={
                     "https://res.cloudinary.com/arbor1221/image/upload/v1498121225/Consulting_Advisory_Professional_services_2_ikqokw.jpg"
                   }
-                  alt={`novel-rooom-${room.room_name}`}
+                  alt={`novel-room-${room.room_name}`}
                 />
               </div>
               <div className="novel-room-item-content">
@@ -168,24 +167,23 @@ const NovelRooms = () => {
                     </div>
                   </div>
                 </div>
-                {/* <div className="mt-1 grid-container grid-gap-1 novel-rooms-buttons">
-                  <NovelSuitesButton
-                    buttonLabel="Check Book"
-                    onClick={(e) => onBookRoomHandler(e, room)}
-                    className="novel-button--primary "
+                <div className="mt-1 grid-container grid-gap-1 novel-rooms-buttons">
+                  <Button
+                    buttonLabel="Read More"
+                    onClick={(e) => onBookDetailsHandler(e, room)}
+                    className="novel-button--link"
                   />
-                  <NovelSuitesButton
+                  {/* <NovelSuitesButton
                     buttonLabel="More Information"
                     onClick={(e) => onSeeMoreInformationHandler(e, room)}
                     className="novel-button--secondary-text"
-                  />
-                </div> */}
+                  /> */}
+                </div>
               </div>
             </div>
           ))}
         </div>
       </div>
-      <WorkUnderProcess />
     </div>
   );
 };

@@ -9,7 +9,8 @@
   border-radius: 4px;
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.18);
   text-align: center;
-  padding: 18px 2vw;
+  // padding: 18px 2vw;
+  padding: 0.875rem;
   font-size: 1rem;
   line-height: 1.125em;
   letter-spacing: 0.08em;
@@ -84,6 +85,41 @@
       @include novelElementAbsoluteFullWidthHeight(100%);
       background-color: #ccc;
       @include novelTransitionDefault(300ms);
+    }
+  }
+  &--outline {
+    box-shadow: none;
+    outline: 1px solid blue;
+    background-color: #fff;
+    color: blue;
+    // width: auto;
+    // height: auto;
+    transition: background-color 500ms ease;
+    padding: 0.875rem;
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: blue;
+      color: #fff;
+      transition: background-color 500ms ease;
+    }
+  }
+  &--link {
+    background-color: transparent;
+    box-shadow: none;
+    color: blue;
+    // text-align: left;
+    cursor: pointer;
+    transition: all 500ms;
+    // width: auto;
+    // height: auto;
+    // padding: 10px 8px;
+    font-weight: 500;
+    &:hover,
+    &:focus,
+    &:active {
+      transition: all 100ms;
+      background-color: rgba(25, 118, 210, 0.09);
     }
   }
 }

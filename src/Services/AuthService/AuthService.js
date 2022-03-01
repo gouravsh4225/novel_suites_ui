@@ -52,6 +52,18 @@ const veryOtpPhone = (verifyData) => {
     .catch(APIUtlis.handleErrorResponse);
 };
 
+const forgotPassword = (updatePasswordJson) => {
+  return APIUtlis.postApi("user-auth/forgot-password", updatePasswordJson)
+    .then(APIUtlis.handleSuccessReponse)
+    .catch(APIUtlis.handleErrorResponse);
+};
+
+const checkUserByNumber = (phone) => {
+  return APIUtlis.postApi("user-auth/check-user", phone)
+    .then(APIUtlis.handleSuccessReponse)
+    .catch(APIUtlis.handleErrorResponse);
+};
+
 const AuthService = {
   loginSubmit,
   signUpUser,
@@ -60,5 +72,7 @@ const AuthService = {
   getUserBookings,
   sendOtpToPhone,
   veryOtpPhone,
+  forgotPassword,
+  checkUserByNumber,
 };
 export default AuthService;

@@ -133,7 +133,7 @@ const SignUpPage = () => {
       !confirm_password.value
     ) {
       Toast.error("Please enter all mandatory fields", {
-        toastPos: "top-left",
+        toastPos: "top-right",
       });
       return;
     }
@@ -143,7 +143,7 @@ const SignUpPage = () => {
     );
     if (!isBothPasswordEqual) {
       Toast.error("Password is not matched.", {
-        toastPos: "top-left",
+        toastPos: "top-right",
       });
       return;
     }
@@ -256,7 +256,6 @@ const SignUpPage = () => {
     <Fragment>
       <div className="sign-up-wrapper">
         <section region="novel-bg" className="sign-up-right-section"></section>
-
         <section
           region="sign-up form"
           className="sign-up-left-section mt-auto mb-auto"
@@ -266,7 +265,12 @@ const SignUpPage = () => {
               Sign Up
             </p>
             {currentFormStep === 0 ? (
-              <form autoComplete="off" className="w-full">
+              <section
+                role="form"
+                region="OTP"
+                autoComplete="off"
+                className="w-full"
+              >
                 <div className="mt-1">
                   <Input
                     inputLabel="Mobile Number*"
@@ -302,7 +306,7 @@ const SignUpPage = () => {
                     </div>
                     <div className="d-flex">
                       <Button
-                        type="submit"
+                        type="btn"
                         className="novel-button--primary novel-button--small mt-1  ml-auto mr-auto"
                         onClick={onVerifyCodeHandler}
                         buttonLabel="Next"
@@ -327,7 +331,7 @@ const SignUpPage = () => {
                     </Button>
                   </div>
                 )}
-              </form>
+              </section>
             ) : null}
             {currentFormStep === 1 ? (
               <Fragment>
@@ -399,14 +403,14 @@ const SignUpPage = () => {
                   <div className="d-flex">
                     <Button
                       type="submit"
-                      className="novel-button--secondary-text novel-button--small mt-1 mr-auto ml-auto"
+                      className="novel-button--secondary-text novel-button--small mt-1 mr-auto"
                       onClick={onClickPerviousHandler}
                       buttonLabel="Previous"
                     />
                     <Button
                       type="submit"
-                      className="novel-button--primary novel-button--small mt-1 ml-auto mr-auto"
-                      buttonLabel="Sign Up"
+                      className="novel-button--primary novel-button--small mt-1 ml-auto"
+                      buttonLabel="Create Account"
                       onClick={onSignUpHandler}
                     />
                   </div>

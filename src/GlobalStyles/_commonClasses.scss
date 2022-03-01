@@ -49,6 +49,9 @@
 .d-flex {
   display: flex;
 }
+.d-inline-block {
+  display: inline-block;
+}
 .flex-align-center {
   align-items: center;
 }
@@ -112,11 +115,17 @@
 .fw-normal {
   font-weight: 400;
 }
+.fw-semibold {
+  font-weight: 500;
+}
 .text-uppercase {
   text-transform: uppercase;
 }
 .text-capitalize {
   text-transform: capitalize;
+}
+.text-transform-none {
+  text-transform: none;
 }
 
 /** Font Size class*/
@@ -139,7 +148,7 @@
   width: 100%;
 }
 .w-50 {
-  width: 50%;
+  width: 50% !important;
 }
 
 /* Grid Classes start */

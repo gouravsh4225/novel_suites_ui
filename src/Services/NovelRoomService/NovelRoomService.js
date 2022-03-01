@@ -7,8 +7,8 @@ const getAllRoomByLocation = (locationId) => {
     .catch(APIUtlis.handleErrorResponse);
 };
 
-const getRoomBookRazorPayOrderId = () => {
-  return APIUtlis.postApi("bookings/paymentOrderId")
+const getRoomBookRazorPayOrderId = (orderCreateJson) => {
+  return APIUtlis.postApi("bookings/paymentOrderId", orderCreateJson)
     .then(APIUtlis.handleSuccessReponse)
     .catch(APIUtlis.handleErrorResponse);
 };
