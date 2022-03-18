@@ -38,10 +38,6 @@ const SignUpPage = () => {
       errorText: "",
     },
   });
-  const [signUpFormSteps, setSignUpFormSteps] = useState([
-    "Mobile Number",
-    "Personal Details",
-  ]);
 
   const [currentFormStep, setCurrentFormStep] = useState(0);
   const [isOtpSent, setIsOtpSent] = useState(false);

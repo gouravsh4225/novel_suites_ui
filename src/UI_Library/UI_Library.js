@@ -13,6 +13,7 @@ import { NovelSuitesLabel as Label } from "./NovelSuitesLabel/NovelSuitesLabel";
 import { NovelCard as Card } from "./NovelCard/NovelCard";
 import { NovelCarouselContainer as Carousel } from "./NovelCarousel/NovelCarousel";
 import { NovelSwitchToggle as SwitchToggle } from "./NovelToggleSwitch/NovelToggleSwitch";
+import { NovelStepper as Stepper } from "./NovelStepper/NovelStepper";
 
 export {
   Button,
@@ -30,4 +31,5 @@ export {
   Card,
   Carousel,
   SwitchToggle,
+  Stepper,
 };
