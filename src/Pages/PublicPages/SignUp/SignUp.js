@@ -271,7 +271,7 @@ const SignUpPage = () => {
                   <Input
                     inputLabel="Mobile Number*"
                     inputLabelClasses="fw-normal"
-                    type="text"
+                    type="number"
                     errorText={
                       phone_number.errorText ? phone_number.errorText : ""
                     }
@@ -289,7 +289,7 @@ const SignUpPage = () => {
                       <Input
                         inputLabel="Verify Code*"
                         inputLabelClasses="fw-normal"
-                        type="text"
+                        type="number"
                         errorText={
                           verify_code.errorText ? verify_code.errorText : ""
                         }

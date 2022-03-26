@@ -5,9 +5,6 @@
   grid-template-columns: repeat(2, 1fr);
   height: 100vh;
   background-color: #fff;
-  // @include tabletMedia() {
-  //   grid-template-columns: repeat(1, 1fr);
-  // }
   @include mobileMedia() {
     grid-template-columns: repeat(1, 1fr);
   }
@@ -34,6 +31,20 @@
     display: block;
     @include mobileMedia() {
       display: none;
+    }
+  }
+  .login-actions-section {
+    flex-direction: row;
+    &--login-button {
+      min-width: 200px;
+      margin-block: 0;
+    }
+    @include mobileMedia() {
+      flex-direction: column;
+      &--login-button {
+        min-width: 100%;
+        margin-block: 1rem;
+      }
     }
   }
 }

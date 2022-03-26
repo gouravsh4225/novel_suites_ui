@@ -122,7 +122,7 @@ const LoginPage = () => {
               <Input
                 inputLabel="Mobile Number"
                 validatior={["isRequires"]}
-                type="text"
+                type="number"
                 errorText={loginForm.phone_number.errorText}
                 name="phone_number"
                 onChange={(e) => onChangePhoneNumber(e)}
@@ -130,6 +130,7 @@ const LoginPage = () => {
                 className="novel-suite-input--large fs-textXl"
                 autoFocus={true}
                 inputLabelClasses="fw-bold"
+                placeholder="9876543210"
               />
               <Input
                 inputLabel="Password"
@@ -143,39 +144,33 @@ const LoginPage = () => {
                 inputLabelClasses="fw-bold"
                 errorTextClasses="mb-1"
               />
-              <div
-                className="login-forgot-password"
-                style={{ display: "flex", justifyContent: "flex-end" }}
-              >
-                <span
-                  className="text-decoration-none text-archor-color cursor-pointer"
-                  onClick={onForgotPasswordHandler}
-                  title="Forgot Password"
-                  tabIndex="0"
-                >
-                  Forgot Password
-                </span>
+              <div className="d-flex flex-align-center login-actions-section mt-1">
+                <div className="d-flex grid-gap-1 flex-1">
+                  <span
+                    onClick={onSignUpHandler}
+                    className="ml-5px fs-textMd cursor-pointer text-decoration-none fw-semibold"
+                    title="Sign Up"
+                    tabIndex="0"
+                  >
+                    Register
+                  </span>
+                  <span
+                    className="cursor-pointer fw-normal text-decoration-none"
+                    onClick={onForgotPasswordHandler}
+                    title="Forgot Password"
+                    tabIndex="0"
+                  >
+                    Forgot Password?
+                  </span>
+                </div>
+                <Button
+                  buttonLabel="Login"
+                  type="submit"
+                  className="novel-button--primary login-actions-section--login-button"
+                  onClick={(event) => onLoginFormSubmit(event)}
+                />
               </div>
-              <Button
-                buttonLabel="Login"
-                type="submit"
-                className="mt-1 novel-button--primary novel-button--block"
-                onClick={(event) => onLoginFormSubmit(event)}
-              />
             </form>
-            <div className="sign-up-container mt-1 text-center">
-              <p className="sign-up-heading">
-                Don't have an account?
-                <span
-                  onClick={onSignUpHandler}
-                  className="text-archor-color ml-5px fs-textMd cursor-pointer text-decoration-none"
-                  title="Sign Up"
-                  tabIndex="0"
-                >
-                  Sign Up
-                </span>
-              </p>
-            </div>
           </section>
         </div>
       </section>

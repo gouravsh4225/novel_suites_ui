@@ -3,6 +3,7 @@ import { useHistory, useParams } from "react-router-dom";
 import AuthService from "../../../Services/AuthService/AuthService";
 import { Button, Card, Input, Toast } from "../../../UI_Library/UI_Library";
 import { CompareTwoString } from "../../../Utils/FormValidationUtlis";
+import "./ResetPassword.scss";
 
 const ResetPassword = () => {
   const history = useHistory();
@@ -89,7 +90,7 @@ const ResetPassword = () => {
   return (
     <div className="reset-password-page">
       <div className="container pblock-1">
-        <Card className="w-50 ml-auto mt-auto mr-auto">
+        <Card className="ml-auto mt-auto mr-auto reset-password--container">
           <Card.Content>
             <h3 className="fw-semibold text-uppercase text-center fs-textXl">
               Reset Your Password
