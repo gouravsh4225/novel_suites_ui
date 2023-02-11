@@ -27,6 +27,7 @@
       @include displayType(flex);
       @include flexDirectionColumn(column);
       flex: 1;
+      cursor: pointer;
     }
     img {
       border-radius: 4px;

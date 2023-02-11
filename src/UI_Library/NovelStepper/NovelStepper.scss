@@ -1,0 +1,96 @@
+.novel_stepper_wrapper {
+  --circle-size: clamp(1.5rem, 5vw, 3rem);
+  --spacing: clamp(0.25rem, 2vw, 0.5rem);
+  width: 100%;
+  .novel-stepper {
+    display: flex;
+    flex: 1;
+    .stepper-section {
+      display: flex;
+      align-items: center;
+      flex: 1;
+      width: 100%;
+      cursor: pointer;
+      flex-direction: column;
+      text-align: center;
+    }
+    &.active {
+      .stepper-section .stepper-number {
+        background-color: blue;
+        opacity: 0.6;
+      }
+    }
+    &.step-completed {
+      .stepper-section .stepper-number {
+        background-color: black;
+        opacity: 1;
+      }
+    }
+  }
+
+  .novel-stepper__item {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    cursor: pointer;
+    .novel-stepper__icon {
+      --size: 3rem;
+      content: "";
+      display: flex;
+      text-align: center;
+      justify-content: center;
+      align-items: center;
+      width: var(--circle-size);
+      height: var(--circle-size);
+      border-radius: 50%;
+      background-color: teal;
+      color: #fff;
+      margin: auto;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+    .novel-stepper__title {
+      font-size: 1rem;
+      font-weight: 500;
+      margin-top: 0.5rem;
+      line-height: 1;
+      width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+      text-align: center;
+    }
+
+    &:not(:last-child) {
+      &:after {
+        content: "";
+        position: relative;
+        top: calc(var(--circle-size) / 2);
+        width: calc(100% - var(--circle-size) - calc(var(--spacing) * 2));
+        left: calc(50% + calc(var(--circle-size) / 2 + var(--spacing)));
+        height: 2px;
+        background-color: teal;
+        order: -1;
+      }
+    }
+    &.step-completed {
+      .novel-stepper__icon {
+        background-color: black;
+      }
+      &:after {
+        content: "";
+        position: relative;
+        top: calc(var(--circle-size) / 2);
+        width: calc(100% - var(--circle-size) - calc(var(--spacing) * 2));
+        left: calc(50% + calc(var(--circle-size) / 2 + var(--spacing)));
+        height: 2px;
+        background-color: black;
+        order: -1;
+      }
+    }
+    &.active {
+      .novel-stepper__icon {
+        background-color: blue;
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router";
-import NovelSuitesButton from "../../UI_Library/NovelSuitesButton/NovelSuitesButton";
+import { Button } from "../../UI_Library/UI_Library";
 import WorkUnderProcess from "../../Components/WorkUnderProcess/WorkUnderProcess";
 import "./Home.scss";
 
@@ -28,12 +28,12 @@ const Home = () => {
                 vulputate amet, porttitor sagittis. Ut odio sit sit congue.
               </p>
               <section className="home-page-buttons">
-                <NovelSuitesButton
+                <Button
                   buttonLabel="Browse Rooms"
                   className="novel-button--primary mr-1 novel-button--large"
                   onClick={(e) => navigateToPage("/browse-rooms")}
                 />
-                <NovelSuitesButton
+                <Button
                   buttonLabel="Contact"
                   className="novel-button--secondary-text novel-button--large"
                   onClick={(e) => navigateToPage("/contact-us")}

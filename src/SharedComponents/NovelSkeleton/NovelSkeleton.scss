@@ -18,6 +18,12 @@
   border-radius: 50%;
   @include skeletonRelHiddenBg;
 }
+.skeleton-sqaure-image {
+  height: 200px;
+  width: 200px;
+  border-radius: 8px;
+  @include skeletonRelHiddenBg;
+}
 
 .skeleton-full-width-image {
   height: 10rem;

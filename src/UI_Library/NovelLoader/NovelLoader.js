@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import UIElementHelper from "../../UI_Library/UI_Element_helpers";
-import NovelBackDrop from "../NovelBackDrop/NovelBackDrop";
+import { BackDrop } from "../UI_Library";
 import "./NovelLoader.scss";
 
 const NovelLoader = ({ isOpen, className }) => {
@@ -24,12 +24,12 @@ const NovelLoader = ({ isOpen, className }) => {
   return (
     <React.Fragment>
       {isOpen ? (
-        <NovelBackDrop style={{ zIndex: "10000" }}>
+        <BackDrop style={{ zIndex: "10000" }}>
           <div className={addAllLoaderCssClass()} id="loader-id">
             <div className="loading"></div>
             <p className="loading-title">loading</p>
           </div>
-        </NovelBackDrop>
+        </BackDrop>
       ) : null}
     </React.Fragment>
   );

@@ -5,26 +5,29 @@
   @include borderRadius(4px);
   position: fixed;
   z-index: 9999;
+  left: auto;
   background: #fff;
-  opacity: 0;
-  overflow: hidden;
+  opacity: 1;
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-height: calc(100% - 32px);
   &.open {
     opacity: 1;
-    transition-property: opacity;
-    transition-delay: 4s;
+    transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, max-height 500ms;
   }
-  .novel-menu-item {
-    @include novelTransitionDefault();
-    @include fontFamily();
-    @include fontWeight(500);
-    padding-block: 1rem;
-    padding-inline: 1rem;
-    color: #636363;
-    cursor: pointer;
-    text-transform: capitalize;
-    &:hover {
-      background: rgba(0, 0, 0, 0.15);
-      color: black;
-    }
+}
+.novel-menu-item {
+  position: relative;
+  @include novelTransitionDefault();
+  @include fontFamily();
+  @include fontWeight(500);
+  padding-block: 1rem;
+  padding-inline: 1rem;
+  color: #636363;
+  cursor: pointer;
+  text-transform: capitalize;
+  &:hover {
+    background: rgba(0, 0, 0, 0.15);
+    color: black;
   }
 }

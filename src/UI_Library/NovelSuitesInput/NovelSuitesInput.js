@@ -1,5 +1,6 @@
 import React from "react";
-import NovelSuitesLabel from "../NovelSuitesLabel/NovelSuitesLabel";
+import { Label } from "../UI_Library";
+
 import UIElementHelper from "../UI_Element_helpers";
 import "./NovelSuitesInput.scss";
 
@@ -17,6 +18,7 @@ const NovelSuitesInput = (props) => {
     validatior,
     placeholder,
     autoFocus,
+    errorTextClasses,
     type,
     ...rest
   } = props;
@@ -28,7 +30,6 @@ const NovelSuitesInput = (props) => {
     "arial-label": name,
     required: required,
     placeholder: placeholder,
-
     ...rest,
   };
   const onInputChange = (event) => {
@@ -47,7 +48,7 @@ const NovelSuitesInput = (props) => {
 
   return (
     <div className="novel-input-wrapper">
-      <NovelSuitesLabel
+      <Label
         labelName={inputLabel}
         htmlFor={name}
         className={UIElementHelper.getllClasses(
@@ -74,10 +75,16 @@ const NovelSuitesInput = (props) => {
         {...defaultNovelInputProps}
       />
       {errorText ? (
-        <div className="novel-input-wrapper--error">{errorText}</div>
+        <div
+          className={`novel-input-wrapper--error ${
+            errorTextClasses ? errorTextClasses : ""
+          }`}
+        >
+          {errorText}
+        </div>
       ) : null}
     </div>
   );
 };
 
-export default NovelSuitesInput;
+export { NovelSuitesInput };

@@ -2,9 +2,7 @@ import React, { useState, Fragment, useCallback } from "react";
 import UIElementHelper from "../UI_Element_helpers";
 import OutSideClicked from "../../SharedComponents/OutSideClicked/OutSideClicked";
 import "./NovelDropdown.scss";
-import NovelSuitesLabel from "../NovelSuitesLabel/NovelSuitesLabel";
-import NovelBackDrop from "../NovelBackDrop/NovelBackDrop";
-import NovelSpinnerLoader from "../NovelSpinnerLoader/NovelSpinnerLoader";
+import { BackDrop, SpinnerLoader, Label } from "../UI_Library";
 
 const addAllSelectCssClasses = (initialClass, propsClass) => {
   return UIElementHelper.getllClasses(initialClass, propsClass);
@@ -37,7 +35,7 @@ const NovelDropdownItems = ({
     <Fragment>
       {isLoading ? (
         <li className={addAllSelectCssClasses("p-1", className)}>
-          <NovelSpinnerLoader />
+          <SpinnerLoader />
         </li>
       ) : null}
       {!isLoading &&
@@ -137,11 +135,7 @@ const NovelDropdown = ({
       tabIndex="0"
       id="ul-list"
     >
-      <NovelSuitesLabel
-        labelName={label}
-        isCenter={false}
-        className="fw-bold"
-      />
+      <Label labelName={label} isCenter={false} className="fw-bold" />
       <div className="novel-dd-header">
         <span className="novel-dd-title" onClick={toggleDropDownListHandler}>
           {selectValue ? selectValue : placeholder}
@@ -159,7 +153,7 @@ const NovelDropdown = ({
           isOpenList={isOpenList}
         />
       </div>
-      {isOpenList ? <NovelBackDrop className="bg-transparent" /> : null}
+      {isOpenList ? <BackDrop className="bg-transparent" /> : null}
       <ul
         className={addAllSelectCssClasses(
           "novel-dd-list",
@@ -187,4 +181,4 @@ const NovelDropdown = ({
   );
 };
 
-export default NovelDropdown;
+export { NovelDropdown };

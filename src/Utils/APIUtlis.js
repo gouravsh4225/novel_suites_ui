@@ -42,8 +42,12 @@ const postApi = (url, data = {}) => {
     .then(handleSuccessReponse)
     .catch(handleErrorResponse);
 };
-const updateApi = (url, body = {}) => {
-  return fetch(getFullServerEndPoints(url))
+const updateApi = (url, updateData = {}) => {
+  return fetch(getFullServerEndPoints(url), {
+    method: "PUT",
+    ...postApiHeaders,
+    body: JSON.stringify(updateData),
+  })
     .then(handleResponse)
     .then(handleSuccessReponse)
     .catch(handleErrorResponse);

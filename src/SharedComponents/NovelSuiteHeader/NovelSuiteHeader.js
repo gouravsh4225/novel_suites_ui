@@ -1,14 +1,14 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { useHistory } from "react-router-dom";
 import NovelLogImage from "../../assets/logo_novel.gif";
-import NovelSuitesButton from "../../UI_Library/NovelSuitesButton/NovelSuitesButton";
+import { Button } from "../../UI_Library/UI_Library";
 import NovelSuiteHeaderNavList from "./NovelSuiteHeaderNavList";
 import NovelSuiteHeaderSideBar from "./NovelSuiteHeaderSideBar";
 import { SHOW_HEADER_HEIGHT } from "../../Constants/constant";
 import NovelSuiteMobileHeader from "./NovelSuiteMobileHeader";
 import Login from "../../Pages/Login/Login";
 import BookNow from "../../Components/BookNow/BookNow";
-import UserProfile from "../UserProfile/UserProfile";
+import UserProfile from "../../Components/UserProfile/UserProfile";
 import "./NovelSuiteHeader.scss";
 import CommonUtlis from "../../Utils/CommonUtlis";
 
@@ -20,7 +20,8 @@ const getNavigationMenu = () => {
   ];
 };
 
-const NovelSuiteHeader = () => {
+const NovelSuiteHeader = (props) => {
+  const { className, ...rest } = props;
   const [isScrolled, setIsScrolled] = useState(false);
   const [isSideBarMenuOpen, setIsSideBarMenuOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
@@ -57,7 +58,10 @@ const NovelSuiteHeader = () => {
   };
 
   const openLoginHandler = () => {
-    setIsLoginOpen(true);
+    routerHistory.push({
+      pathname: "/login",
+      search: "?redirect=/",
+    });
   };
 
   const closeLoginHandler = () => {
@@ -71,10 +75,10 @@ const NovelSuiteHeader = () => {
   const checkForUserLogedData = () => {
     let fetchLogedData = CommonUtlis.getSessionUserDetails();
     if (fetchLogedData) {
-      return <UserProfile className="mr-1" />;
+      return <UserProfile />;
     } else {
       return (
-        <NovelSuitesButton
+        <Button
           buttonLabel="Login"
           type="button"
           className="novel-button--secondary-text mr-1"
@@ -92,7 +96,7 @@ const NovelSuiteHeader = () => {
       <header
         className={`appheader-wrapper fluid-container  ${
           isScrolled && "header-active"
-        }`}
+        } ${className ? className : ""} `}
       >
         <div className="mobile-navigation">
           <NovelSuiteMobileHeader
@@ -121,13 +125,13 @@ const NovelSuiteHeader = () => {
             onClick={onNaviagtionListItem}
           />
           <div className="d-flex flex-align-center">
-            {checkForUserLogedData()}
-            <NovelSuitesButton
+            <Button
               type="button"
-              className="novel-button--primary"
+              className="novel-button--primary mr-1"
               buttonLabel="Book Room"
               onClick={() => setIsBookNowOpen(true)}
             />
+            {checkForUserLogedData()}
           </div>
         </div>
       </header>
