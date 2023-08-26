@@ -1,0 +1,222 @@
+@import "../../../GlobalStyles/maxins";
+
+.novel-room-details-wrapper {
+  .novel-room-media {
+    @include displayType(grid);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    @include mobileMedia() {
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+    .novel-room-content {
+      padding-block: 1rem;
+      padding-inline: 2.2rem;
+      .novel-room-head {
+        color: #333333;
+        .novel-room-title {
+          font-size: 1.5rem;
+          font-weight: 600;
+        }
+        .novel-room-descri {
+          font-weight: 500;
+          font-size: 1rem;
+          line-height: 1.5;
+        }
+      }
+      .novel-room-book {
+        @include displayType(flex);
+        @include flexAlignItem(center);
+        @include flexJustifyContent(center);
+      }
+      .back-button {
+        @include mobileMedia() {
+          display: none;
+        }
+        @include tabletMedia() {
+          display: block;
+        }
+      }
+    }
+  }
+  .novel-room-feature {
+    color: #636363;
+    .novel-room-feature-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    .novel-room-feature-list {
+      @include displayType(grid);
+      // @include smallMobileMedia() {
+      //   grid-template-columns: repeat(1, minmax(0, 1fr));
+      // }
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-row-gap: 0.7rem;
+      font-size: 1.2rem;
+
+      .novel-room-feature-list-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding-inline: 1rem;
+        font-size: 1.2rem;
+        .feature-list-item-icon {
+          font-size: 1.2rem;
+          color: black;
+        }
+        .fature-list-item-title {
+          font-weight: 600;
+        }
+      }
+    }
+  }
+  .novel-room-reverse {
+    @include displayType(grid);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    @include mobileMedia() {
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+      grid-row-gap: 1rem;
+    }
+    padding: 1rem;
+    .novel-room-more-details {
+      @include mobileMedia() {
+        padding-inline: 0rem;
+      }
+      padding-inline: 2rem;
+      h2 {
+        font-size: 2rem;
+        margin-top: 0;
+        margin-bottom: 1rem;
+      }
+      .novel-room-amenities {
+        @include displayType(grid);
+        @include mobileMedia() {
+          grid-template-columns: repeat(1, minmax(0, 1fr));
+          grid-row-gap: 1rem;
+        }
+        @include tabletMedia() {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          grid-row-gap: 1rem;
+        }
+        @include desktopMedia() {
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+        grid-column-gap: 1rem;
+        .novel-amentites-item {
+          text-align: center;
+          font-size: 1.4rem;
+          box-shadow: 0px 2px 5px 1px rgba(0, 0, 0, 0.2);
+          padding-bottom: 0.7rem;
+          border-radius: 4px;
+          &--service {
+            font-size: 14px;
+            line-height: 1em;
+            font-weight: 500;
+            letter-spacing: normal;
+            white-space: nowrap;
+            color: #626262;
+          }
+        }
+      }
+      .novel-room-gallery {
+        margin-top: 3rem;
+        .novel-button {
+          outline: 1px solid currentColor;
+        }
+        @include mobileMedia() {
+          text-align: center;
+        }
+      }
+    }
+    .novel-room-booking {
+      @include borderRadius(4px);
+      outline: 1px solid currentColor;
+      overflow: hidden;
+      .reverse-card {
+        height: 100%;
+        overflow: hidden;
+        h3 {
+          @include fontWeight(400);
+          text-align: center;
+          padding: 27px 2.5vw;
+          font-size: 2rem;
+          margin: 0;
+          @include mobileMedia() {
+            font-size: 1.5rem;
+          }
+        }
+        .reverse-form {
+          padding: 56px 2.5vw;
+          background-color: #f8f8f8;
+          height: 100%;
+          .room-content {
+            margin-bottom: 13px;
+            font-size: 14px;
+            line-height: 1em;
+            font-style: normal;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+          }
+          .room-prices-wrapper {
+            font-size: 1.3rem;
+            color: #626262;
+            .icon-cur {
+              font-size: 1.4rem;
+              margin-right: 0.5rem;
+            }
+            .price {
+              color: #060606;
+              font-size: 1.5rem;
+              line-height: 1.117em;
+              font-weight: 700;
+              letter-spacing: -0.06em;
+              margin-right: 0.3rem;
+            }
+          }
+          .form-reverse-dates {
+            margin-top: 1rem;
+            @include displayType(grid);
+            @include mobileMedia() {
+              grid-template-columns: repeat(1, minmax(0, 1fr));
+              grid-row-gap: 1rem;
+            }
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            grid-column-gap: 1rem;
+          }
+          .form-selected-location {
+            .location-text {
+              @include letterSpacing(2px);
+              width: 100%;
+              font-size: 1.4rem;
+              background: #ddd;
+              color: #000;
+              padding: 1rem;
+              text-overflow: ellipsis;
+              max-width: 100%;
+              width: 100%;
+              white-space: nowrap;
+              @include mobileMedia() {
+                font-size: 1rem;
+                max-width: 100%;
+              }
+            }
+          }
+          .reverse-form-night {
+            @include displayType(grid);
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            grid-column-gap: 1rem;
+            place-items: center;
+            .total-night-label {
+              @include displayType(flex);
+              padding: 1rem;
+            }
+            @include mobileMedia() {
+              grid-template-columns: repeat(1, minmax(0, 1fr));
+              grid-row-gap: 1rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}

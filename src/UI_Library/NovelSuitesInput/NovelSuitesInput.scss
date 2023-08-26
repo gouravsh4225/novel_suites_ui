@@ -1,0 +1,43 @@
+@import "../../GlobalStyles/maxins";
+
+.novel-input-wrapper {
+  @include displayType(block);
+  width: 100%;
+  .novel-suite-input {
+    border: 1px solid currentColor;
+    border-radius: 4px;
+    @include novelTransitionDefault(300ms);
+    font-size: 1rem;
+    &--large {
+      padding: 22px 10px;
+      min-height: 3.2rem;
+    }
+    &--error {
+      border-color: red;
+      border-width: 1px;
+      border-style: solid;
+    }
+    &:active,
+    &:focus {
+      border: 1px solid currentColor;
+      outline: 0;
+      @include novelTransitionDefault(100ms);
+    }
+    &::placeholder {
+      text-transform: uppercase;
+    }
+  }
+
+  &--error {
+    @include fontColor(red);
+  }
+}
+
+/** reset autocomplete input */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+  color: #636363;
+}

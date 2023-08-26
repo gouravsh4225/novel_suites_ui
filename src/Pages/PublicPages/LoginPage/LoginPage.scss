@@ -1,0 +1,50 @@
+@import "../../../GlobalStyles/maxins";
+
+.login-wrapper {
+  @include displayType(grid);
+  grid-template-columns: repeat(2, 1fr);
+  height: 100vh;
+  background-color: #fff;
+  @include mobileMedia() {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .login-form {
+    max-width: 80%;
+    &--heading {
+      @include fontFamily();
+      @include letterSpacing(2.5px);
+      @include fontWeight(600);
+      font-size: clamp(1rem, 5vw, 2rem);
+      text-transform: capitalize;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+  }
+
+  .login-rigth-section {
+    height: 100%;
+    width: 100%;
+    background-image: url("../../../assets/logo_novel_png.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: block;
+    @include mobileMedia() {
+      display: none;
+    }
+  }
+  .login-actions-section {
+    flex-direction: row;
+    &--login-button {
+      min-width: 200px;
+      margin-block: 0;
+    }
+    @include mobileMedia() {
+      flex-direction: column;
+      &--login-button {
+        min-width: 100%;
+        margin-block: 1rem;
+      }
+    }
+  }
+}

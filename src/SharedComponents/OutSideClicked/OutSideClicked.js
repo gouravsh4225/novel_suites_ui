@@ -1,10 +1,9 @@
 import React, { useRef, useEffect } from "react";
 import useOutSideClicked from "../../Hooks/useOutSideClicked/useOutSideClicked";
 
-const OutSideClicked = ({ onClikcedOutSide, children }) => {
+const OutSideClicked = ({ onClikcedOutSide, children, className }) => {
   const wrapperRef = useRef(null);
   const { isClicked } = useOutSideClicked(wrapperRef);
-
   useEffect(() => {
     if (isClicked) {
       if (onClikcedOutSide) {
@@ -12,7 +11,11 @@ const OutSideClicked = ({ onClikcedOutSide, children }) => {
       }
     }
   }, [isClicked]);
-  return <div ref={wrapperRef}>{children}</div>;
+  return (
+    <div ref={wrapperRef} className={className}>
+      {children}
+    </div>
+  );
 };
 
 export default OutSideClicked;

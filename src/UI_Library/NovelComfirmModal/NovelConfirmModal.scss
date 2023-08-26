@@ -1,0 +1,15 @@
+.novel-confirm-modal-root {
+  .novel-confirm-modal--default {
+    background: #fff;
+    color: black;
+  }
+  .novel-suites-modal-modal {
+    max-width: 500px;
+    width: 50%;
+  }
+  .confirm-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+}

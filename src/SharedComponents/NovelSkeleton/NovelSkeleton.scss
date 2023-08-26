@@ -1,0 +1,80 @@
+@import "../../GlobalStyles/maxins";
+
+.skeleton-card {
+  background: #414247;
+  border-radius: 10px;
+  height: 100%;
+  padding: 1rem;
+  border: 1px solid #d3d8e6;
+  .skeleton-card-header {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.skeleton-rounded-image {
+  height: 75px;
+  width: 75px;
+  border-radius: 50%;
+  @include skeletonRelHiddenBg;
+}
+.skeleton-sqaure-image {
+  height: 200px;
+  width: 200px;
+  border-radius: 8px;
+  @include skeletonRelHiddenBg;
+}
+
+.skeleton-full-width-image {
+  height: 10rem;
+  width: 100%;
+  @include skeletonRelHiddenBg;
+}
+.skeleton-full-heading {
+  width: 100%;
+  height: 30px;
+  border-radius: 10px;
+  @include skeletonRelHiddenBg;
+}
+.skeleton-half-heading {
+  width: calc(100% - 30%);
+  height: 30px;
+  border-radius: 10px;
+  @include skeletonRelHiddenBg;
+}
+.skeleton-button {
+  display: block;
+  width: 100%;
+  height: 50px;
+  border-radius: 4px;
+  padding: 1rem;
+  @include skeletonRelHiddenBg;
+}
+
+.skeleton-rounded-image::before,
+.skeleton-sqaure-image::before,
+.skeleton-full-width-image::before,
+.skeleton-half-heading::before,
+.skeleton-full-heading::before,
+.skeleton-button::before {
+  @include novelElementAbsoluteFullWidthHeight();
+  background-image: linear-gradient(
+    to right,
+    #656871 0%,
+    #888b94 20%,
+    #656871 40%,
+    #656871 100%
+  );
+  background-repeat: no-repeat;
+  background-size: 450px 400px;
+  animation: shimmer 1s linear infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -450px 0;
+  }
+  100% {
+    background-position: 450px 0;
+  }
+}

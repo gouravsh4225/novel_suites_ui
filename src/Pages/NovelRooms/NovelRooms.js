@@ -1,66 +1,111 @@
-import React, { useState } from "react";
-import WorkUnderProcess from "../../Components/WorkUnderProcess/WorkUnderProcess";
-import NovelSuitesButton from "../../SharedComponents/UI_Elements/NovelSuitesButton/NovelSuitesButton";
+import React, { useState, useEffect } from "react";
+import { useHistory, useParams } from "react-router";
+import { Button, Loader } from "../../UI_Library/UI_Library";
+import {
+  getRoomBookRazorPayOrderId,
+  getAllRoomByLocation,
+  confirmRazorPaymemtSuccess,
+} from "../../Services/NovelRoomService/NovelRoomService";
+import CommonUtlis from "../../Utils/CommonUtlis";
+// import {
+//   loadRazorPayScript,
+//   RazorPayPaymentOptions,
+// } from "../../Utils/RazorPayUtils";
 import "./NovelRooms.scss";
 
-const getAllRooms = () => {
-  return [
-    {
-      id: 1,
-      roomTypelabel: "Premium Deluxe Room",
-      roomTypeDesc: `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-      Maecenas neque tristique sapien enim .`,
-      roomPrice: "3000.00",
-      roomGuests: 4,
-      kingBeds: 2,
-      roomImageThumb:
-        "https://res.cloudinary.com/arbor1221/image/upload/v1498121225/Consulting_Advisory_Professional_services_2_ikqokw.jpg",
-    },
-    {
-      id: 2,
-      roomTypelabel: "Deluxe Room",
-      roomTypeDesc: `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-      Maecenas neque tristique sapien enim .`,
-      roomPrice: "2600.00",
-      roomGuests: 4,
-      kingBeds: 2,
-      roomImageThumb:
-        "https://res.cloudinary.com/arbor1221/image/upload/v1498121225/Consulting_Advisory_Professional_services_2_ikqokw.jpg",
-    },
-    {
-      id: 3,
-      roomTypelabel: "Premium Room",
-      roomTypeDesc: `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-      Maecenas neque tristique sapien enim .`,
-      roomPrice: "2000.00",
-      roomGuests: 2,
-      kingBeds: 1,
-      roomImageThumb:
-        "https://res.cloudinary.com/arbor1221/image/upload/v1498121225/Consulting_Advisory_Professional_services_2_ikqokw.jpg",
-    },
-    {
-      id: 4,
-      roomTypelabel: "Standard Room",
-      roomTypeDesc: `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-      Maecenas neque tristique sapien enim .`,
-      roomPrice: "1600.00",
-      roomGuests: 2,
-      kingBeds: 1,
-      roomImageThumb:
-        "https://res.cloudinary.com/arbor1221/image/upload/v1498121225/Consulting_Advisory_Professional_services_2_ikqokw.jpg",
-    },
-  ];
-};
-
 const NovelRooms = () => {
-  const [roomsList] = useState(getAllRooms());
+  const { locationId } = useParams();
+  const NovelRoomsHistory = useHistory();
+  const [roomsList, setRoomList] = useState([]);
 
-  const onSeeMoreInformation = (e, roomSelected) => {
-    console.log("hey-->", roomSelected);
-    alert("Work Under Process");
+  useEffect(() => {
+    getAllRoomByLocationId();
+  }, []);
+
+  const getAllRoomByLocationId = () => {
+    Loader.show();
+    getAllRoomByLocation(locationId)
+      .then((roomsResponeData) => {
+        Loader.hide();
+        let { data } = roomsResponeData.response;
+        console.log(data, "-->");
+        let { items } = data;
+        if (Array.isArray(items)) {
+          setRoomList(items);
+        }
+      })
+      .catch((roomsResponeError) => {
+        Loader.hide();
+        console.log(roomsResponeError);
+      });
   };
 
-  console.log(roomsList, "roomlist");
+  const onSeeMoreInformationHandler = (e, roomSelected) => {
+    console.log("hey-->", roomSelected);
+  };
+
+  const onBookRoomHandler = (e, roomSelected) => {
+    // loadRazorPayScript().then((res) => {
+    //   if (!res) {
+    //     alert("RazorPay script SDK load to failed");
+    //     return;
+    //   }
+    //   let sessionUserData = JSON.parse(CommonUtlis.getSessionUserDetails());
+    //   let prefill = {
+    //     name: sessionUserData.name,
+    //     email: sessionUserData.email_address,
+    //     contact: sessionUserData.phone_number,
+    //   };
+    //   getRoomBookRazorPayOrderId()
+    //     .then((res) => {
+    //       let { data } = res.response;
+    //       const razorPayoptions = {
+    //         key: process.env.REACT_APP_RAZORPAY_KEY_ID,
+    //         amount: data.amount.toString(),
+    //         currency: data.currency,
+    //         name: roomSelected.room_name,
+    //         description: roomSelected.description,
+    //         prefill: prefill,
+    //         order_id: data.id,
+    //         image:
+    //           "https://novel-suites-ui.vercel.app/static/media/logo_novel.78ee88e9.gif",
+    //         handler: (res) => {
+    //           let {
+    //             razorpay_order_id,
+    //             razorpay_payment_id,
+    //             razorpay_signature,
+    //           } = res;
+    //           Loader.show();
+    //           confirmRazorPaymemtSuccess({
+    //             orderCreationId: data.id,
+    //             razorpayPaymentId: razorpay_payment_id,
+    //             razorpayOrderId: razorpay_order_id,
+    //             razorpaySignature: razorpay_signature,
+    //           })
+    //             .then((res) => {
+    //               Loader.hide();
+    //               if (res) {
+    //                 console.log("gotcha-->");
+    //               }
+    //             })
+    //             .catch((error) => {
+    //               console.log(error);
+    //               Loader.hide();
+    //             });
+    //         },
+    //       };
+    //       const razorpayPaymentObject = new window.Razorpay(razorPayoptions);
+    //       razorpayPaymentObject.open();
+    //     })
+    //     .catch((error) => {
+    //       console.log("error", error);
+    //     });
+    // });
+  };
+
+  const onBookDetailsHandler = (e, room) => {
+    NovelRoomsHistory.push(`/location/${locationId}/rooms/${room._id}`);
+  };
 
   return (
     <div className="novel-room-wrapper">
@@ -70,19 +115,25 @@ const NovelRooms = () => {
           <p className="novel-room--para">Find yourself a perfect room</p>
         </div>
         <div className="novel-rooms-lists">
-          {roomsList.map((room, index) => (
-            <div className="novel-room-item" key={room.id}>
+          {roomsList.map((room) => (
+            <div
+              className="novel-room-item"
+              key={room._id}
+              // onClick={(e) => onBookDetailsHandler(e, room)}
+            >
               <div className="novel-room-item-image">
                 <img
-                  src={room.roomImageThumb}
-                  alt={`novel-rooom-${room.roomTypelabel}`}
+                  src={
+                    "https://res.cloudinary.com/arbor1221/image/upload/v1498121225/Consulting_Advisory_Professional_services_2_ikqokw.jpg"
+                  }
+                  alt={`novel-room-${room.room_name}`}
                 />
               </div>
               <div className="novel-room-item-content">
                 <div className="novel-room-hr"></div>
                 <div className="novel-room-details">
-                  <h3>{room.roomTypelabel}</h3>
-                  <p>{room.roomTypeDesc}</p>
+                  <h3>{room.room_name}</h3>
+                  <p>{room.room_description}</p>
                 </div>
                 <div className="border-hr-line--gray mb-1 mt-1"></div>
                 <div className="novel-room-prices">
@@ -90,10 +141,10 @@ const NovelRooms = () => {
                     <h6>From</h6>
                     <h4 className="from-price-text">
                       <span className="from-price-icon">
-                        <i class="fa fa-inr" aria-hidden="true"></i>
+                        <i className="fa fa-inr" aria-hidden="true"></i>
                       </span>
                       <span>
-                        {room.roomPrice}
+                        {room.room_price}
                         <span className="from-price-per">/ night</span>
                       </span>
                     </h4>
@@ -101,34 +152,38 @@ const NovelRooms = () => {
                   <div className="novel-room-beds-guest">
                     <div className="novel-room-guests text-center">
                       <span>
-                        <i class="fa fa-users" aria-hidden="true"></i>
-                        <div>{room.roomGuests}</div>
+                        <i className="fa fa-users" aria-hidden="true"></i>
+                        <div>{room.allowed_gustes}</div>
                         <div>Guests</div>
                       </span>
                     </div>
                     <div className="novel-room-beds text-center">
                       <span>
-                        <i class="fa fa-bed" aria-hidden="true"></i>
+                        <i className="fa fa-bed" aria-hidden="true"></i>
 
-                        <div>{room.kingBeds}</div>
+                        <div>{room.total_beds}</div>
                         <div>Beds</div>
                       </span>
                     </div>
                   </div>
                 </div>
-                <div className="mt-1">
-                  <NovelSuitesButton
-                    buttonLabel="More Information"
-                    onClick={(e) => onSeeMoreInformation(e, room)}
-                    className="novel-button--secondary-text novel-button--large"
+                <div className="mt-1 grid-container grid-gap-1 novel-rooms-buttons">
+                  <Button
+                    buttonLabel="Read More"
+                    onClick={(e) => onBookDetailsHandler(e, room)}
+                    className="novel-button--link"
                   />
+                  {/* <NovelSuitesButton
+                    buttonLabel="More Information"
+                    onClick={(e) => onSeeMoreInformationHandler(e, room)}
+                    className="novel-button--secondary-text"
+                  /> */}
                 </div>
               </div>
             </div>
           ))}
         </div>
       </div>
-      <WorkUnderProcess />
     </div>
   );
 };

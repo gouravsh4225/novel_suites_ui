@@ -1,0 +1,15 @@
+.user-profile-wrapper {
+  .user-profile-image {
+    max-height: 40px;
+    max-width: 40px;
+    cursor: pointer;
+    margin: auto;
+  }
+  .user-profile-para {
+    max-width: 70px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+}

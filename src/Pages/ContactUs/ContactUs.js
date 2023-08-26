@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import NovelSuitesInput from "../../SharedComponents/UI_Elements/NovelSuitesInput/NovelSuitesInput";
-import NovelSuitesTextarea from "../../SharedComponents/UI_Elements/NovelSuitesTextarea/NovelSuitesTextarea";
-import NovelSuitesButton from "../../SharedComponents/UI_Elements/NovelSuitesButton/NovelSuitesButton";
+import { Button, Input, Textarea } from "../../UI_Library/UI_Library";
 import "./ContactUs.scss";
 
 const ContactUs = () => {
@@ -109,7 +107,7 @@ const ContactUs = () => {
               </section>
               <section className="contact-card">
                 <div className="contact-card-icon">
-                  <i class="fa fa-phone" aria-hidden="true"></i>
+                  <i className="fa fa-phone" aria-hidden="true"></i>
                 </div>
                 <div className="contact-card-content">
                   <a href="tel:+918383019368" className="text-decoration-none">
@@ -119,7 +117,7 @@ const ContactUs = () => {
               </section>
               <section className="contact-card">
                 <div className="contact-card-icon">
-                  <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                  <i className="fa fa-envelope-o" aria-hidden="true"></i>
                 </div>
                 <div className="contact-card-content">
                   <a
@@ -146,7 +144,7 @@ const ContactUs = () => {
                 <form id="form-inputs" onSubmit={onContactFormSubmit}>
                   <div className="form-inputs">
                     <div className="form-input mb-1">
-                      <NovelSuitesInput
+                      <Input
                         inputLabel="Your Name :"
                         inputLabelClasses="contact-label"
                         validatior={["isRequires"]}
@@ -158,7 +156,7 @@ const ContactUs = () => {
                       />
                     </div>
                     <div className="form-input mb-1">
-                      <NovelSuitesInput
+                      <Input
                         inputLabel="Your Email :"
                         inputLabelClasses="contact-label"
                         validatior={["isRequires"]}
@@ -170,7 +168,7 @@ const ContactUs = () => {
                       />
                     </div>
                     <div className="form-input mb-1">
-                      <NovelSuitesInput
+                      <Input
                         inputLabel="Your Phone :"
                         inputLabelClasses="contact-label"
                         validatior={["isRequires"]}
@@ -183,7 +181,7 @@ const ContactUs = () => {
                       />
                     </div>
                     <div className="form-input mb-1">
-                      <NovelSuitesInput
+                      <Input
                         inputLabel="INQUIRY TYPE :"
                         inputLabelClasses="contact-label"
                         validatior={["isRequires"]}
@@ -198,7 +196,7 @@ const ContactUs = () => {
                   </div>
 
                   <div className="form-input mb-1">
-                    <NovelSuitesTextarea
+                    <Textarea
                       inputLabel="MESSAGE :"
                       inputLabelClasses="contact-label"
                       onChange={(e) => onChangeMessage(e)}
@@ -210,7 +208,7 @@ const ContactUs = () => {
                     />
                   </div>
                   <div className="form-input mb-1">
-                    <NovelSuitesButton
+                    <Button
                       disable="true"
                       buttonLabel="Submit"
                       onClick={onContactFormSubmit}

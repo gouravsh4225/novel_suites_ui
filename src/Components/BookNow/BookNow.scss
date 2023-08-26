@@ -1,0 +1,19 @@
+@import "../../GlobalStyles/maxins";
+
+.book-container {
+  width: 40em;
+  max-width: 40em;
+  @include mobileMedia() {
+    width: 90%;
+    max-width: 90%;
+    margin: auto;
+  }
+  .book-form-input {
+    @include displayType(flex);
+    justify-content: space-between;
+    gap: 1em;
+    @include mobileMedia() {
+      flex-direction: column;
+    }
+  }
+}
